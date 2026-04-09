@@ -161,12 +161,12 @@ MonoBehaviour:
       Offset: {x: 0, y: 0}
   CenterOnActivate: 1
   TargetOffset: {x: 0, y: 0, z: 0}
-  Damping: {x: 0.5, y: 0.5}
+  Damping: {x: 0, y: 0}
   Lookahead:
-    Enabled: 0
-    Time: 0
-    Smoothing: 0
-    IgnoreY: 0
+    Enabled: 1
+    Time: 0.2
+    Smoothing: 20
+    IgnoreY: 1
 --- !u!114 &8944508
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -181,7 +181,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
   TrackerSettings:
     BindingMode: 4
-    PositionDamping: {x: 1, y: 1, z: 1}
+    PositionDamping: {x: 0, y: 0, z: 0}
     AngularDampingMode: 0
     RotationDamping: {x: 1, y: 1, z: 1}
     QuaternionDamping: 1
@@ -237,8 +237,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8944506}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.47185794, y: -0.000000008095144, z: 0.000000009701203, w: 0.88167465}
-  m_LocalPosition: {x: 0, y: 16.33, z: -10}
+  m_LocalRotation: {x: 0.47185794, y: 0.000000010442474, z: -0.000000011732684, w: 0.8816746}
+  m_LocalPosition: {x: 0, y: 16.37, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -366,8 +366,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.471858, y: -0.0000000040685344, z: 0.0000000021774138, w: 0.8816746}
-  m_LocalPosition: {x: 0, y: 16.33, z: -10}
+  m_LocalRotation: {x: 0.47185796, y: 0.0000000058344445, z: -0.0000000031225, w: 0.8816746}
+  m_LocalPosition: {x: 0, y: 16.37, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -460,7 +460,6 @@ GameObject:
   - component: {fileID: 387729921}
   - component: {fileID: 387729920}
   - component: {fileID: 387729919}
-  - component: {fileID: 387729918}
   m_Layer: 0
   m_Name: PlayerMesh
   m_TagString: Player
@@ -468,29 +467,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!136 &387729918
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387729917}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!23 &387729919
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -556,7 +532,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387729917}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -861,6 +837,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1042870434}
+  - component: {fileID: 1042870439}
+  - component: {fileID: 1042870438}
+  - component: {fileID: 1042870437}
+  - component: {fileID: 1042870436}
+  - component: {fileID: 1042870435}
+  - component: {fileID: 1042870440}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -877,13 +859,121 @@ Transform:
   m_GameObject: {fileID: 1042870433}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.33, z: 0}
+  m_LocalPosition: {x: 0, y: 1.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 387729921}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1042870435
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042870433}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.52
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &1042870436
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042870433}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 84
+  m_CollisionDetection: 1
+--- !u!114 &1042870437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042870433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6be754fdf3010546bd75e8a1961e47e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.PlayerAnimation
+  animator: {fileID: 0}
+  locomotionBlendSpeed: 4
+--- !u!114 &1042870438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042870433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c673bf0db534f36429cbdd6a926fdda0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.PlayerController
+  playerRoot: {fileID: 387729921}
+  moveSpeed: 6
+  walkAcceleration: 20
+  runSpeed: 10
+  runAcceleration: 30
+  rotationSpeed: 360
+--- !u!114 &1042870439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042870433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28a277682b53ca842994b7b7beed5fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.InputReader
+  holdToSprint: 1
+--- !u!114 &1042870440
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1042870433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 70189d6905d90274ba76e72f7fddea90, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Platformer.PlayerState
+  <CurrentPlayerMovementState>k__BackingField: 0
 --- !u!1 &1703999004
 GameObject:
   m_ObjectHideFlags: 0
@@ -912,7 +1002,7 @@ Transform:
   m_GameObject: {fileID: 1703999004}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.327, y: 0.69, z: 0}
+  m_LocalPosition: {x: 0.017, y: 0.69, z: 0.451}
   m_LocalScale: {x: 0.66587436, y: 0.36573112, z: 0.69649816}
   m_ConstrainProportionsScale: 0
   m_Children: []
