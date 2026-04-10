@@ -188,8 +188,8 @@ MonoBehaviour:
       Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 1, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -263,14 +263,14 @@ MonoBehaviour:
     Border:
       Color: {r: 0, g: 0, b: 0, a: 1}
       Width:
-        Raw: 0.11
+        Raw: 0.04
         Type: 0
       Enabled: 0
       Direction: 2
     Shadow:
-      Color: {r: 0, g: 0, b: 0, a: 0.5}
+      Color: {r: 1, g: 1, b: 1, a: 0.5}
       Width:
-        Raw: 0
+        Raw: 0.43
         Type: 0
       Blur:
         Raw: 2
@@ -293,8 +293,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 26908fb6182a4f64e9f59a90dda197da, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: 21300000, guid: 26908fb6182a4f64e9f59a90dda197da, type: 3}
 --- !u!114 &4264157682771413627
 MonoBehaviour:
   m_ObjectHideFlags: 0

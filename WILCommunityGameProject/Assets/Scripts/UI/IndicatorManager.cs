@@ -7,32 +7,28 @@ public class IndicatorManager : MonoBehaviour
 {
     [SerializeField] private float scaleDuration = 0.5f;
     [SerializeField] private float height = 1.0f;
-    private UIBlock2D indicator;
+    private Vector3 startScale;
 
     private void Awake()
     {
-        indicator =  GetComponent<UIBlock2D>();
-        if (indicator == null) return;
+        startScale = transform.localScale;
+        transform.localScale = Vector3.zero;
     }
 
     void Start()
     {
-        indicator.transform.localScale = Vector3.zero;
-        indicator.transform.DOLocalMoveY(height, 1f).SetLoops(-1,  LoopType.Yoyo).From(0.9f).SetEase(Ease.InOutQuad);
+        transform.localScale = Vector3.zero;
+        transform.DOLocalMoveY(height, 1f).SetLoops(-1,  LoopType.Yoyo).SetEase(Ease.InOutQuad);
     }
 
     public void ShowIndictor()
     {
-        indicator.transform.DOScale(Vector3.one, scaleDuration).SetEase(Ease.OutCubic);
+        transform.DOScale(startScale, scaleDuration).SetEase(Ease.OutCubic);
     }
 
     public void HideIndictor()
     {
-        indicator.transform.DOScale(Vector3.zero, scaleDuration).SetEase(Ease.OutCubic);
+        transform.DOScale(Vector3.zero, scaleDuration).SetEase(Ease.OutCubic);
     }
 
-    public void Destroy()
-    {
-        DOTween.Kill(this);
-    }
 }
