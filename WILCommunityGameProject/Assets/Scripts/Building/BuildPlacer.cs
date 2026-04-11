@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace WILCommunityGame
 {
@@ -26,6 +27,7 @@ namespace WILCommunityGame
         [SerializeField] private LayerMask socketRaycastMask;
         [SerializeField] private float socketRaycastDistance = 500f;
         [SerializeField] private float groundRaycastDistance = 500f;
+        [SerializeField] private int socketHitBufferSize = 16;
         
         [Space(10)]
         [Header("Socket Occupany")]
@@ -54,12 +56,35 @@ namespace WILCommunityGame
         private void Awake()
         {
             mainCamera = Camera.main;
+            hitsBuffer = new RaycastHit[Mathf.Max(1, socketHitBufferSize)];
             if (socketRaycastMask.value == 0) socketRaycastMask = LayerMask.GetMask("Socket");
             if (placementMask.value == 0)
             {
                 var sl = LayerMask.NameToLayer("Socket");
                 placementMask = sl >= 0 ? ~(1 << sl) : ~0;
             }
+        }
+
+        private void Update()
+        {
+            if (mainCamera == null || Mouse.current == null) return;
+            var mouse = Mouse.current;
+
+            if ((int)placementPieceType != placementPieceTypeFrame)
+            {
+                if (previewInstance != null) Destroy(previewInstance);
+                previewInstance = null;
+                placementPieceTypeFrame = (int)placementPieceType;
+            }
+
+            if (!TryGetPreviewPose(mouse.position.ReadValue(), out var pose, out var placementValid, out var socketSnap))
+            {
+                if (previewInstance != null) previewInstance.SetActive(false);
+                return;
+            }
+            
+            UpdatePreview(pose, placementValid);
+            if (mouse.leftButton.wasPressedThisFrame && placementValid) Place(ActivePrefab, pose, socketSnap);
         }
 
         private void UpdatePreview(Pose pose, bool valid)

@@ -20,7 +20,7 @@ namespace WILCommunityGame
         protected Vector3 GetSnapWorldPosition() => transform.position + transform.TransformDirection(snapLocalPosition); 
         protected Quaternion GetSnapWorldRotation() => transform.rotation * Quaternion.Euler(snapLocalRotation);
 
-        public void SetOccupant(BuildPart occupant) { }
+        public void SetOccupant(BuildPart occupant) => this.occupant = occupant;
         public virtual bool CanAcceptPart(BuildPieceType pieceType) => false;
 
         private void Awake() => ApplyLayerAndCollider();
