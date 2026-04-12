@@ -10,7 +10,7 @@ public class InitializeInventoryItems : MonoBehaviour
 
     private IEnumerator Start()
     {
-        InventoryPanel inventoryPanel = FindObjectOfType<InventoryPanel>();
+        UIManager uiManager = FindObjectOfType<UIManager>();
         // Wait for one frame to ensure UpgradesPanel.Start() has run
         yield return null;
 
@@ -18,7 +18,7 @@ public class InitializeInventoryItems : MonoBehaviour
         {
             if (item != null)
             {
-                inventoryPanel.AddItemToInventory(item, 1);
+                uiManager.AddItemToInventory(item, 1);
             }
         }
     }

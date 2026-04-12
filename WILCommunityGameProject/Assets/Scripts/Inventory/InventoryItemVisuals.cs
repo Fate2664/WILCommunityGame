@@ -22,7 +22,7 @@ public class InventoryItemVisuals : ItemVisuals
     public Color HoverColor;
     public Color PressedColor;
 
-    [NonSerialized] private InventoryPanel inventoryPanel;
+    [NonSerialized] private UIManager _uiManager;
     [NonSerialized] private InventoryItem boundItem;
     private Coroutine toolTipCoroutine;
     private bool isHovered = false;
@@ -32,9 +32,9 @@ public class InventoryItemVisuals : ItemVisuals
         Bind(data, null);
     }
 
-    public void Bind(InventoryItem data, InventoryPanel panel)
+    public void Bind(InventoryItem data, UIManager panel)
     {
-        inventoryPanel = panel;
+        _uiManager = panel;
         boundItem = data;
 
         if (ItemRoot != null)
@@ -91,16 +91,16 @@ public class InventoryItemVisuals : ItemVisuals
         
         ToolTipRoot.gameObject.SetActive(false);
     }
+    #endregion
 
     public void EquipBoundItem()
     {
-        if (inventoryPanel == null || boundItem == null || boundItem.isEmpty)
-        {
-            return;
-        }
-
-        inventoryPanel.EquipItem(boundItem);
+        if (_uiManager == null || boundItem == null || boundItem.isEmpty) return;
+        
+        _uiManager.EquipItem(boundItem);
     }
+
+    #region Gesture Methods
 
     internal void OnHover()
     {
@@ -125,7 +125,7 @@ public class InventoryItemVisuals : ItemVisuals
         ItemRoot.Color = HoverColor;
     }
 
-    #endregion
+    
 
     internal static void HandleHover(Gesture.OnHover evt, InventoryItemVisuals target, int index)
     {
@@ -166,4 +166,6 @@ public class InventoryItemVisuals : ItemVisuals
     {
         target.OnRelease();
     }
+
+    #endregion
 }

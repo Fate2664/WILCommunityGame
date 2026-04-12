@@ -4,18 +4,23 @@ using System.Collections.Generic;
 using WILCommunityGame;
 
 
-public class InventoryPanel : MonoBehaviour
+public class UIManager : MonoBehaviour, ITimeTracker
 {
     public ItemDatabase ItemDatabase = null;
-    public ItemView EquipItemRoot = null;
+    public ItemView[] EquipItemRoots = null;
     public ItemView closeButtonRoot = null;
 
-    [Header("Upgrades")]
+    [Header("Grid Layout")]
     public GridView Grid = null;
     public int Count = 24;
 
     [Header("Row Styling")] [SerializeField]
     private int padding = 10;
+    
+    [Header("Date & Time")]
+    [SerializeField] private TextBlock TimeText = null;
+    [SerializeField] private TextBlock TimePrefix = null;
+    [SerializeField] private TextBlock DayText = null;
 
     [HideInInspector]
     private List<InventoryItem> Items = null;
@@ -28,6 +33,7 @@ public class InventoryPanel : MonoBehaviour
         InitGrid(Grid, Items);
         RegisterStandaloneGestureHandlers();
         RefreshEquippedItem();
+        TimeManager.Instance.RegisterTracker(this);
     }
 
     public void AddItemToInventory(Item item, int count = 1)
@@ -63,11 +69,8 @@ public class InventoryPanel : MonoBehaviour
         }
     }
 
-    public void EquipItem(InventoryItem item)
-    {
-        equippedItem = item != null && !item.isEmpty ? item : null;
-        RefreshEquippedItem();
-    }
+
+    #region Register Methods
 
     private void InitGrid(GridView grid, List<InventoryItem> datasource)
     {
@@ -95,15 +98,17 @@ public class InventoryPanel : MonoBehaviour
 
     private void RegisterStandaloneGestureHandlers()
     {
-        if (EquipItemRoot != null)
+        if (EquipItemRoots != null)
         {
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals.HandleHover);
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals.HandleUnhover);
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals.HandlePress);
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals.HandleRelease);
+            foreach (var equipItemRoot in EquipItemRoots)
+            {
+                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals.HandleHover);
+                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals.HandleUnhover);
+                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals.HandlePress);
+                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals.HandleRelease);
+            }
         }
 
-        //closeButtonRoot = FindCloseButtonRoot();
         if (closeButtonRoot != null)
         {
             closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
@@ -113,27 +118,38 @@ public class InventoryPanel : MonoBehaviour
         }
     }
 
-    private ItemView FindCloseButtonRoot()
+    #endregion
+
+    #region Equip Item Methods
+
+    public void EquipItem(InventoryItem item)
     {
-        ItemView[] itemViews = GetComponentsInChildren<ItemView>(true);
-        foreach (ItemView itemView in itemViews)
-        {
-            if (itemView.TryGetVisuals(out InventoryButtonVisuals _))
-            {
-                return itemView;
-            }
-        }
-
-        return null;
+        equippedItem = item != null && !item.isEmpty ? item : null;
+        RefreshEquippedItem();
     }
-
+    
     private void RefreshEquippedItem()
     {
-        if (EquipItemRoot == null || !EquipItemRoot.TryGetVisuals(out InventoryItemVisuals visuals))
-        {
-            return;
-        }
-
+        if (EquipItemRoots == null || !EquipItemRoots[0].TryGetVisuals(out InventoryItemVisuals visuals)) return;
+        
         visuals.Bind(equippedItem ?? emptyEquippedItem);
+    }
+
+    #endregion
+
+    public void ClockUpdate(GameTimestamp timestamp)
+    {
+        int hours = timestamp.hour;
+        int minutes = timestamp.minute;
+        string prefix = "AM";
+        
+        if (hours > 12)
+        {
+            prefix = "PM";
+            hours -= 12;
+        }
+        
+        TimePrefix.Text = prefix;
+        TimeText.Text = hours.ToString("00") +  ":" + minutes.ToString("00");
     }
 }
