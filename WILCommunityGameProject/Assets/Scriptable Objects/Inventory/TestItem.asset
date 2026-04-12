@@ -14,4 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.Item
   itemDesc:
     Name: Test
+    ToolTip: This is a tool tip meant for the player to read after hovering over
+      the item.
     Icon: {fileID: 2800000, guid: a52d0879baacd427fb4b6227dab8952c, type: 3}

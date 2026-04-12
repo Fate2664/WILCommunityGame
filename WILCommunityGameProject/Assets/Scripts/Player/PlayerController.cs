@@ -1,3 +1,5 @@
+using System;
+using Nova;
 using UnityEngine;
 
 namespace WILCommunityGame
@@ -6,17 +8,18 @@ namespace WILCommunityGame
     {
         #region Class Varaibles
 
-        [Header("References")]
-        [SerializeField] private Transform playerRoot;
+        [Header("References")] [SerializeField]
+        private Transform playerRoot;
 
-        [Header("Movement Settings")]
-        [SerializeField] private float moveSpeed = 6.0f;
+        [SerializeField] private UIBlock2D InventoryRoot;
+
+        [Header("Movement Settings")] [SerializeField]
+        private float moveSpeed = 6.0f;
+
         [SerializeField] private float walkAcceleration = 20f;
-        [Space(10)]
-        [SerializeField] private float runSpeed = 12f;
+        [Space(10)] [SerializeField] private float runSpeed = 12f;
         [SerializeField] private float runAcceleration = 30f;
-        [Space(10)]
-        [SerializeField] private float rotationSpeed = 720f;
+        [Space(10)] [SerializeField] private float rotationSpeed = 720f;
 
         private InputReader input;
         private PlayerState playerState;
@@ -39,9 +42,21 @@ namespace WILCommunityGame
             }
         }
 
+        private void Start()
+        {
+        }
+
         #endregion
 
         #region Update Logic
+
+        private void Update()
+        {
+            if (input.InventoryTogglePressed)
+            {
+                ToggleInventory();
+            }
+        }
 
         private void FixedUpdate()
         {
@@ -65,6 +80,7 @@ namespace WILCommunityGame
 
             playerState.SetPlayerMovementState(horizontalState);
         }
+
         #endregion
 
         #region Movement and Rotation Logic
@@ -103,10 +119,23 @@ namespace WILCommunityGame
             if (flatMoveDirection.sqrMagnitude <= 0f) return;
 
             Quaternion targetRotation = Quaternion.LookRotation(flatMoveDirection, Vector3.up);
-            playerRoot.rotation = Quaternion.RotateTowards(playerRoot.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            playerRoot.rotation =
+                Quaternion.RotateTowards(playerRoot.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
         }
 
         #endregion
+
+        public void ToggleInventory()
+        {
+            if (InventoryRoot.gameObject.activeSelf)
+            {
+                InventoryRoot.gameObject.SetActive(false);
+            }
+            else
+            {
+                InventoryRoot.gameObject.SetActive(true);
+            }
+        }
 
         #region State Checks
 

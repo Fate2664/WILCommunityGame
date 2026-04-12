@@ -1,5 +1,7 @@
 using Nova;
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using WILCommunityGame;
@@ -7,48 +9,161 @@ using WILCommunityGame;
 [System.Serializable]
 public class InventoryItemVisuals : ItemVisuals
 {
-    public UIBlock2D itemRoot;
-    public UIBlock contentRoot;
+    public UIBlock2D ItemRoot;
+    public UIBlock ContentRoot;
     public UIBlock2D Image;
     public TextBlock Count;
+    public UIBlock ToolTipRoot;
+    public TextBlock ToolTipText;
 
-    [Header("Animations")]
+    [Header("Animations")] 
+    public float ToolTipDelay = 0.5f;
     public Color DefaultColor;
     public Color HoverColor;
     public Color PressedColor;
 
+    [NonSerialized] private InventoryPanel inventoryPanel;
+    [NonSerialized] private InventoryItem boundItem;
+    private Coroutine toolTipCoroutine;
+    private bool isHovered = false;
+
     public void Bind(InventoryItem data)
     {
+        Bind(data, null);
+    }
+
+    public void Bind(InventoryItem data, InventoryPanel panel)
+    {
+        inventoryPanel = panel;
+        boundItem = data;
+
+        if (ItemRoot != null)
+        {
+            ItemRoot.Color = DefaultColor;
+        }
+
         if (data.isEmpty)
         {
-            contentRoot.gameObject.SetActive(false);
+            if (ContentRoot != null) ContentRoot.gameObject.SetActive(false);
+            if (ToolTipRoot != null) ToolTipRoot.gameObject.SetActive(false);
         }
         else
         {
-            contentRoot.gameObject.SetActive(true);
+            if (ContentRoot != null) ContentRoot.gameObject.SetActive(true);
+            if (ToolTipRoot != null) ToolTipRoot.gameObject.SetActive(false);
             Image.SetImage(data.item.itemDesc.Icon);
-            Count.Text = data.count.ToString();
+            if (Count != null) Count.Text = data.count.ToString();
+            if (ToolTipText != null) ToolTipText.Text = data.item.itemDesc.ToolTip;
         }
     }
 
+    #region ToolTips
+
+    private void StartToolTipDelay()
+    {
+        if (ToolTipRoot == null) return;
+        CancelToolTip();
+        isHovered = true;
+        toolTipCoroutine = View.StartCoroutine(ShowToolTipAfterDelay());
+    }
+
+    private IEnumerator ShowToolTipAfterDelay()
+    {
+        yield return new WaitForSeconds(ToolTipDelay);
+
+        if (isHovered)
+        {
+            ToolTipRoot.gameObject.SetActive(true);
+        }
+        toolTipCoroutine = null;
+    }
+
+    private void CancelToolTip()
+    {
+        if (ToolTipRoot == null) return;
+        isHovered = false;
+
+        if (toolTipCoroutine != null)
+        {
+            View.StopCoroutine(toolTipCoroutine);
+            toolTipCoroutine = null;
+        }
+        
+        ToolTipRoot.gameObject.SetActive(false);
+    }
+
+    public void EquipBoundItem()
+    {
+        if (inventoryPanel == null || boundItem == null || boundItem.isEmpty)
+        {
+            return;
+        }
+
+        inventoryPanel.EquipItem(boundItem);
+    }
+
+    internal void OnHover()
+    {
+        ItemRoot.Color = HoverColor;
+        StartToolTipDelay();
+    }
+
+    internal void OnPress()
+    {
+        ItemRoot.Color = PressedColor;
+        EquipBoundItem();
+    }
+
+    internal void OnUnhover()
+    {
+        ItemRoot.Color = DefaultColor;
+        CancelToolTip();
+    }
+
+    internal void OnRelease()
+    {
+        ItemRoot.Color = HoverColor;
+    }
+
+    #endregion
+
     internal static void HandleHover(Gesture.OnHover evt, InventoryItemVisuals target, int index)
     {
-        target.itemRoot.Color = target.HoverColor;
+        target.OnHover();
+    }
+
+    internal static void HandleHover(Gesture.OnHover evt, InventoryItemVisuals target)
+    {
+        target.OnHover();
     }
 
     internal static void HandlePress(Gesture.OnPress evt, InventoryItemVisuals target, int index)
     {
-        target.itemRoot.Color = target.PressedColor;
-        Debug.Log("Pressed Item");
+        target.OnPress();
+    }
+
+    internal static void HandlePress(Gesture.OnPress evt, InventoryItemVisuals target)
+    {
+        target.OnPress();
     }
 
     internal static void HandleUnhover(Gesture.OnUnhover evt, InventoryItemVisuals target, int index)
     {
-        target.itemRoot.Color = target.DefaultColor;
+        target.OnUnhover();
+    }
+
+    internal static void HandleUnhover(Gesture.OnUnhover evt, InventoryItemVisuals target)
+    {
+        target.OnUnhover();
     }
 
     internal static void HandleRelease(Gesture.OnRelease evt, InventoryItemVisuals target, int index)
     {
-        target.itemRoot.Color = target.HoverColor;
+        target.OnRelease();
+    }
+
+    internal static void HandleRelease(Gesture.OnRelease evt, InventoryItemVisuals target)
+    {
+        target.OnRelease();
     }
 }

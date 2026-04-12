@@ -16,6 +16,7 @@ namespace WILCommunityGame
         public bool SprintToggledOn { get; private set; }
         public bool NextPressed { get; private set; }
         public bool InteractPressed { get; private set; }
+        public bool InventoryTogglePressed { get; private set; }
 
         #endregion
 
@@ -44,6 +45,7 @@ namespace WILCommunityGame
         {
             NextPressed = false;
             InteractPressed = false;
+            InventoryTogglePressed = false;
         }
         #endregion
 
@@ -70,6 +72,12 @@ namespace WILCommunityGame
         {
             if (!context.performed) return;
             InteractPressed = true;
+        }
+
+        public void OnToggleInventory(InputAction.CallbackContext context)
+        {
+            if (!context.performed) return;
+            InventoryTogglePressed = true;
         }
 
         #endregion

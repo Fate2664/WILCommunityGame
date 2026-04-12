@@ -20,10 +20,6 @@ public class InitializeInventoryItems : MonoBehaviour
             {
                 inventoryPanel.AddItemToInventory(item, 1);
             }
-            else
-            {
-                Debug.LogWarning("Upgrade item is null, skipping initialization.");
-            }
         }
     }
 }

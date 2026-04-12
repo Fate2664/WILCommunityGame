@@ -6,7 +6,10 @@ namespace WILCommunityGame
     public class ItemDescription
     {
         public string Name;
+        [TextArea(3, 10)]
+        public string ToolTip;
         public Texture2D Icon;
+        
 
     }
 

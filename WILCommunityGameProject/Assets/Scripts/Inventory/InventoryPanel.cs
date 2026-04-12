@@ -7,6 +7,8 @@ using WILCommunityGame;
 public class InventoryPanel : MonoBehaviour
 {
     public ItemDatabase ItemDatabase = null;
+    public ItemView EquipItemRoot = null;
+    public ItemView closeButtonRoot = null;
 
     [Header("Upgrades")]
     public GridView Grid = null;
@@ -17,11 +19,15 @@ public class InventoryPanel : MonoBehaviour
 
     [HideInInspector]
     private List<InventoryItem> Items = null;
+    private readonly InventoryItem emptyEquippedItem = new InventoryItem();
+    private InventoryItem equippedItem = null;
 
     private void Start()
     {
         Items = ItemDatabase.GetEmptyItems(Count);
         InitGrid(Grid, Items);
+        RegisterStandaloneGestureHandlers();
+        RefreshEquippedItem();
     }
 
     public void AddItemToInventory(Item item, int count = 1)
@@ -50,6 +56,17 @@ public class InventoryPanel : MonoBehaviour
         {
             Grid.Refresh();
         }
+
+        if (equippedItem != null && equippedItem.item == item)
+        {
+            RefreshEquippedItem();
+        }
+    }
+
+    public void EquipItem(InventoryItem item)
+    {
+        equippedItem = item != null && !item.isEmpty ? item : null;
+        RefreshEquippedItem();
     }
 
     private void InitGrid(GridView grid, List<InventoryItem> datasource)
@@ -73,5 +90,50 @@ public class InventoryPanel : MonoBehaviour
         gridslice.AutoLayout.AutoSpace = true;
         gridslice.Layout.Padding.Value = padding;
     }
-    private void BindItem(Data.OnBind<InventoryItem> evt, InventoryItemVisuals target, int index) => target.Bind(evt.UserData);
+    
+    private void BindItem(Data.OnBind<InventoryItem> evt, InventoryItemVisuals target, int index) => target.Bind(evt.UserData, this);
+
+    private void RegisterStandaloneGestureHandlers()
+    {
+        if (EquipItemRoot != null)
+        {
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals.HandleHover);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals.HandleUnhover);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals.HandlePress);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals.HandleRelease);
+        }
+
+        //closeButtonRoot = FindCloseButtonRoot();
+        if (closeButtonRoot != null)
+        {
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
+        }
+    }
+
+    private ItemView FindCloseButtonRoot()
+    {
+        ItemView[] itemViews = GetComponentsInChildren<ItemView>(true);
+        foreach (ItemView itemView in itemViews)
+        {
+            if (itemView.TryGetVisuals(out InventoryButtonVisuals _))
+            {
+                return itemView;
+            }
+        }
+
+        return null;
+    }
+
+    private void RefreshEquippedItem()
+    {
+        if (EquipItemRoot == null || !EquipItemRoot.TryGetVisuals(out InventoryItemVisuals visuals))
+        {
+            return;
+        }
+
+        visuals.Bind(equippedItem ?? emptyEquippedItem);
+    }
 }
