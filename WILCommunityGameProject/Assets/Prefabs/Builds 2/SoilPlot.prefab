@@ -699,8 +699,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1452802235512611899}
   - component: {fileID: 8916532423825765084}
-  - component: {fileID: 4146148280584570450}
   - component: {fileID: 9211483746497228428}
+  - component: {fileID: 3149546232544390046}
+  - component: {fileID: 2867809977249348315}
   m_Layer: 0
   m_Name: SoilPlot
   m_TagString: Untagged
@@ -750,18 +751,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.59, y: 1, z: 2.5}
   m_Center: {x: 0, y: 0.45, z: 0}
---- !u!114 &4146148280584570450
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7863790740695239896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d83d2b4c1bab84981a88172c6ac2a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestInteractable
 --- !u!114 &9211483746497228428
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -775,6 +764,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.BuildPart
   pieceType: 0
+--- !u!114 &3149546232544390046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863790740695239896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b32c3478ee3bc4ca4f7af0b50f4bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
+--- !u!114 &2867809977249348315
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863790740695239896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cfcbbded70a37f4da98828a63ef30ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.CropBehaviour
+  wateredPrefab: {fileID: 7863790740695239896, guid: a92478f8e4e5b1a40aa2b3abbe0426ae, type: 3}
+  sproutPrefab: {fileID: 7863790740695239896, guid: f0fd397c9e4db704d94a961e10e5f59d, type: 3}
+  stage: 0
+  seedItem: {fileID: 0}
 --- !u!1001 &8338387316760936355
 PrefabInstance:
   m_ObjectHideFlags: 0

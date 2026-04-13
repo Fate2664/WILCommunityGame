@@ -3274,7 +3274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.BuildPlacer
   placementPieceType: 0
-  floorTilePrefab: {fileID: 7863790740695239896, guid: 0a32e6393ba8a6d4f90d089b4537a3d7, type: 3}
+  floorTilePrefab: {fileID: 7863790740695239896, guid: 4944010f5033e4e458f3bf7416f0027b, type: 3}
   wallTilePrefab: {fileID: 122621221552014974, guid: 1d71650b894e75f4ca5d51feaa2729f2, type: 3}
   doorTilePrefab: {fileID: 0}
   placementMask:
