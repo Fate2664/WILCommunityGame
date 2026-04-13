@@ -106,6 +106,24 @@ namespace WILCommunityGame
             if (mat == null) return;
             foreach (var r in previewInstance.GetComponentsInChildren<Renderer>()) r.sharedMaterial = mat;
         }
+        
+        private void Place(GameObject prefab, Pose pose, EdgeSocket socketSnap)
+        {
+            if (prefab == null) return;
+            var go = Instantiate(prefab, pose.position, pose.rotation);
+            if (socketSnap == null) return;
+            var part = go.GetComponent<BuildPart>();
+            if (part != null) socketSnap.SetOccupant(part);
+        }
+
+        private void SnapGrid(ref Vector3 position)
+        {
+            if (gridSize <= 0f) return;
+            position.x = Mathf.Round(position.x / gridSize) * gridSize;
+            position.z = Mathf.Round(position.z / gridSize) * gridSize;
+        }
+
+        #region Try Methods
 
         private bool TryGetPreviewPose(Vector2 screenPos, out Pose pose, out bool placementValid, out EdgeSocket socketFromSnap)
         {
@@ -151,22 +169,6 @@ namespace WILCommunityGame
             }
             
             return false;
-        }
-
-        private void Place(GameObject prefab, Pose pose, EdgeSocket socketSnap)
-        {
-            if (prefab == null) return;
-            var go = Instantiate(prefab, pose.position, pose.rotation);
-            if (socketSnap == null) return;
-            var part = go.GetComponent<BuildPart>();
-            if (part != null) socketSnap.SetOccupant(part);
-        }
-
-        private void SnapGrid(ref Vector3 position)
-        {
-            if (gridSize <= 0f) return;
-            position.x = Mathf.Round(position.x / gridSize) * gridSize;
-            position.z = Mathf.Round(position.z / gridSize) * gridSize;
         }
 
         private bool TrySnapSocket(Ray ray, out Pose bestPose, out EdgeSocket socket)
@@ -224,5 +226,29 @@ namespace WILCommunityGame
             hit.y = 0f;
             return true;
         }
+
+        #endregion
+
+        #region Clear Methods
+
+        private void ClearPreview()
+        {
+            if (previewInstance == null) return;
+
+            Destroy(previewInstance);
+            previewInstance = null;
+        }
+        
+        private void OnDisable()
+        {
+            ClearPreview();
+        }
+
+        private void OnDestroy()
+        {
+            ClearPreview();
+        }
+
+        #endregion
     }
 }

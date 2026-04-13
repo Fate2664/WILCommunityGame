@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b75dd6971861640819a95cb9145f57, type: 3}
+  m_Name: TomatoeSeed
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.SeedItemSO
+  itemDesc:
+    Name: 
+    ToolTip: 
+    Icon: {fileID: 0}
+  seedType: 3
+  daysToGrow: 1
+  seedlingPrefab: {fileID: 7863790740695239896, guid: 449c56ca5fdacb742beddd4d76c70f85, type: 3}
+  harvestablePrefab: {fileID: 7863790740695239896, guid: 908a73d7059a3914a9da13f274fe1e0d, type: 3}
+  produceItem: {fileID: 11400000, guid: d98d594602a7ef7489b49bfcc2963724, type: 2}
