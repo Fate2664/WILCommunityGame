@@ -6,7 +6,7 @@ public class InitializeInventoryItems : MonoBehaviour
 {
     //This script gives items to the player at the start
     
-    [SerializeField] private Item[] items;
+    [SerializeField] private InventoryItemData[] items;
 
     private IEnumerator Start()
     {

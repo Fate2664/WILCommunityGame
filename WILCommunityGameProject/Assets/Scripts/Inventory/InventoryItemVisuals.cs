@@ -93,11 +93,13 @@ public class InventoryItemVisuals : ItemVisuals
     }
     #endregion
 
-    public void EquipBoundItem()
+    public void EquipItem()
     {
-        if (_uiManager == null || boundItem == null || boundItem.isEmpty) return;
+        if (!boundItem.isEmpty)
+        {
+            _uiManager.EquipItem(boundItem);
+        }
         
-        _uiManager.EquipItem(boundItem);
     }
 
     #region Gesture Methods
@@ -111,7 +113,7 @@ public class InventoryItemVisuals : ItemVisuals
     internal void OnPress()
     {
         ItemRoot.Color = PressedColor;
-        EquipBoundItem();
+        EquipItem();
     }
 
     internal void OnUnhover()

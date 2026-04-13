@@ -10,6 +10,8 @@ namespace WILCommunityGame
 
         [Header("References")] [SerializeField]
         private Transform playerRoot;
+        [SerializeField] private BuildPlacer buildPlacer;
+        [SerializeField] private UIManager uiManager;
 
         [SerializeField] private UIBlock2D InventoryRoot;
 
@@ -20,7 +22,9 @@ namespace WILCommunityGame
         [Space(10)] [SerializeField] private float runSpeed = 12f;
         [SerializeField] private float runAcceleration = 30f;
         [Space(10)] [SerializeField] private float rotationSpeed = 720f;
-
+        [HideInInspector]
+        public bool IsInventoryOpen => InventoryRoot.gameObject.activeSelf;
+        
         private InputReader input;
         private PlayerState playerState;
         private Rigidbody rb;
@@ -40,10 +44,6 @@ namespace WILCommunityGame
             {
                 playerRoot = transform;
             }
-        }
-
-        private void Start()
-        {
         }
 
         #endregion
@@ -134,6 +134,12 @@ namespace WILCommunityGame
             else
             {
                 InventoryRoot.gameObject.SetActive(true);
+
+                if (buildPlacer.enabled)
+                {
+                    buildPlacer.enabled = false;
+                    uiManager?.UnEquipItem();
+                }
             }
         }
 

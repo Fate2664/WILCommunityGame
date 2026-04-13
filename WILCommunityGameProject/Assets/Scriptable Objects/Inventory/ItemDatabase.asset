@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7df50728a2a70df409f0136fee00cae0, type: 3}
-  m_Name: TestDatabase
-  m_EditorClassIdentifier: Assembly-CSharp::ItemDatabase
+  m_Name: ItemDatabase
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.ItemDatabase
   items:
-  - {fileID: 11400000, guid: d3594214f7b5cd44fb62e9015cfafd10, type: 2}
+  - item: {fileID: 11400000, guid: c7245946ce4d2b848a63f4137f931bc2, type: 2}
+    count: 0
+  - item: {fileID: 11400000, guid: c84ccc005984c4e4baf073af7d6b7635, type: 2}
+    count: 0
