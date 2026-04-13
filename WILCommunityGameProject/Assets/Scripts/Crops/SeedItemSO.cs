@@ -6,7 +6,7 @@ namespace WILCommunityGame
     public class SeedItemSO : InventoryItemData
     {
         public SeedType seedType;
-        public int daysToGrow = 1;
+        [Min(1)] public int daysToGrow = 1;
         public GameObject seedlingPrefab;
         public GameObject harvestablePrefab;
         public ProduceItemSO produceItem;

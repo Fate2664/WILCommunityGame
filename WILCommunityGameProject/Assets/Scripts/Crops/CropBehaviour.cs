@@ -14,67 +14,72 @@ namespace WILCommunityGame
         }
 
         [SerializeField] private GameObject wateredPrefab;
-        [SerializeField] private GameObject sproutPrefab; 
-        
-        
-        private GameObject seedlingPrefab; 
-        private GameObject harvestablePrefab;
-        public CropStage stage = CropStage.Dry;
-        
-        private SeedItemSO seedItem;
-        private int growth;
-        private int maxGrowth;
+        [SerializeField] private GameObject sproutPrefab;
+        [SerializeField] private CropStage stage = CropStage.Dry;
+        [SerializeField] private SeedItemSO seedItem;
 
-        public void Plant(SeedItemSO seedItem)
+        private int growthMinutes;
+        private int maxGrowthMinutes;
+        public CropStage Stage => stage;
+        public bool IsPlanted => seedItem != null;
+        
+        public bool CanPlant(SeedItemSO seed)
         {
-            this.seedItem = seedItem;
-            sproutPrefab = Instantiate(seedItem.seedlingPrefab, transform);
-            harvestablePrefab = Instantiate(seedItem.harvestablePrefab, transform);
-            int hoursToGrow = GameTimestamp.DaysToHours(seedItem.daysToGrow);
-            maxGrowth = GameTimestamp.HoursToMinutes(hoursToGrow);
+            if (IsPlanted) return false;
             
-            SwitchStage(CropStage.Watered);
+            seedItem = seed;
+            growthMinutes = 0;
+            maxGrowthMinutes = GameTimestamp.HoursToMinutes(GameTimestamp.DaysToHours(seed.daysToGrow));
+            stage = CropStage.Dry;
+            return true;
         }
 
-        public void Grow()
+        public bool CanWater()
         {
-            growth++;
-
-            if (growth >= maxGrowth / 3 && stage == CropStage.Watered)
-            {
-                SwitchStage(CropStage.Sprout);
-            }
-            
-            if (growth >= maxGrowth / 2 && stage == CropStage.Sprout)
-            {
-                SwitchStage(CropStage.Seedling);    
-            }
-            
-            if (growth >= maxGrowth && stage == CropStage.Seedling)
-            {
-                SwitchStage(CropStage.Harvestable);
-            }
+            if (!IsPlanted || stage != CropStage.Dry) return false;
+            stage = CropStage.Watered;
+            return true;
         }
 
-        private void SwitchStage(CropStage nextStage)
+        public bool Grow()
         {
-            sproutPrefab.gameObject.SetActive(false);
-            seedlingPrefab.gameObject.SetActive(false);
-            harvestablePrefab.gameObject.SetActive(false);
+            if (!IsPlanted || stage == CropStage.Dry || stage == CropStage.Harvestable) return false;
+            
+            CropStage previous = stage;
+            growthMinutes++;
 
-            switch (nextStage)
+            if (growthMinutes >= maxGrowthMinutes && stage == CropStage.Seedling)
+                stage = CropStage.Harvestable;
+            else if (growthMinutes >= maxGrowthMinutes / 2 && stage == CropStage.Sprout)
+                stage = CropStage.Seedling;
+            else if (growthMinutes >= maxGrowthMinutes / 3 && stage == CropStage.Watered)
+                stage = CropStage.Sprout;
+            
+            return stage != previous;
+        }
+
+        public GameObject GetCurrentPlotPrefab()
+        {
+            if (!IsPlanted) return null;
+
+            return stage switch
             {
-                case CropStage.Sprout:
-                    sproutPrefab.gameObject.SetActive(true);
-                    break;
-                case CropStage.Seedling:
-                    seedlingPrefab.gameObject.SetActive(true);
-                    break;
-                case CropStage.Harvestable:
-                    harvestablePrefab.gameObject.SetActive(true);
-                    break;
-            }
-            stage = nextStage;
+                CropStage.Watered => wateredPrefab,
+                CropStage.Sprout => sproutPrefab,
+                CropStage.Seedling => seedItem.seedlingPrefab,
+                CropStage.Harvestable => seedItem.harvestablePrefab,
+                _ => null
+            };
+        }
+
+        public void CopyStateFrom(CropBehaviour other)
+        {
+            wateredPrefab = other.wateredPrefab;
+            sproutPrefab = other.sproutPrefab;
+            seedItem = other.seedItem;
+            growthMinutes = other.growthMinutes;
+            maxGrowthMinutes = other.maxGrowthMinutes;
+            stage = other.stage;
         }
         
     }

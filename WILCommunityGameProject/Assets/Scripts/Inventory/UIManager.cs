@@ -1,3 +1,4 @@
+using System;
 using Nova;
 using UnityEngine;
 using System.Collections.Generic;
@@ -26,6 +27,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     [SerializeField] private TextBlock TimePrefix = null;
     [SerializeField] private TextBlock DayText = null;
 
+    public InventoryItem EquippedItem => equippedItem;
     private List<InventoryItem> Items;
     private readonly InventoryItem emptyEquippedItem = new ();
     private InventoryItem equippedItem;
@@ -71,7 +73,6 @@ public class UIManager : MonoBehaviour, ITimeTracker
             RefreshEquippedItem();
         }
     }
-
 
     #region Register Methods
 
@@ -143,6 +144,24 @@ public class UIManager : MonoBehaviour, ITimeTracker
         RefreshEquippedItem();
     }
 
+    public bool TryUseEquippedItem(int amount = 1)
+    {
+        if (equippedItem.isEmpty || equippedItem.count < amount) return false;
+        
+        equippedItem.count -= amount;
+
+        if (equippedItem.count <= 0)
+        {
+            int index = Items.IndexOf(equippedItem);
+            if (index >= 0) Items[index] = new InventoryItem();
+            equippedItem = null;
+        }
+        
+        if (Grid.gameObject.activeInHierarchy) Grid.Refresh();
+        RefreshEquippedItem();
+        return true;
+    }
+
     public void UnEquipItem()
     {
         equippedItem = null;
@@ -182,4 +201,6 @@ public class UIManager : MonoBehaviour, ITimeTracker
         TimeText.Text = hours.ToString("00") +  ":" + minutes.ToString("00");
         DayText.Text = timestamp.day.ToString();
     }
+
+    private void OnDisable() => TimeManager.Instance?.UnregisterTracker(this);
 }

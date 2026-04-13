@@ -21,7 +21,7 @@ public class PlayerInteractionDetector : MonoBehaviour
 
    private void OnTriggerEnter(Collider other)
    {
-      if (!other.TryGetComponent(out TestInteractable interactable)) return;
+      if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
       IndicatorManager indicator = other.GetComponentInChildren<IndicatorManager>();
       if (indicator == null) return;
       
