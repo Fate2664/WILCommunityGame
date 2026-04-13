@@ -6,14 +6,18 @@ using WILCommunityGame;
 
 public class UIManager : MonoBehaviour, ITimeTracker
 {
-    public ItemDatabase ItemDatabase = null;
-    public ItemView[] EquipItemRoots = null;
-    public ItemView closeButtonRoot = null;
-
+    [Header("References")]
+    [SerializeField] private PlayerController playerController;
+    [SerializeField] private BuildPlacer  buildPlacer;
+    [Header("Inventory")]
+    [SerializeField] private ItemDatabase ItemDatabase = null;
+    [SerializeField] private ItemView[] EquipItemRoots = null;
+    [SerializeField] private ItemView closeButtonRoot = null;
+    [Space(10)]
     [Header("Grid Layout")]
     public GridView Grid = null;
     public int Count = 24;
-
+    [Space(10)]
     [Header("Row Styling")] [SerializeField]
     private int padding = 10;
     
@@ -22,10 +26,9 @@ public class UIManager : MonoBehaviour, ITimeTracker
     [SerializeField] private TextBlock TimePrefix = null;
     [SerializeField] private TextBlock DayText = null;
 
-    [HideInInspector]
-    private List<InventoryItem> Items = null;
-    private readonly InventoryItem emptyEquippedItem = new InventoryItem();
-    private InventoryItem equippedItem = null;
+    private List<InventoryItem> Items;
+    private readonly InventoryItem emptyEquippedItem = new ();
+    private InventoryItem equippedItem;
 
     private void Start()
     {
@@ -36,12 +39,12 @@ public class UIManager : MonoBehaviour, ITimeTracker
         TimeManager.Instance.RegisterTracker(this);
     }
 
-    public void AddItemToInventory(Item item, int count = 1)
+    public void AddItemToInventory(InventoryItemData item, int count = 1)
     {
         if (item == null) return;
         
         var existing = Items.Find(x => !x.isEmpty && x.item == item);
-        if (existing != null && existing.count + count != Item.maxCount)
+        if (existing != null && existing.count + count != InventoryItem.maxCount)
         {
             existing.count += count; 
         }
@@ -125,14 +128,40 @@ public class UIManager : MonoBehaviour, ITimeTracker
     public void EquipItem(InventoryItem item)
     {
         equippedItem = item != null && !item.isEmpty ? item : null;
+        if (equippedItem.IsTool)
+        {
+            ToolItemSO tool = equippedItem.item as ToolItemSO;
+            switch (tool.toolType)
+            {
+                case ToolType.Hoe:
+                    HoeEquipped();
+                    break;
+                case ToolType.WateringCan:
+                    break;
+            }
+        }
         RefreshEquippedItem();
+    }
+
+    public void UnEquipItem()
+    {
+        equippedItem = null;
+        RefreshEquippedItem();
+    }
+
+    private void HoeEquipped()
+    {
+        playerController.ToggleInventory();
+        buildPlacer.enabled = true;
     }
     
     private void RefreshEquippedItem()
     {
-        if (EquipItemRoots == null || !EquipItemRoots[0].TryGetVisuals(out InventoryItemVisuals visuals)) return;
+        if (EquipItemRoots == null || !EquipItemRoots[0].TryGetVisuals(out InventoryItemVisuals visuals1)) return;
+        if (EquipItemRoots == null || !EquipItemRoots[1].TryGetVisuals(out InventoryItemVisuals visuals2)) return;
         
-        visuals.Bind(equippedItem ?? emptyEquippedItem);
+        visuals1.Bind(equippedItem ?? emptyEquippedItem);
+        visuals2.Bind(equippedItem ?? emptyEquippedItem);
     }
 
     #endregion
@@ -148,8 +177,9 @@ public class UIManager : MonoBehaviour, ITimeTracker
             prefix = "PM";
             hours -= 12;
         }
-        
+
         TimePrefix.Text = prefix;
         TimeText.Text = hours.ToString("00") +  ":" + minutes.ToString("00");
+        DayText.Text = timestamp.day.ToString();
     }
 }
