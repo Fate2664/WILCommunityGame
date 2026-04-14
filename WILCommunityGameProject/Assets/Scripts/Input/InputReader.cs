@@ -58,14 +58,15 @@ namespace WILCommunityGame
 
         public void OnSprint(InputAction.CallbackContext context)
         {
-            if (context.performed)
-            {
-                SprintToggledOn = holdToSprint || !SprintToggledOn;
-            }
-            else if (context.canceled)
-            {
-                SprintToggledOn = !holdToSprint && SprintToggledOn;
-            }
+            return;
+            // if (context.performed)
+            // {
+            //     SprintToggledOn = holdToSprint || !SprintToggledOn;
+            // }
+            // else if (context.canceled)
+            // {
+            //     SprintToggledOn = !holdToSprint && SprintToggledOn;
+            // }
         }
 
         public void OnInteract(InputAction.CallbackContext context)

@@ -48,7 +48,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         var existing = Items.Find(x => !x.isEmpty && x.item == item);
         if (existing != null && existing.count + count != InventoryItem.maxCount)
         {
-            existing.count += count; 
+            existing.IncreaseCount(count);
         }
         else
         {
@@ -148,7 +148,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     {
         if (equippedItem.isEmpty || equippedItem.count < amount) return false;
         
-        equippedItem.count -= amount;
+        equippedItem.DecreaseCount(amount);
 
         if (equippedItem.count <= 0)
         {
@@ -179,8 +179,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
         if (EquipItemRoots == null || !EquipItemRoots[0].TryGetVisuals(out InventoryItemVisuals visuals1)) return;
         if (EquipItemRoots == null || !EquipItemRoots[1].TryGetVisuals(out InventoryItemVisuals visuals2)) return;
         
-        visuals1.Bind(equippedItem ?? emptyEquippedItem);
-        visuals2.Bind(equippedItem ?? emptyEquippedItem);
+        visuals1.Bind(equippedItem ?? emptyEquippedItem, this);
+        visuals2.Bind(equippedItem ?? emptyEquippedItem, this);
     }
 
     #endregion

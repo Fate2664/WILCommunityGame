@@ -45,6 +45,7 @@ namespace WILCommunityGame
         [HideInInspector]
         public int count;
 
+        public event Action OnCountDecreased;
         public bool isEmpty => item == null;
         public bool IsTool => item is ToolItemSO;
         public bool IsSeed => item is SeedItemSO;
@@ -52,6 +53,22 @@ namespace WILCommunityGame
         ToolItemSO Tool => item as ToolItemSO;
         public SeedItemSO Seed => item as SeedItemSO;
         public ProduceItemSO Produce => item as ProduceItemSO;
+
+        public void IncreaseCount(int amount)
+        {
+            count = Mathf.Min(count + amount, maxCount);
+        }
+
+        public void DecreaseCount(int amount)
+        {
+            int previousCount = count;
+            count = Mathf.Max(0, count - amount);
+
+            if (count < previousCount)
+            {
+                OnCountDecreased?.Invoke();
+            }
+        }
     }
 
     public abstract class InventoryItemData : ScriptableObject
@@ -60,4 +77,3 @@ namespace WILCommunityGame
     }
     
 }
-

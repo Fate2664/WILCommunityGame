@@ -15,13 +15,11 @@ namespace WILCommunityGame
 
         [SerializeField] private UIBlock2D InventoryRoot;
 
-        [Header("Movement Settings")] [SerializeField]
-        private float moveSpeed = 6.0f;
-
-        [SerializeField] private float walkAcceleration = 20f;
-        [Space(10)] [SerializeField] private float runSpeed = 12f;
-        [SerializeField] private float runAcceleration = 30f;
-        [Space(10)] [SerializeField] private float rotationSpeed = 720f;
+        [Header("Movement Settings")] 
+        [SerializeField] private float moveSpeed = 6.0f;
+        [SerializeField] private float rotationSpeed = 720f;
+        [SerializeField] private float playerHeight = 1f;
+        [SerializeField] private float playerRadius = .5f;
         [HideInInspector]
         public bool IsInventoryOpen => InventoryRoot.gameObject.activeSelf;
         
@@ -60,10 +58,8 @@ namespace WILCommunityGame
 
         private void FixedUpdate()
         {
-            Vector3 moveDirection = GetMoveDirection();
             UpdateMovementState();
-            HandleHorizontalMovement(moveDirection);
-            RotateTowardsMovement(moveDirection);
+            HandleHorizontalMovement();
         }
 
         private void UpdateMovementState()
@@ -85,42 +81,52 @@ namespace WILCommunityGame
 
         #region Movement and Rotation Logic
 
-        private Vector3 GetMoveDirection()
+        private void HandleHorizontalMovement()
         {
-            Vector2 movementInput = input.MovementInput;
-            return new Vector3(movementInput.x, 0f, movementInput.y);
+            Vector2 inputVector = input.MovementInput.normalized;
+            Vector3 moveDir = new Vector3(inputVector.x, 0, inputVector.y);
+
+            float moveDistance = moveSpeed * Time.deltaTime;
+
+            bool canMove = CanMoveInDirection(moveDir, moveDistance);
+
+            if (!canMove)
+            {
+                Vector3 moveDirX = new Vector3(moveDir.x, 0, 0).normalized;
+                canMove = moveDir.x != 0 && CanMoveInDirection(moveDirX, moveDistance);
+
+                if (canMove)
+                {
+                    moveDir = moveDirX;
+                }
+                else
+                {
+                    Vector3 moveDirZ = new Vector3(0, 0, moveDir.z).normalized;
+                    canMove = moveDir.z != 0 && CanMoveInDirection(moveDirZ, moveDistance);
+                    if (canMove)
+                    {
+                        moveDir = moveDirZ;
+                    }
+                }
+            }
+
+            if (canMove)
+            {
+                transform.position += moveDir * moveDistance;
+            }
+            transform.forward = Vector3.Slerp(transform.forward, moveDir, Time.deltaTime * rotationSpeed);
         }
 
-        private void HandleHorizontalMovement(Vector3 moveDirection)
+        private bool CanMoveInDirection(Vector3 moveDir, float moveDistance)
         {
-            bool isSprinting = playerState.CurrentPlayerMovementState == PlayerMovementState.Sprinting;
-            Vector3 clampedMoveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
-
-            float horizontalAcceleration = isSprinting ? runAcceleration : walkAcceleration;
-            float speed = isSprinting ? runSpeed : moveSpeed;
-
-            Vector3 velocity = rb.linearVelocity;
-            Vector3 horizontalVelocity = new Vector3(velocity.x, 0f, velocity.z);
-            Vector3 targetVelocity = clampedMoveDirection * speed;
-
-            horizontalVelocity = Vector3.MoveTowards(
-                horizontalVelocity,
-                targetVelocity,
-                horizontalAcceleration * Time.fixedDeltaTime);
-
-            velocity.x = horizontalVelocity.x;
-            velocity.z = horizontalVelocity.z;
-            rb.linearVelocity = velocity;
-        }
-
-        private void RotateTowardsMovement(Vector3 moveDirection)
-        {
-            Vector3 flatMoveDirection = Vector3.ClampMagnitude(moveDirection, 1f);
-            if (flatMoveDirection.sqrMagnitude <= 0f) return;
-
-            Quaternion targetRotation = Quaternion.LookRotation(flatMoveDirection, Vector3.up);
-            playerRoot.rotation =
-                Quaternion.RotateTowards(playerRoot.rotation, targetRotation, rotationSpeed * Time.fixedDeltaTime);
+            return !Physics.CapsuleCast(
+                transform.position,
+                transform.position + Vector3.up * playerHeight,
+                playerRadius,
+                moveDir,
+                moveDistance,
+                Physics.DefaultRaycastLayers,
+                QueryTriggerInteraction.Ignore);
         }
 
         #endregion

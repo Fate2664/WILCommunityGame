@@ -2,6 +2,7 @@ using Nova;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using WILCommunityGame;
@@ -16,26 +17,26 @@ public class InventoryItemVisuals : ItemVisuals
     public UIBlock ToolTipRoot;
     public TextBlock ToolTipText;
 
-    [Header("Animations")] 
-    public float ToolTipDelay = 0.5f;
+    [Header("Animations")] public float ToolTipDelay = 0.5f;
     public Color DefaultColor;
     public Color HoverColor;
     public Color PressedColor;
 
-    [NonSerialized] private UIManager _uiManager;
-    [NonSerialized] private InventoryItem boundItem;
+    private UIManager _uiManager;
+    private InventoryItem boundItem;
     private Coroutine toolTipCoroutine;
     private bool isHovered = false;
 
-    public void Bind(InventoryItem data)
-    {
-        Bind(data, null);
-    }
-
     public void Bind(InventoryItem data, UIManager panel)
     {
-        _uiManager = panel;
+        if (boundItem != null)
+        {
+            boundItem.OnCountDecreased -= InventoryItem_OnCountDecreased;
+        }
+
         boundItem = data;
+        _uiManager = panel;
+        boundItem.OnCountDecreased += InventoryItem_OnCountDecreased;
 
         if (ItemRoot != null)
         {
@@ -52,8 +53,21 @@ public class InventoryItemVisuals : ItemVisuals
             if (ContentRoot != null) ContentRoot.gameObject.SetActive(true);
             if (ToolTipRoot != null) ToolTipRoot.gameObject.SetActive(false);
             Image.SetImage(data.item.itemDesc.Icon);
-            if (Count != null) Count.Text = data.count.ToString();
+            RefreshCount();
             if (ToolTipText != null) ToolTipText.Text = data.item.itemDesc.ToolTip;
+        }
+    }
+
+    private void InventoryItem_OnCountDecreased()
+    {
+        RefreshCount();
+    }
+
+    private void RefreshCount()
+    {
+        if (Count != null && boundItem != null)
+        {
+            Count.Text = boundItem.count.ToString();
         }
     }
 
@@ -75,6 +89,7 @@ public class InventoryItemVisuals : ItemVisuals
         {
             ToolTipRoot.gameObject.SetActive(true);
         }
+
         toolTipCoroutine = null;
     }
 
@@ -88,9 +103,10 @@ public class InventoryItemVisuals : ItemVisuals
             View.StopCoroutine(toolTipCoroutine);
             toolTipCoroutine = null;
         }
-        
+
         ToolTipRoot.gameObject.SetActive(false);
     }
+
     #endregion
 
     public void EquipItem()
@@ -99,7 +115,6 @@ public class InventoryItemVisuals : ItemVisuals
         {
             _uiManager.EquipItem(boundItem);
         }
-        
     }
 
     #region Gesture Methods
@@ -127,7 +142,6 @@ public class InventoryItemVisuals : ItemVisuals
         ItemRoot.Color = HoverColor;
     }
 
-    
 
     internal static void HandleHover(Gesture.OnHover evt, InventoryItemVisuals target, int index)
     {
