@@ -15,5 +15,5 @@ MonoBehaviour:
   itemDesc:
     Name: Tomatoe
     ToolTip: 
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 639f1f8045231d042bd2fe9de5a25eaa, type: 3}
   produceType: 3

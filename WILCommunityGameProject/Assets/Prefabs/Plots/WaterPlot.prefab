@@ -380,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IndicatorManager
   scaleDuration: 0.5
   height: 3
+  icon: {fileID: 0}
 --- !u!114 &327283413585082846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -790,7 +791,7 @@ GameObject:
   - component: {fileID: 1452802235512611899}
   - component: {fileID: 8916532423825765084}
   - component: {fileID: 4730672419446868799}
-  - component: {fileID: -3317994357912738723}
+  - component: {fileID: -4208495079432969343}
   m_Layer: 0
   m_Name: WaterPlot
   m_TagString: Untagged
@@ -857,7 +858,7 @@ MonoBehaviour:
   sproutPrefab: {fileID: 7863790740695239896, guid: f0fd397c9e4db704d94a961e10e5f59d, type: 3}
   stage: 1
   seedItem: {fileID: 0}
---- !u!114 &-3317994357912738723
+--- !u!114 &-4208495079432969343
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -869,6 +870,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b32c3478ee3bc4ca4f7af0b50f4bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
+  seedIcon: {fileID: 21300000, guid: 164fe5d52c4fa4f488b36089544af1a0, type: 3}
+  waterIcon: {fileID: 21300000, guid: c6e6caf6c56ae424385e4df61daf518b, type: 3}
 --- !u!1001 &8338387316760936355
 PrefabInstance:
   m_ObjectHideFlags: 0

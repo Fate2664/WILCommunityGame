@@ -21,8 +21,16 @@ namespace WILCommunityGame
 
         private int growthMinutes;
         private int maxGrowthMinutes;
+        
+        //State checks
         public CropStage Stage => stage;
+        public SeedItemSO SeedItem => seedItem;
         public bool IsPlanted => seedItem != null;
+        public bool NeedsSeed => !IsPlanted;
+        public bool NeedsWater => IsPlanted && stage == CropStage.Dry;
+        public bool IsHarvestable => IsPlanted && stage == CropStage.Harvestable;
+        public Sprite HarvestIcon => IsHarvestable ? seedItem?.produceItem?.itemDesc?.Icon : null;
+        
         
         public bool CanPlant(SeedItemSO seed)
         {

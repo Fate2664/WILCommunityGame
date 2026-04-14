@@ -34,7 +34,7 @@ namespace WILCommunityGame
         public string Name;
         [TextArea(3, 10)]
         public string ToolTip;
-        public Texture2D Icon;
+        public Sprite Icon;
     }
 
     [System.Serializable]

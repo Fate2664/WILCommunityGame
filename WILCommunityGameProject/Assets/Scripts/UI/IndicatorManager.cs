@@ -7,12 +7,16 @@ public class IndicatorManager : MonoBehaviour
 {
     [SerializeField] private float scaleDuration = 0.5f;
     [SerializeField] private float height = 1.0f;
+    public Sprite icon;
+
+    private SpriteRenderer renderer;
     private Vector3 startScale;
 
     private void Awake()
     {
         startScale = transform.localScale;
         transform.localScale = Vector3.zero;
+        renderer = GetComponent<SpriteRenderer>();
     }
 
     void Start()
@@ -23,6 +27,10 @@ public class IndicatorManager : MonoBehaviour
 
     public void ShowIndictor()
     {
+        if (icon != null)
+        {
+            renderer.sprite = icon;
+        }
         transform.DOScale(startScale, scaleDuration).SetEase(Ease.OutCubic);
     }
 

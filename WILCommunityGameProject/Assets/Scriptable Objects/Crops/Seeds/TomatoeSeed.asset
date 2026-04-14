@@ -15,7 +15,7 @@ MonoBehaviour:
   itemDesc:
     Name: Tomato Seed
     ToolTip: Tomato Seed
-    Icon: {fileID: 2800000, guid: 639f1f8045231d042bd2fe9de5a25eaa, type: 3}
+    Icon: {fileID: 21300000, guid: 639f1f8045231d042bd2fe9de5a25eaa, type: 3}
   seedType: 3
   daysToGrow: 1
   seedlingPrefab: {fileID: 7863790740695239896, guid: 449c56ca5fdacb742beddd4d76c70f85, type: 3}
