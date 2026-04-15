@@ -29,7 +29,7 @@ namespace WILCommunityGame
 
         private void Start()
         {
-            timestamp = new GameTimestamp(8, 0, 0);
+            timestamp = new GameTimestamp(13, 0, 0);
             StartCoroutine(UpdateTime());
         }
 
@@ -44,14 +44,18 @@ namespace WILCommunityGame
         
         public void Tick()
         {
+            AdvanceOneMinute();
+            UpdateSunAngle();
+        }
+
+        private void AdvanceOneMinute()
+        {
             timestamp.UpdateClock();
 
             foreach (ITimeTracker listner in listeners)
             {
                 listner.ClockUpdate(timestamp);
             }
-            
-           UpdateSunAngle();
         }
 
         private void UpdateSunAngle()
@@ -60,6 +64,16 @@ namespace WILCommunityGame
             int timeInMinutes = GameTimestamp.HoursToMinutes(timestamp.hour) + timestamp.minute;
             float sunAngle = .25f * timeInMinutes - 90;
             sunTransform.localEulerAngles = new Vector3(sunAngle, 0, 0);
+        }
+
+        public void Sleep(int hours)
+        {
+            int minutesToSkip = GameTimestamp.HoursToMinutes(hours);
+            for (int i = 0; i < minutesToSkip; i++)
+            {
+                AdvanceOneMinute();
+            }
+            UpdateSunAngle();
         }
 
         public void RegisterTracker(ITimeTracker listener)

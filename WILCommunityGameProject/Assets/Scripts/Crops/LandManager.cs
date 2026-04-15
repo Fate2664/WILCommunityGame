@@ -46,17 +46,10 @@ namespace WILCommunityGame
 
         public void Interact(PlayerController interactor)
         {
-            if (cropBehaviour.IsHarvestable)
+            if (cropBehaviour.IsHarvestable && cropBehaviour.SeedItem.produceItem != null)
             {
-                ProduceItemSO produceItem = cropBehaviour.SeedItem.produceItem;
-                if (produceItem == null)
-                {
-                    Debug.LogWarning($"{cropBehaviour.SeedItem.name} has no produce item assigned.", this);
-                    return;
-                }
-
                 //Add produce to inventory
-                uiManager.AddItemToInventory(produceItem, cropBehaviour.SeedItem.harvestAmount);
+                uiManager.AddItemToInventory(cropBehaviour.SeedItem.produceItem, cropBehaviour.SeedItem.harvestAmount);
                 //reset back to sprout
                 cropBehaviour.ResetToSprout();
                 pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
