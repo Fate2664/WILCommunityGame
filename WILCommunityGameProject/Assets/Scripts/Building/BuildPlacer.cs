@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Nova;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,6 +19,7 @@ namespace WILCommunityGame
         [Space(10)] 
         [Header("GroundPlacement")] 
         [SerializeField] private LayerMask placementMask;
+        [SerializeField] private LayerMask floorOverlapMask;
         [SerializeField] private float gridSize = 2.5f;
         [SerializeField] private bool snapFloorToGrid = true;
         
@@ -62,6 +64,12 @@ namespace WILCommunityGame
             {
                 var sl = LayerMask.NameToLayer("Socket");
                 placementMask = sl >= 0 ? ~(1 << sl) : ~0;
+            }
+
+            if (floorOverlapMask.value == 0)
+            {
+                var sl = LayerMask.NameToLayer("Socket");
+                floorOverlapMask = sl >= 0 ? ~(1 << sl) : ~0;
             }
         }
 
@@ -109,11 +117,29 @@ namespace WILCommunityGame
         
         private void Place(GameObject prefab, Pose pose, EdgeSocket socketSnap)
         {
-            if (prefab == null) return;
+            if (prefab == null || (placementPieceType == BuildPieceType.Floor && IsFloorOccupied(pose.position))) return;
             var go = Instantiate(prefab, pose.position, pose.rotation);
             if (socketSnap == null) return;
             var part = go.GetComponent<BuildPart>();
             if (part != null) socketSnap.SetOccupant(part);
+        }
+
+        private bool IsFloorOccupied(Vector3 position)
+        {
+            var halExtent = new Vector3(gridSize * .45f, 0.25f, gridSize * .45f);
+            var center = position + Vector3.up * .1f;
+            
+            var overlaps = Physics.OverlapBox(center, halExtent, Quaternion.identity, floorOverlapMask, QueryTriggerInteraction.Collide);
+
+            foreach (var overlap in overlaps)
+            {
+                if (overlap.GetComponent<EdgeSocket>() != null) continue;
+                var part =  overlap.GetComponentInParent<BuildPart>();
+                if (part != null && part.Type == BuildPieceType.Floor)
+                    return true;
+            }
+
+            return false;
         }
 
         private void SnapGrid(ref Vector3 position)
@@ -136,7 +162,7 @@ namespace WILCommunityGame
             //Socket Snapping
             if (useSocketSnapping && socketRaycastMask.value != 0 && TrySnapSocket(ray, out pose, out socketFromSnap))
             {
-                placementValid = true;
+                placementValid = placementPieceType != BuildPieceType.Floor || !IsFloorOccupied(pose.position);
                 return true;
             }
             
@@ -148,7 +174,7 @@ namespace WILCommunityGame
                 if (placementPieceType == BuildPieceType.Floor)
                 {
                     if (snapFloorToGrid) SnapGrid(ref position);
-                    placementValid = true;
+                    placementValid = !IsFloorOccupied(position);
                 }
                 
                 pose = new Pose(position, Quaternion.identity);
@@ -161,7 +187,7 @@ namespace WILCommunityGame
                 if (placementPieceType == BuildPieceType.Floor)
                 {
                     if (snapFloorToGrid) SnapGrid(ref point);
-                    placementValid = true;
+                    placementValid = !IsFloorOccupied(point);
                 }
                 
                 pose = new Pose(point, Quaternion.identity);

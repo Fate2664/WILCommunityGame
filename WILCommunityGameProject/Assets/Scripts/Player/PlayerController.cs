@@ -152,7 +152,7 @@ namespace WILCommunityGame
 
         #region State Checks
 
-        private bool IsMovingHorizontally()
+        public bool IsMovingHorizontally()
         {
             Vector3 horizontalVelocity = new Vector3(rb.linearVelocity.x, 0f, rb.linearVelocity.z);
             return horizontalVelocity.magnitude > movingThreshold;

@@ -285,7 +285,7 @@ GameObject:
   - component: {fileID: 6741538615356423851}
   - component: {fileID: 6253818000816936472}
   - component: {fileID: 5119292957873397566}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: InteractIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -704,7 +704,7 @@ GameObject:
   - component: {fileID: 4831389016687000936}
   - component: {fileID: 1555857037938418301}
   - component: {fileID: -382849047324243481}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EmptyPlot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -870,6 +870,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2e844c14ef56fd64a983008eb9c17ad5, type: 3}
       propertyPath: m_Name
       value: Soil
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2e844c14ef56fd64a983008eb9c17ad5, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
