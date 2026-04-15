@@ -380,6 +380,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::IndicatorManager
   scaleDuration: 0.5
   height: 3
+  icon: {fileID: 0}
 --- !u!114 &327283413585082846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -699,6 +700,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1452802235512611899}
   - component: {fileID: 8916532423825765084}
+  - component: {fileID: 668359415350321097}
+  - component: {fileID: 1805327123491813080}
   m_Layer: 0
   m_Name: CornPlant
   m_TagString: Untagged
@@ -757,6 +760,36 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 2.59, y: 1, z: 2.5}
   m_Center: {x: 0, y: 0.45, z: 0}
+--- !u!114 &668359415350321097
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863790740695239896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7cfcbbded70a37f4da98828a63ef30ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.CropBehaviour
+  wateredPrefab: {fileID: 7863790740695239896, guid: a92478f8e4e5b1a40aa2b3abbe0426ae, type: 3}
+  sproutPrefab: {fileID: 7863790740695239896, guid: f0fd397c9e4db704d94a961e10e5f59d, type: 3}
+  stage: 4
+  seedItem: {fileID: 11400000, guid: 5027df823f316ff40be42b55f4f24ff6, type: 2}
+--- !u!114 &1805327123491813080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7863790740695239896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36b32c3478ee3bc4ca4f7af0b50f4bdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
+  seedIcon: {fileID: 21300000, guid: 164fe5d52c4fa4f488b36089544af1a0, type: 3}
+  waterIcon: {fileID: 21300000, guid: c6e6caf6c56ae424385e4df61daf518b, type: 3}
 --- !u!1001 &103766675531091885
 PrefabInstance:
   m_ObjectHideFlags: 0

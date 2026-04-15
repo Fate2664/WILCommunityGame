@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83b75dd6971861640819a95cb9145f57, type: 3}
-  m_Name: TomatoeSeed
+  m_Name: CornSeed
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.SeedItemSO
   itemDesc:
-    Name: Tomato Seed
-    ToolTip: Tomato Seed
-    Icon: {fileID: 21300000, guid: 639f1f8045231d042bd2fe9de5a25eaa, type: 3}
-  seedType: 3
+    Name: Corn Seed
+    ToolTip: Corn Seed
+    Icon: {fileID: 21300000, guid: 4317255a90487c4449c29bd7f9c12aef, type: 3}
+  seedType: 4
   daysToGrow: 1
-  seedlingPrefab: {fileID: 7863790740695239896, guid: 449c56ca5fdacb742beddd4d76c70f85, type: 3}
-  harvestablePrefab: {fileID: 7863790740695239896, guid: 908a73d7059a3914a9da13f274fe1e0d, type: 3}
-  produceItem: {fileID: 11400000, guid: d98d594602a7ef7489b49bfcc2963724, type: 2}
+  seedlingPrefab: {fileID: 7863790740695239896, guid: 011e646347c1c3a41a58b0bb715b1265, type: 3}
+  harvestablePrefab: {fileID: 7863790740695239896, guid: dcc7dba196350b342ac14fb71d5bb0f1, type: 3}
+  produceItem: {fileID: 11400000, guid: 7c59f78086584a4bb07e1169d7ce7d20, type: 2}

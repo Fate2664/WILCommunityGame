@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     private List<InventoryItem> Items;
     private readonly InventoryItem emptyEquippedItem = new ();
     private InventoryItem equippedItem;
+    private bool inventoryNeedsRefresh;
 
     private void Start()
     {
@@ -48,7 +49,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         var existing = Items.Find(x => !x.isEmpty && x.item == item);
         if (existing != null && existing.count + count != InventoryItem.maxCount)
         {
-            existing.count += count; 
+            existing.IncreaseCount(count);
         }
         else
         {
@@ -63,10 +64,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
             } 
         }
 
-        if (Grid.gameObject.activeInHierarchy)
-        {
-            Grid.Refresh();
-        }
+        inventoryNeedsRefresh = true;
+        RefreshInventory();
 
         if (equippedItem != null && equippedItem.item == item)
         {
@@ -124,6 +123,19 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     #endregion
 
+    public void RefreshInventory()
+    {
+        if (!Grid.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        if (!inventoryNeedsRefresh) return;
+
+        Grid.Refresh();
+        inventoryNeedsRefresh = false;
+    }
+
     #region Equip Item Methods
 
     public void EquipItem(InventoryItem item)
@@ -148,7 +160,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     {
         if (equippedItem.isEmpty || equippedItem.count < amount) return false;
         
-        equippedItem.count -= amount;
+        equippedItem.DecreaseCount(amount);
 
         if (equippedItem.count <= 0)
         {
@@ -157,7 +169,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
             equippedItem = null;
         }
         
-        if (Grid.gameObject.activeInHierarchy) Grid.Refresh();
+        inventoryNeedsRefresh = true;
+        RefreshInventory();
         RefreshEquippedItem();
         return true;
     }
@@ -179,8 +192,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
         if (EquipItemRoots == null || !EquipItemRoots[0].TryGetVisuals(out InventoryItemVisuals visuals1)) return;
         if (EquipItemRoots == null || !EquipItemRoots[1].TryGetVisuals(out InventoryItemVisuals visuals2)) return;
         
-        visuals1.Bind(equippedItem ?? emptyEquippedItem);
-        visuals2.Bind(equippedItem ?? emptyEquippedItem);
+        visuals1.Bind(equippedItem ?? emptyEquippedItem, this);
+        visuals2.Bind(equippedItem ?? emptyEquippedItem, this);
     }
 
     #endregion

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Numerics;
+using Nova;
 using UnityEngine;
 using UnityEngine.Events;
 using WILCommunityGame;
@@ -17,35 +18,29 @@ public class PlayerInteractionDetector : MonoBehaviour
       player = GetComponent<PlayerController>();
       input = GetComponent<InputReader>();
    }
-
-
-   private void OnTriggerEnter(Collider other)
-   {
-      if (!other.TryGetComponent<IInteractable>(out var interactable)) return;
-      IndicatorManager indicator = other.GetComponentInChildren<IndicatorManager>();
-      if (indicator == null) return;
-      
-      currentTarget = interactable;
-      indicator.ShowIndictor();
-   }
    
-   private void OnTriggerExit(Collider other)
-   {
-      if (!other.TryGetComponent(out TestInteractable interactable)) return;
-      IndicatorManager indicator = other.GetComponentInChildren<IndicatorManager>();
-      currentTarget = null;
-      indicator.HideIndictor();
-   }
-
    private void Update()
    {
       if (input.InteractPressed)
       {
          if (currentTarget != null)
          {
-            currentTarget.Interact(player);
+            currentTarget.Interact(player);  
          }
       }
    }
+
+   private void OnTriggerEnter(Collider other)
+   {
+      if (other.TryGetComponent<IInteractable>(out IInteractable interactable))
+         currentTarget = interactable;
+   }
+   
+   private void OnTriggerExit(Collider other)
+   {
+      if (other.TryGetComponent<IInteractable>(out IInteractable interactable) &&  interactable == currentTarget)
+         currentTarget = null;
+   }
+
    
 }
