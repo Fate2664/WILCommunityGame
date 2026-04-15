@@ -23,10 +23,10 @@ public class PlayerInteractionDetector : MonoBehaviour
    {
       if (input.InteractPressed)
       {
-         if (currentTarget != null || currentTarget != null);
-            currentTarget.Interact(player);
-            //TODO: When player interacts and the plot is harvestable -> give produce to player
-            //TODO: Then reset the plot back to a sprout
+         if (currentTarget != null)
+         {
+            currentTarget.Interact(player);  
+         }
       }
    }
 

@@ -361,7 +361,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 1.28, y: 1.28}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -381,6 +381,7 @@ MonoBehaviour:
   scaleDuration: 0.5
   height: 3
   icon: {fileID: 21300000, guid: 26908fb6182a4f64e9f59a90dda197da, type: 3}
+  iconMAT: {fileID: 0}
 --- !u!114 &327283413585082846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -718,7 +719,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7863790740695239896}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4, z: 4.44}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -795,6 +796,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
   seedIcon: {fileID: 21300000, guid: 164fe5d52c4fa4f488b36089544af1a0, type: 3}
   waterIcon: {fileID: 21300000, guid: c6e6caf6c56ae424385e4df61daf518b, type: 3}
+  waterIconMAT: {fileID: 2100000, guid: ccf4f3e3c77b2dc4a94dcc6a86b1960e, type: 2}
+  seedIconMAT: {fileID: 2100000, guid: 5fa965d09a54a784496c7c06d5c12024, type: 2}
+  produceIconMAT: {fileID: 0}
 --- !u!1001 &8338387316760936355
 PrefabInstance:
   m_ObjectHideFlags: 0

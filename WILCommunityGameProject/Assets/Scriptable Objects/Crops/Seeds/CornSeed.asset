@@ -20,4 +20,4 @@ MonoBehaviour:
   daysToGrow: 1
   seedlingPrefab: {fileID: 7863790740695239896, guid: 011e646347c1c3a41a58b0bb715b1265, type: 3}
   harvestablePrefab: {fileID: 7863790740695239896, guid: dcc7dba196350b342ac14fb71d5bb0f1, type: 3}
-  produceItem: {fileID: 0}
+  produceItem: {fileID: 11400000, guid: 7c59f78086584a4bb07e1169d7ce7d20, type: 2}

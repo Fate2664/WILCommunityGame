@@ -31,6 +31,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     private List<InventoryItem> Items;
     private readonly InventoryItem emptyEquippedItem = new ();
     private InventoryItem equippedItem;
+    private bool inventoryNeedsRefresh;
 
     private void Start()
     {
@@ -63,10 +64,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
             } 
         }
 
-        if (Grid.gameObject.activeInHierarchy)
-        {
-            Grid.Refresh();
-        }
+        inventoryNeedsRefresh = true;
+        RefreshInventory();
 
         if (equippedItem != null && equippedItem.item == item)
         {
@@ -124,6 +123,19 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     #endregion
 
+    public void RefreshInventory()
+    {
+        if (!Grid.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        if (!inventoryNeedsRefresh) return;
+
+        Grid.Refresh();
+        inventoryNeedsRefresh = false;
+    }
+
     #region Equip Item Methods
 
     public void EquipItem(InventoryItem item)
@@ -157,7 +169,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
             equippedItem = null;
         }
         
-        if (Grid.gameObject.activeInHierarchy) Grid.Refresh();
+        inventoryNeedsRefresh = true;
+        RefreshInventory();
         RefreshEquippedItem();
         return true;
     }

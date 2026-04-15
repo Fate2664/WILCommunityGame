@@ -8,6 +8,8 @@ public class IndicatorManager : MonoBehaviour
     [SerializeField] private float scaleDuration = 0.5f;
     [SerializeField] private float height = 1.0f;
     public Sprite icon;
+    [HideInInspector]
+    public Material iconMAT;
 
     private SpriteRenderer renderer;
     private Vector3 startScale;
@@ -27,9 +29,10 @@ public class IndicatorManager : MonoBehaviour
 
     public void ShowIndictor()
     {
-        if (icon != null)
+        if (icon != null && iconMAT != null)
         {
             renderer.sprite = icon;
+            renderer.material = iconMAT;
         }
         transform.DOScale(startScale, scaleDuration).SetEase(Ease.OutCubic);
     }

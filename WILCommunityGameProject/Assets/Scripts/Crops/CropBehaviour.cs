@@ -90,6 +90,12 @@ namespace WILCommunityGame
             maxGrowthMinutes = other.maxGrowthMinutes;
             stage = other.stage;
         }
+
+        public void ResetToSprout()
+        {
+            stage = CropStage.Sprout;
+            growthMinutes = maxGrowthMinutes / 3;
+        }
         
     }
 }

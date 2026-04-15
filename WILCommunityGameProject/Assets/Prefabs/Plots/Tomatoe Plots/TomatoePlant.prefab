@@ -381,6 +381,7 @@ MonoBehaviour:
   scaleDuration: 0.5
   height: 3
   icon: {fileID: 0}
+  iconMAT: {fileID: 0}
 --- !u!114 &327283413585082846
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -788,6 +789,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
   seedIcon: {fileID: 21300000, guid: 164fe5d52c4fa4f488b36089544af1a0, type: 3}
   waterIcon: {fileID: 21300000, guid: c6e6caf6c56ae424385e4df61daf518b, type: 3}
+  waterIconMAT: {fileID: 2100000, guid: ccf4f3e3c77b2dc4a94dcc6a86b1960e, type: 2}
+  seedIconMAT: {fileID: 2100000, guid: 5fa965d09a54a784496c7c06d5c12024, type: 2}
+  produceIconMAT: {fileID: 2100000, guid: ff8eac6d944b3174fb8f23f17dd9fcd6, type: 2}
 --- !u!1001 &233809192520524051
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -5,8 +5,13 @@ namespace WILCommunityGame
 {
     public class LandManager : MonoBehaviour, IInteractable, ITimeTracker
     {
-        [Header("Icons")] [SerializeField] private Sprite seedIcon;
+        [Header("Icons")] 
+        [SerializeField] private Sprite seedIcon;
         [SerializeField] private Sprite waterIcon;
+        [Header("Materials")]
+        [SerializeField] private Material waterIconMAT;
+        [SerializeField] private Material seedIconMAT;
+        [SerializeField] private Material produceIconMAT;
         
         private CropBehaviour cropBehaviour;
         private UIManager uiManager;
@@ -41,8 +46,26 @@ namespace WILCommunityGame
 
         public void Interact(PlayerController interactor)
         {
+            if (cropBehaviour.IsHarvestable)
+            {
+                ProduceItemSO produceItem = cropBehaviour.SeedItem.produceItem;
+                if (produceItem == null)
+                {
+                    Debug.LogWarning($"{cropBehaviour.SeedItem.name} has no produce item assigned.", this);
+                    return;
+                }
+
+                //Add produce to inventory
+                uiManager.AddItemToInventory(produceItem, cropBehaviour.SeedItem.harvestAmount);
+                //reset back to sprout
+                cropBehaviour.ResetToSprout();
+                pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
+                RefreshIndicator();
+                return;
+            }
+
             InventoryItem equipped = uiManager.EquippedItem;
-            if (equipped.isEmpty) return;
+            if (equipped == null || equipped.isEmpty) return;
 
             if (equipped.IsSeed && cropBehaviour.CanPlant(equipped.Seed))
             {
@@ -71,15 +94,26 @@ namespace WILCommunityGame
         {
             if (indicatorManager == null) return;
             Sprite iconToShow = null;
-            
+            Material iconToShowMAT = null;
+
             if (cropBehaviour.NeedsSeed)
+            {
                 iconToShow = seedIcon;
+                iconToShowMAT = seedIconMAT;
+            }
             else if (cropBehaviour.NeedsWater)
+            {
                 iconToShow = waterIcon;
+                iconToShowMAT = waterIconMAT;
+            }
             else if (cropBehaviour.IsHarvestable)
+            {
                 iconToShow = cropBehaviour.HarvestIcon;
+                iconToShowMAT = produceIconMAT;
+            }
             
             indicatorManager.icon = iconToShow;
+            indicatorManager.iconMAT = iconToShowMAT;
             
             if (iconToShow != null)
                 indicatorManager.ShowIndictor();

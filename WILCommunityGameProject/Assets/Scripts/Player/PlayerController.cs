@@ -140,6 +140,7 @@ namespace WILCommunityGame
             else
             {
                 InventoryRoot.gameObject.SetActive(true);
+                uiManager?.RefreshInventory();
 
                 if (buildPlacer.enabled)
                 {
