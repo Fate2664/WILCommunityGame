@@ -30,10 +30,10 @@ namespace WILCommunityGame
         [SerializeField] private int socketHitBufferSize = 16;
         
         [Space(10)]
-        [Header("Socket Occupany")]
+        [Header("Socket Occupancy")]
         [SerializeField] private bool skipSocketOccupied = true;
 
-        [Space(10)] [Header("Header")] 
+        [Space(10)] [Header("Materials")] 
         [SerializeField] private Material previewMaterialValid;
         [SerializeField] private Material previewMaterialGhost;
         [SerializeField] private float previewLiftY = 0.02f;
