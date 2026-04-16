@@ -11,7 +11,7 @@ namespace WILCommunityGame
         #region Class Variables
 
         [Header("Prefabs & Tools")]
-        [SerializeField] private BuildPieceType placementPieceType = BuildPieceType.Floor;
+        [SerializeField] public BuildPieceType placementPieceType = BuildPieceType.Floor;
         [SerializeField] private GameObject floorTilePrefab;
         [SerializeField] private GameObject wallTilePrefab;
         [SerializeField] private GameObject doorTilePrefab;

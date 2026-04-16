@@ -6,7 +6,6 @@ namespace WILCommunityGame
     public class HouseSleep : MonoBehaviour, IInteractable
     {
         [SerializeField] private PlayerInteractionDetector playerInteractionDetector;
-        [SerializeField] private int sleepHours = 12;
 
         private IndicatorManager indicatorManager;
 
@@ -17,6 +16,7 @@ namespace WILCommunityGame
 
         private void FixedUpdate()
         {
+            //Showing indicator
             if (indicatorManager == null) return;
 
             if (playerInteractionDetector.CurrentTarget != null &&
@@ -33,7 +33,7 @@ namespace WILCommunityGame
 
         public void Interact(PlayerController interactor)
         {
-            TimeManager.Instance.Sleep(sleepHours);
+            TimeManager.Instance.Sleep();
         }
     }
 }

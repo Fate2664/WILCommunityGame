@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.WeatherData
   WeatherProbabilities:
   - WeatherType: 1
-    Probability: 0.3
+    Probability: 0.5
   - WeatherType: 0
-    Probability: 0.7
+    Probability: 0.5
