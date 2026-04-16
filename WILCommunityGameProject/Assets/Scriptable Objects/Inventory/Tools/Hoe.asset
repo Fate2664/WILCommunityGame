@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.ToolItemSO
   itemDesc:
     Name: Hoe
-    ToolTip: This is a HOE
-    Icon: {fileID: 21300000, guid: e2d4da2ea33e3bd4dabd548cd8577471, type: 3}
+    ToolTip: Use this hoe to create new crop plots
+    Icon: {fileID: 21300000, guid: 05f17c2b2edd8b444826f4e88c4de15a, type: 3}
   toolType: 0

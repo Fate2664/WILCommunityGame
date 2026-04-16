@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b75dd6971861640819a95cb9145f57, type: 3}
+  m_Name: CarrotSeed
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.SeedItemSO
+  itemDesc:
+    Name: Carrot Seed
+    ToolTip: Plant this seed to grow a carrot plant.
+    Icon: {fileID: 21300000, guid: 7dccfb97c54dac84ca4f1e5c1e0faee9, type: 3}
+  seedType: 1
+  daysToGrow: 1
+  harvestAmount: 10
+  seedlingPrefab: {fileID: 7863790740695239896, guid: 5cb5ac40e6cdc81409917dfef475c840, type: 3}
+  harvestablePrefab: {fileID: 7863790740695239896, guid: 164e979b09eaac94a9a1aa018de7156a, type: 3}
+  produceItem: {fileID: 11400000, guid: 813270655fecea9448330a21bf03f3e5, type: 2}

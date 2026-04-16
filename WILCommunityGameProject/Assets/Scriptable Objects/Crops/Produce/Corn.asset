@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.ProduceItemSO
   itemDesc:
     Name: Corn
-    ToolTip: Corn
-    Icon: {fileID: 21300000, guid: 4317255a90487c4449c29bd7f9c12aef, type: 3}
+    ToolTip: This is a corn.
+    Icon: {fileID: 21300000, guid: 193edeb0a22e1f941886b54787c8b518, type: 3}
   produceType: 4

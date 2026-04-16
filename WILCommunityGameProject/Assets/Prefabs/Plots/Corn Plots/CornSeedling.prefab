@@ -333,7 +333,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: e160691f565cf2748bb575327f53a64f, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -788,8 +788,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b32c3478ee3bc4ca4f7af0b50f4bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
-  seedIcon: {fileID: 21300000, guid: 164fe5d52c4fa4f488b36089544af1a0, type: 3}
-  waterIcon: {fileID: 21300000, guid: c6e6caf6c56ae424385e4df61daf518b, type: 3}
+  seedIcon: {fileID: 21300000, guid: 2db45bf23a656174a9222f11cc0d8d8d, type: 3}
+  waterIcon: {fileID: 21300000, guid: 1a1063b6df4bebc44b1855b1adeb9417, type: 3}
 --- !u!1001 &2111580944101314734
 PrefabInstance:
   m_ObjectHideFlags: 0

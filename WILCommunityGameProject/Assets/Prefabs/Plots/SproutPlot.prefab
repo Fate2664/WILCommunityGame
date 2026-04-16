@@ -545,11 +545,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b32c3478ee3bc4ca4f7af0b50f4bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
-  seedIcon: {fileID: 21300000, guid: 164fe5d52c4fa4f488b36089544af1a0, type: 3}
-  waterIcon: {fileID: 21300000, guid: c6e6caf6c56ae424385e4df61daf518b, type: 3}
-  waterIconMAT: {fileID: 2100000, guid: ccf4f3e3c77b2dc4a94dcc6a86b1960e, type: 2}
-  seedIconMAT: {fileID: 2100000, guid: 5fa965d09a54a784496c7c06d5c12024, type: 2}
-  produceIconMAT: {fileID: 0}
+  seedIcon: {fileID: 21300000, guid: 2db45bf23a656174a9222f11cc0d8d8d, type: 3}
+  waterIcon: {fileID: 21300000, guid: 1a1063b6df4bebc44b1855b1adeb9417, type: 3}
 --- !u!1001 &412455953668239057
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -924,6 +921,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1452802235512611899}
     m_Modifications:
+    - target: {fileID: 1854645770872600340, guid: 37ce2c0a39a9cf6429cc5cf2e990fea1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 8098893038311832733, guid: 37ce2c0a39a9cf6429cc5cf2e990fea1, type: 3}
       propertyPath: m_Name
       value: InteractIcon

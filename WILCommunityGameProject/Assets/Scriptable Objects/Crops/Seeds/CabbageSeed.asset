@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b75dd6971861640819a95cb9145f57, type: 3}
+  m_Name: CabbageSeed
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.SeedItemSO
+  itemDesc:
+    Name: Cabbage Seed
+    ToolTip: Plant this seed to grow a cabbage plant.
+    Icon: {fileID: 21300000, guid: bf1b08c583aa3b047b238df1b1593f68, type: 3}
+  seedType: 2
+  daysToGrow: 1
+  harvestAmount: 10
+  seedlingPrefab: {fileID: 7863790740695239896, guid: 050a701d42d0b3946b362b675a0dde9b, type: 3}
+  harvestablePrefab: {fileID: 7863790740695239896, guid: 5588297e47bb1984fb302a43bc5cd824, type: 3}
+  produceItem: {fileID: 11400000, guid: 0fce6a7ad649f404a8018b21e72a55f6, type: 2}

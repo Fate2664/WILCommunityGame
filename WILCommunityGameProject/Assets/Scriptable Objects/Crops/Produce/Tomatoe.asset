@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Tomatoe
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.ProduceItemSO
   itemDesc:
-    Name: Tomatoe
-    ToolTip: 
-    Icon: {fileID: 21300000, guid: 631264f437a10ee4ebd9ed6a8058e605, type: 3}
+    Name: Tomato
+    ToolTip: This is a tomato.
+    Icon: {fileID: 21300000, guid: 3f951ce72539ac0489f8c0edfd3a653a, type: 3}
   produceType: 3

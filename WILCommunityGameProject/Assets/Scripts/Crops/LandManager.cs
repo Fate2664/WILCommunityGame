@@ -8,10 +8,6 @@ namespace WILCommunityGame
         [Header("Icons")] 
         [SerializeField] private Sprite seedIcon;
         [SerializeField] private Sprite waterIcon;
-        [Header("Materials")]
-        [SerializeField] private Material waterIconMAT;
-        [SerializeField] private Material seedIconMAT;
-        [SerializeField] private Material produceIconMAT;
         
         private CropBehaviour cropBehaviour;
         private UIManager uiManager;
@@ -92,21 +88,17 @@ namespace WILCommunityGame
             if (cropBehaviour.NeedsSeed)
             {
                 iconToShow = seedIcon;
-                iconToShowMAT = seedIconMAT;
             }
             else if (cropBehaviour.NeedsWater)
             {
                 iconToShow = waterIcon;
-                iconToShowMAT = waterIconMAT;
             }
             else if (cropBehaviour.IsHarvestable)
             {
                 iconToShow = cropBehaviour.HarvestIcon;
-                iconToShowMAT = produceIconMAT;
             }
             
             indicatorManager.icon = iconToShow;
-            indicatorManager.iconMAT = iconToShowMAT;
             
             if (iconToShow != null)
                 indicatorManager.ShowIndictor();

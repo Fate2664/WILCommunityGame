@@ -436,10 +436,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 0.9297309
+        Raw: 1
         Type: 1
       Y:
-        Raw: 0.7891926
+        Raw: 1
         Type: 1
       Z:
         Raw: 0
@@ -475,16 +475,16 @@ MonoBehaviour:
         Type: 0
     Margin:
       Left:
-        Raw: 5
+        Raw: 0
         Type: 0
       Right:
-        Raw: 5
+        Raw: 0
         Type: 0
       Bottom:
-        Raw: 15
+        Raw: 0
         Type: 0
       Top:
-        Raw: 15
+        Raw: 0
         Type: 0
       Front:
         Raw: 0
@@ -660,11 +660,11 @@ MonoBehaviour:
         CenterUV: {x: 0, y: 0}
         UVScale: {x: 1, y: 1}
         PixelsPerUnitMultiplier: 1
-        scaleMode: 1
+        scaleMode: 2
       Mode: 0
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: a52d0879baacd427fb4b6227dab8952c, type: 3}
+  texture: {fileID: 2800000, guid: 05f17c2b2edd8b444826f4e88c4de15a, type: 3}
   sprite: {fileID: 0}
 --- !u!1 &4049429530551073939
 GameObject:
@@ -1369,7 +1369,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 64.41187, y: -41.258545}
+  m_AnchoredPosition: {x: 59.301872, y: -41.258545}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &465680809427075680
@@ -1460,7 +1460,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -1.16
+        Raw: 3.95
         Type: 0
       Y:
         Raw: 0.53

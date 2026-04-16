@@ -14,10 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.SeedItemSO
   itemDesc:
     Name: Tomato Seed
-    ToolTip: Tomato Seed
-    Icon: {fileID: 21300000, guid: 639f1f8045231d042bd2fe9de5a25eaa, type: 3}
+    ToolTip: Plant this seed to grow a tomato plant.
+    Icon: {fileID: 21300000, guid: 7f2d4b4019a008145a52c4a3d09357e8, type: 3}
   seedType: 3
   daysToGrow: 1
+  harvestAmount: 10
   seedlingPrefab: {fileID: 7863790740695239896, guid: 449c56ca5fdacb742beddd4d76c70f85, type: 3}
   harvestablePrefab: {fileID: 7863790740695239896, guid: 908a73d7059a3914a9da13f274fe1e0d, type: 3}
   produceItem: {fileID: 11400000, guid: d98d594602a7ef7489b49bfcc2963724, type: 2}
