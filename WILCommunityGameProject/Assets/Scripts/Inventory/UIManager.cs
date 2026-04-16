@@ -131,6 +131,14 @@ public class UIManager : MonoBehaviour, ITimeTracker
             fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
             fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
         }
+
+        if (destructionButtonRoot != null)
+        {
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
+        }
     }
 
     #endregion
@@ -197,6 +205,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     {
         playerController.ToggleInventory();
         buildPlacer.enabled = true;
+        buildPlacer.SetDestroyMode(false);
         buildPlacer.placementPieceType = BuildPieceType.Floor;
     }
 
@@ -204,7 +213,15 @@ public class UIManager : MonoBehaviour, ITimeTracker
     {
         playerController.ToggleInventory();
         buildPlacer.enabled = true;
+        buildPlacer.SetDestroyMode(false);
         buildPlacer.placementPieceType = BuildPieceType.Wall;
+    }
+
+    public void DestroyEquipped()
+    {
+        playerController.ToggleInventory();
+        buildPlacer.enabled = true;
+        buildPlacer.SetDestroyMode(true);
     }
     
     private void RefreshEquippedItem()

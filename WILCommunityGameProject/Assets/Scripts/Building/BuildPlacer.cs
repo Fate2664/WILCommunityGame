@@ -37,10 +37,14 @@ namespace WILCommunityGame
 
         [Space(10)] [Header("Materials")] 
         [SerializeField] private Material previewMaterialValid;
-        [SerializeField] private Material previewMaterialGhost;
+        [SerializeField] private Material previewMaterialInvalid;
         [SerializeField] private float previewLiftY = 0.02f;
 
         private GameObject previewInstance;
+        private bool destroyMode;
+        private BuildPart hoveredBuild;
+        private readonly List<Renderer> hoveredRenderers = new ();
+        private readonly List<Material[]> hoveredMaterials = new ();
         private RaycastHit[] hitsBuffer;
         private readonly List<EdgeSocket> availableSockets = new(8);
         private int placementPieceTypeFrame;
@@ -54,6 +58,15 @@ namespace WILCommunityGame
             BuildPieceType.Wall => wallTilePrefab,
             BuildPieceType.Door => doorTilePrefab
         };
+
+        public void SetDestroyMode(bool value)
+        {
+            if (destroyMode == value) return;
+            
+            destroyMode = value;
+            ClearPreview();
+            ClearHoveredBuild();
+        }
 
         private void Awake()
         {
@@ -77,6 +90,12 @@ namespace WILCommunityGame
         {
             if (mainCamera == null || Mouse.current == null) return;
             var mouse = Mouse.current;
+
+            if (destroyMode)
+            {
+                HandleDestroyMode(mouse);
+                return;
+            }
 
             if ((int)placementPieceType != placementPieceTypeFrame)
             {
@@ -110,7 +129,7 @@ namespace WILCommunityGame
             pos.y += previewLiftY;
             previewInstance.transform.SetPositionAndRotation(pos, pose.rotation);
             
-            var mat = valid ?  previewMaterialValid : previewMaterialGhost;
+            var mat = valid ?  previewMaterialValid : previewMaterialInvalid;
             if (mat == null) return;
             foreach (var r in previewInstance.GetComponentsInChildren<Renderer>()) r.sharedMaterial = mat;
         }
@@ -147,6 +166,53 @@ namespace WILCommunityGame
             if (gridSize <= 0f) return;
             position.x = Mathf.Round(position.x / gridSize) * gridSize;
             position.z = Mathf.Round(position.z / gridSize) * gridSize;
+        }
+        
+        private void HandleDestroyMode(Mouse mouse)
+        {
+            if (!TryGetHoveredBuild(mouse.position.ReadValue(), out var build))
+            {
+                SetHoveredBuild(null);
+                return;
+            }
+
+            SetHoveredBuild(build);
+
+            if (mouse.leftButton.wasPressedThisFrame)
+            {
+                DestroyBuild(build);
+            }
+        }
+        
+        private void SetHoveredBuild(BuildPart build)
+        {
+            if (hoveredBuild == build) return;
+
+            ClearHoveredBuild();
+            hoveredBuild = build;
+
+            if (hoveredBuild == null) return;
+            foreach (var renderer in hoveredBuild.GetComponentsInChildren<Renderer>())
+            {
+                hoveredRenderers.Add(renderer);
+                hoveredMaterials.Add(renderer.sharedMaterials);
+
+                var invalidMaterials = new Material[renderer.sharedMaterials.Length];
+                for (var i = 0; i < invalidMaterials.Length; i++)
+                {
+                    invalidMaterials[i] = previewMaterialInvalid;
+                }
+
+                renderer.sharedMaterials = invalidMaterials;
+            }
+        }
+
+        private void DestroyBuild(BuildPart build)
+        {
+            if (build == null) return;
+            
+            ClearHoveredBuild();
+            Destroy(build.gameObject);
         }
 
         #region Try Methods
@@ -253,6 +319,17 @@ namespace WILCommunityGame
             return true;
         }
 
+        private bool TryGetHoveredBuild(Vector2 screenPos, out BuildPart build)
+        {
+            build = null;
+            
+            var ray = mainCamera.ScreenPointToRay(screenPos);
+            if (!Physics.Raycast(ray, out var hit, groundRaycastDistance, floorOverlapMask, QueryTriggerInteraction.Collide)) return false;
+            
+            build = hit.collider.GetComponent<BuildPart>();
+            return build != null;
+        }
+
         #endregion
 
         #region Clear Methods
@@ -264,15 +341,32 @@ namespace WILCommunityGame
             Destroy(previewInstance);
             previewInstance = null;
         }
+
+        private void ClearHoveredBuild()
+        {
+            for (var i = 0; i < hoveredRenderers.Count; i++)
+            {
+                if (hoveredRenderers[i] != null)
+                {
+                    hoveredRenderers[i].sharedMaterials = hoveredMaterials[i];
+                }
+            }
+
+            hoveredBuild = null;
+            hoveredRenderers.Clear();
+            hoveredMaterials.Clear();
+        }
         
         private void OnDisable()
         {
             ClearPreview();
+            ClearHoveredBuild();
         }
 
         private void OnDestroy()
         {
             ClearPreview();
+            ClearHoveredBuild();
         }
 
         #endregion
