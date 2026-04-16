@@ -7,13 +7,17 @@ using WILCommunityGame;
 
 public class UIManager : MonoBehaviour, ITimeTracker
 {
+    #region Class Variables
+
     [Header("References")]
     [SerializeField] private PlayerController playerController;
     [SerializeField] private BuildPlacer  buildPlacer;
     [Header("Inventory")]
     [SerializeField] private ItemDatabase ItemDatabase = null;
-    [SerializeField] private ItemView[] EquipItemRoots = null;
+    [SerializeField] private ItemView EquipItemRoot = null;
     [SerializeField] private ItemView closeButtonRoot = null;
+    [SerializeField] private ItemView fenceButtonRoot = null;
+    [SerializeField] private ItemView destructionButtonRoot = null;
     [Space(10)]
     [Header("Grid Layout")]
     public GridView Grid = null;
@@ -32,6 +36,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
     private readonly InventoryItem emptyEquippedItem = new ();
     private InventoryItem equippedItem;
     private bool inventoryNeedsRefresh;
+
+    #endregion
 
     private void Start()
     {
@@ -101,15 +107,13 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     private void RegisterStandaloneGestureHandlers()
     {
-        if (EquipItemRoots != null)
+        if (EquipItemRoot != null)
         {
-            foreach (var equipItemRoot in EquipItemRoots)
-            {
-                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals.HandleHover);
-                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals.HandleUnhover);
-                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals.HandlePress);
-                equipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals.HandleRelease);
-            }
+            
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals.HandleHover);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals.HandleUnhover);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals.HandlePress);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals.HandleRelease);
         }
 
         if (closeButtonRoot != null)
@@ -118,6 +122,14 @@ public class UIManager : MonoBehaviour, ITimeTracker
             closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
             closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
             closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
+        }
+
+        if (fenceButtonRoot != null)
+        {
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
         }
     }
 
@@ -185,15 +197,21 @@ public class UIManager : MonoBehaviour, ITimeTracker
     {
         playerController.ToggleInventory();
         buildPlacer.enabled = true;
+        buildPlacer.placementPieceType = BuildPieceType.Floor;
+    }
+
+    public void FenceEquipped()
+    {
+        playerController.ToggleInventory();
+        buildPlacer.enabled = true;
+        buildPlacer.placementPieceType = BuildPieceType.Wall;
     }
     
     private void RefreshEquippedItem()
     {
-        if (EquipItemRoots == null || !EquipItemRoots[0].TryGetVisuals(out InventoryItemVisuals visuals1)) return;
-        if (EquipItemRoots == null || !EquipItemRoots[1].TryGetVisuals(out InventoryItemVisuals visuals2)) return;
+        if (EquipItemRoot == null || !EquipItemRoot.TryGetVisuals(out InventoryItemVisuals visuals)) return;
         
-        visuals1.Bind(equippedItem ?? emptyEquippedItem, this);
-        visuals2.Bind(equippedItem ?? emptyEquippedItem, this);
+        visuals.Bind(equippedItem ?? emptyEquippedItem, this);
     }
 
     #endregion

@@ -39,16 +39,16 @@ namespace WILCommunityGame
 
         private void Update()
         {
-            if (setRain)
-            {
-                WeatherToday = WeatherData.WeatherType.Rain;
-                ApplyWeatherLight();
-            }
-            else
-            {
-                WeatherToday = WeatherData.WeatherType.Sunny;
-                ApplyWeatherLight();
-            }
+            // if (setRain)
+            // {
+            //     WeatherToday = WeatherData.WeatherType.Rain;
+            //     ApplyWeatherLight();
+            // }
+            // else
+            // {
+            //     WeatherToday = WeatherData.WeatherType.Sunny;
+            //     ApplyWeatherLight();
+            // }
 
             if (weatherEffectController != null)
                 weatherEffectController.LoadParticles();

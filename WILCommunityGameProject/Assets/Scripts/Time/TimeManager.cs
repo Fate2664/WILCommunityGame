@@ -13,6 +13,7 @@ namespace WILCommunityGame
         [SerializeField] private float timeScale = 1.0f;
         public Transform sunTransform;
         
+        public GameTimestamp CurrentGameTimeStamp => timestamp;
         private List<ITimeTracker> listeners = new ();
 
         private void Awake()
@@ -29,6 +30,7 @@ namespace WILCommunityGame
 
         private void Start()
         {
+            //starting time is 1pm
             timestamp = new GameTimestamp(13, 0, 0);
             StartCoroutine(UpdateTime());
         }
@@ -66,13 +68,24 @@ namespace WILCommunityGame
             sunTransform.localEulerAngles = new Vector3(sunAngle, 0, 0);
         }
 
-        public void Sleep(int hours)
+        public void Sleep()
         {
-            int minutesToSkip = GameTimestamp.HoursToMinutes(hours);
+            // Skip to the next occurrence of 6:00 AM.
+            int currentTimeInMinutes = GameTimestamp.HoursToMinutes(timestamp.hour) + timestamp.minute;
+            int nextMorningInMinutes = GameTimestamp.HoursToMinutes(6);
+            int minutesToSkip = (nextMorningInMinutes - currentTimeInMinutes + GameTimestamp.HoursToMinutes(24)) %
+                                GameTimestamp.HoursToMinutes(24);
+
+            if (minutesToSkip == 0)
+            {
+                minutesToSkip = GameTimestamp.HoursToMinutes(24);
+            }
+
             for (int i = 0; i < minutesToSkip; i++)
             {
                 AdvanceOneMinute();
             }
+
             UpdateSunAngle();
         }
 
