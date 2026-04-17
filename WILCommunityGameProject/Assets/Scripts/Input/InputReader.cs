@@ -17,6 +17,14 @@ namespace WILCommunityGame
         public bool NextPressed { get; private set; }
         public bool InteractPressed { get; private set; }
         public bool InventoryTogglePressed { get; private set; }
+        
+        //UI Actions
+        public event UnityAction<bool> Exit  =  delegate { };
+        public event UnityAction<bool> RestoreDefaults  =  delegate { };
+        public event UnityAction<bool> Apply  =  delegate { };
+        public event UnityAction<float> VerticalNav  =  delegate { };
+        public event UnityAction<float> HorizontalNav  =  delegate { };
+        public event UnityAction<float> TabNav = delegate { };
 
         #endregion
 
@@ -85,35 +93,34 @@ namespace WILCommunityGame
 
         #region UI Inputs
 
-        public void OnExit(InputAction.CallbackContext context)
+        void PlayerInputActions.IUIActions.OnExit(InputAction.CallbackContext context)
         {
-            return;
+            Exit.Invoke(context.phase == InputActionPhase.Performed);
         }
 
-        public void OnClick(InputAction.CallbackContext context)
+        public void OnVerticalNavigation(InputAction.CallbackContext context)
         {
-            return;
+            VerticalNav.Invoke(context.ReadValue<float>());
         }
 
-        public void OnRightClick(InputAction.CallbackContext context)
+        public void OnHorizontalNavigation(InputAction.CallbackContext context)
         {
-            return;
+            HorizontalNav.Invoke(context.ReadValue<float>());
         }
 
-        public void OnNext(InputAction.CallbackContext context)
+        void PlayerInputActions.IUIActions.OnRestoreDefaults(InputAction.CallbackContext context)
         {
-            if (!context.performed) return;
-            
-            NextPressed = true;
+            RestoreDefaults.Invoke(context.phase == InputActionPhase.Performed);
         }
 
-        public void OnNavigate(InputAction.CallbackContext context)
+        void PlayerInputActions.IUIActions.OnApply(InputAction.CallbackContext context)
         {
-            return;
+            Apply.Invoke(context.phase == InputActionPhase.Performed);
         }
 
-        public void OnApply(InputAction.CallbackContext context)
+        public void OnTabNavigation(InputAction.CallbackContext context)
         {
+            TabNav.Invoke(context.ReadValue<float>());
         }
 
         #endregion
