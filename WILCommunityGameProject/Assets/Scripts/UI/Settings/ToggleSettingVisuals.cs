@@ -4,6 +4,7 @@ using Nova;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
+using ColorUtility = UnityEngine.ColorUtility;
 
 [Serializable]
 public class ToggleSettingVisuals : ItemVisuals
@@ -22,12 +23,19 @@ public class ToggleSettingVisuals : ItemVisuals
         set
         {
             Background.BodyEnabled = value;
+            Background.Shadow.Enabled = value;
             SettingLabel.Color = value ? Color.black : Color.white;
-            CheckBox.Color = value ? Color.white : Color.black;
-            CheckBox.Border.Color = value ? Color.black : Color.white;
+            CheckBox.Color = value ? HexToColor("AB7A55") : HexToColor("765033");
+            CheckBox.Border.Color = value ? HexToColor("26190F") : Color.white;
             CheckBox.Border.Width = value ? 6f : 4f;
             CheckMark.SetImage(value ? BlackCheckMark : WhiteCheckMark);
         }
+    }
+
+    private static Color HexToColor(string hex)
+    {
+        ColorUtility.TryParseHtmlString("#" + hex, out Color color);
+        return color;
     }
 
     public bool isCheckedVisual

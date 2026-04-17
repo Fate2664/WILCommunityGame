@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 1288577582806356010}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 127.35747, y: 0, z: 0}
+  m_LocalPosition: {x: 125.55115, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -65,10 +65,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 254.71494
+        Raw: 251.1023
         Type: 0
       Y:
-        Raw: 77
+        Raw: 83.31055
         Type: 0
       Z:
         Raw: 0
@@ -430,7 +430,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7304186015023537574, guid: ff7a504a37980ee44a82f5eb17ac0c41, type: 2}
+  - {fileID: 2645622778749731721, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -452,6 +452,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &2477817351931047157
 MonoBehaviour:
@@ -482,10 +483,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 214.71494
+        Raw: 211.1023
         Type: 0
       Y:
-        Raw: 72
+        Raw: 78.31055
         Type: 0
       Z:
         Raw: 0
@@ -665,8 +666,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Button
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ff7a504a37980ee44a82f5eb17ac0c41, type: 2}
-  m_sharedMaterial: {fileID: 7304186015023537574, guid: ff7a504a37980ee44a82f5eb17ac0c41, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
+  m_sharedMaterial: {fileID: 2645622778749731721, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -701,6 +702,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0

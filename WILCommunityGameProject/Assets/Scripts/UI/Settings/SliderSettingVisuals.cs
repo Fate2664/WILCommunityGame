@@ -20,8 +20,15 @@ public class SliderSettingVisuals : ItemVisuals
             MainBackground.BodyEnabled = value;
             SettingLabel.Color = value ? Color.black : Color.white;
             ValueLabel.Color = value ? Color.black : Color.white;
-            SliderBackground.Color = value ? Color.black : Color.white;
+            // SliderBackground.Color = value ? HexToColor("765033") : HexToColor("E2A87B");
+            // FillBar.Color = value ? HexToColor("E2A87B") : HexToColor("765033");
         }
+    }
+    
+    private static Color HexToColor(string hex)
+    {
+        ColorUtility.TryParseHtmlString("#" + hex, out Color color);
+        return color;
     }
     
     public static void HandleHover(Gesture.OnHover evt, SliderSettingVisuals target)

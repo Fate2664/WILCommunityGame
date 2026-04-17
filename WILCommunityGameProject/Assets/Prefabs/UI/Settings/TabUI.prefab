@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 7304186015023537574, guid: ff7a504a37980ee44a82f5eb17ac0c41, type: 2}
+  - {fileID: 2645622778749731721, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -86,6 +86,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &21643795855995490
 MonoBehaviour:
@@ -116,10 +117,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 182.71718
+        Raw: 189.64471
         Type: 0
       Y:
-        Raw: 48
+        Raw: 52.20703
         Type: 0
       Z:
         Raw: 0
@@ -299,8 +300,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Tab Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: ff7a504a37980ee44a82f5eb17ac0c41, type: 2}
-  m_sharedMaterial: {fileID: 7304186015023537574, guid: ff7a504a37980ee44a82f5eb17ac0c41, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
+  m_sharedMaterial: {fileID: 2645622778749731721, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -335,6 +336,7 @@ MonoBehaviour:
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
+  m_characterHorizontalScale: 1
   m_wordSpacing: 0
   m_lineSpacing: 0
   m_lineSpacingMax: 0
@@ -632,26 +634,26 @@ MonoBehaviour:
       Rotation: 0
       Enabled: 0
     Border:
-      Color: {r: 1, g: 1, b: 1, a: 1}
+      Color: {r: 0.1509434, g: 0.09736562, b: 0.059095763, a: 1}
       Width:
-        Raw: 1
+        Raw: 2.67
         Type: 0
       Enabled: 0
       Direction: 2
     Shadow:
-      Color: {r: 0, g: 0, b: 0, a: 0.5}
+      Color: {r: 0, g: 0, b: 0, a: 0.8666667}
       Width:
-        Raw: 0
+        Raw: 3.75
         Type: 0
       Blur:
-        Raw: 2
+        Raw: 2.56
         Type: 0
       Offset:
         X:
           Raw: 0
           Type: 0
         Y:
-          Raw: -1
+          Raw: 0
           Type: 0
       Enabled: 0
       Direction: 0
