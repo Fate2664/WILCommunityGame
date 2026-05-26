@@ -48,6 +48,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
         TimeManager.Instance.RegisterTracker(this);
     }
 
+    #region Inventory Methods
+
     public void AddItemToInventory(InventoryItemData item, int count = 1)
     {
         if (item == null) return;
@@ -78,6 +80,21 @@ public class UIManager : MonoBehaviour, ITimeTracker
             RefreshEquippedItem();
         }
     }
+    
+    public void RefreshInventory()
+    {
+        if (!Grid.gameObject.activeInHierarchy)
+        {
+            return;
+        }
+
+        if (!inventoryNeedsRefresh) return;
+
+        Grid.Refresh();
+        inventoryNeedsRefresh = false;
+    }
+
+    #endregion
 
     #region Register Methods
 
@@ -143,19 +160,6 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     #endregion
 
-    public void RefreshInventory()
-    {
-        if (!Grid.gameObject.activeInHierarchy)
-        {
-            return;
-        }
-
-        if (!inventoryNeedsRefresh) return;
-
-        Grid.Refresh();
-        inventoryNeedsRefresh = false;
-    }
-
     #region Equip Item Methods
 
     public void EquipItem(InventoryItem item)
@@ -173,6 +177,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
                     break;
             }
         }
+        playerController.ToggleInventory();
         RefreshEquippedItem();
     }
 
@@ -203,7 +208,6 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     private void HoeEquipped()
     {
-        playerController.ToggleInventory();
         buildPlacer.enabled = true;
         buildPlacer.SetDestroyMode(false);
         buildPlacer.placementPieceType = BuildPieceType.Floor;
@@ -233,6 +237,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     #endregion
 
+    #region Time Management Methods
+
     public void ClockUpdate(GameTimestamp timestamp)
     {
         int hours = timestamp.hour;
@@ -251,4 +257,6 @@ public class UIManager : MonoBehaviour, ITimeTracker
     }
 
     private void OnDisable() => TimeManager.Instance?.UnregisterTracker(this);
+
+    #endregion
 }
