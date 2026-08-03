@@ -5866,15 +5866,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3432093671694803377, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: visuals.Color.b
-      value: 0.2
+      value: 0.23668446
       objectReference: {fileID: 0}
     - target: {fileID: 3432093671694803377, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: visuals.Color.g
-      value: 0.3137255
+      value: 0.31293145
       objectReference: {fileID: 0}
     - target: {fileID: 3432093671694803377, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: visuals.Color.r
-      value: 0.4627451
+      value: 0.42318046
       objectReference: {fileID: 0}
     - target: {fileID: 3432093671694803377, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: layout.Size.X.Raw
@@ -5927,6 +5927,22 @@ PrefabInstance:
     - target: {fileID: 5311277450255413971, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -43.353546
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201067518436642355, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
+      propertyPath: m_fontColor.b
+      value: 0.94609153
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201067518436642355, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
+      propertyPath: m_fontColor.g
+      value: 0.94609153
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201067518436642355, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
+      propertyPath: m_fontColor.r
+      value: 0.94609153
+      objectReference: {fileID: 0}
+    - target: {fileID: 6201067518436642355, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
+      propertyPath: m_fontColor32.rgba
+      value: 4294046193
       objectReference: {fileID: 0}
     - target: {fileID: 7647777528549760695, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: m_IsActive
@@ -5989,7 +6005,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -84.436615, y: -26.62764}
+  m_AnchoredPosition: {x: -84.436615, y: -29.366455}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &289718529
@@ -6021,8 +6037,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281553014
+  m_fontColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -6117,7 +6133,7 @@ MonoBehaviour:
         Raw: 23
         Type: 0
       Y:
-        Raw: -7.05
+        Raw: 0
         Type: 0
       Z:
         Raw: 0
@@ -8421,7 +8437,7 @@ MonoBehaviour:
   autoLayout:
     Axis: 2
     Spacing:
-      Raw: 14.1
+      Raw: 0
       Type: 0
     SpacingMinMax:
       Min: 0
@@ -11258,8 +11274,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281553014
+  m_fontColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -27055,7 +27071,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 46.20527}
+  m_AnchoredPosition: {x: 0, y: 39.155273}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1212766057
@@ -27087,8 +27103,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281553014
+  m_fontColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -27105,8 +27121,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 300
-  m_fontSizeBase: 300
+  m_fontSize: 450
+  m_fontSizeBase: 450
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -27170,10 +27186,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 53.934242
+        Raw: 80.90137
         Type: 0
       Y:
-        Raw: 39.155273
+        Raw: 58.73291
         Type: 0
       Z:
         Raw: 0
@@ -27183,7 +27199,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 7.05
+        Raw: 0
         Type: 0
       Z:
         Raw: 0
@@ -31844,8 +31860,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4281553014
+  m_fontColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -31862,8 +31878,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 300
-  m_fontSizeBase: 300
+  m_fontSize: 450
+  m_fontSizeBase: 450
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -31927,10 +31943,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 18.314789
+        Raw: 27.472183
         Type: 0
       Y:
-        Raw: 39.155273
+        Raw: 58.73291
         Type: 0
       Z:
         Raw: 0
@@ -35225,7 +35241,7 @@ Transform:
   m_GameObject: {fileID: 1653512625}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 556.0625, y: 0, z: 0}
+  m_LocalPosition: {x: 573.3504, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -35251,7 +35267,7 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 0.1103
+        Raw: 0.0928
         Type: 1
       Y:
         Raw: 1
@@ -35261,7 +35277,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 1112.125
+        Raw: 1146.7008
         Type: 0
       Y:
         Raw: 0
@@ -35817,12 +35833,12 @@ MonoBehaviour:
       Rotation: 0
       Enabled: 0
     Border:
-      Color: {r: 1, g: 1, b: 1, a: 1}
+      Color: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
       Width:
-        Raw: 1
+        Raw: 4
         Type: 0
-      Enabled: 0
-      Direction: 2
+      Enabled: 1
+      Direction: 0
     Shadow:
       Color: {r: 0, g: 0, b: 0, a: 0.8666667}
       Width:
@@ -35838,7 +35854,7 @@ MonoBehaviour:
         Y:
           Raw: 0
           Type: 0
-      Enabled: 1
+      Enabled: 0
       Direction: 1
     Image:
       Adjustment:
@@ -44086,9 +44102,9 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-        DefaultColor: {r: 0.67058825, g: 0.47843137, b: 0.33333334, a: 1}
-        HoverColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
-        PressedColor: {r: 0.8862745, g: 0.65882355, b: 0.48235294, a: 1}
+        DefaultColor: {r: 0.7574123, g: 0.43909723, b: 0.41545388, a: 1}
+        HoverColor: {r: 0.9946091, g: 0.42177737, b: 0.3793454, a: 1}
+        PressedColor: {r: 0.73045814, g: 0.27309856, b: 0.23922007, a: 1}
 --- !u!114 &1867587018827936233
 MonoBehaviour:
   m_ObjectHideFlags: 10
@@ -44335,7 +44351,7 @@ MonoBehaviour:
         Y:
           Raw: 0
           Type: 0
-      Enabled: 1
+      Enabled: 0
       Direction: 0
     Image:
       Adjustment:
@@ -44874,7 +44890,7 @@ MonoBehaviour:
         Y:
           Raw: 0
           Type: 0
-      Enabled: 1
+      Enabled: 0
       Direction: 0
     Image:
       Adjustment:
@@ -44974,9 +44990,9 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-        DefaultColor: {r: 0.67058825, g: 0.47843137, b: 0.33333334, a: 1}
-        HoverColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
-        PressedColor: {r: 0.8862745, g: 0.65882355, b: 0.48235294, a: 1}
+        DefaultColor: {r: 0.44130364, g: 0.5849056, b: 0.3176778, a: 1}
+        HoverColor: {r: 0.5842669, g: 0.7735849, b: 0.4159843, a: 1}
+        PressedColor: {r: 0.29360455, g: 0.3962264, b: 0.20238516, a: 1}
 --- !u!114 &2725942258490340579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45014,10 +45030,10 @@ MonoBehaviour:
         Type: 0
     Padding:
       Left:
-        Raw: 10
+        Raw: 5
         Type: 0
       Right:
-        Raw: 10
+        Raw: 5
         Type: 0
       Bottom:
         Raw: 0
@@ -45122,14 +45138,14 @@ MonoBehaviour:
   autoLayout:
     Axis: 2
     Spacing:
-      Raw: 0
+      Raw: 10
       Type: 0
     SpacingMinMax:
       Min: 0
       Max: Infinity
     AutoSpace: 0
     ReverseOrder: 0
-    alignment: 1
+    alignment: 0
     Offset: 0
     Cross:
       Axis: 0
@@ -45297,10 +45313,10 @@ MonoBehaviour:
         Type: 0
     Padding:
       Left:
-        Raw: 25
+        Raw: 18
         Type: 0
       Right:
-        Raw: 25
+        Raw: 18
         Type: 0
       Bottom:
         Raw: 18
@@ -46269,7 +46285,7 @@ MonoBehaviour:
     Shadow:
       Color: {r: 0, g: 0, b: 0, a: 0.5}
       Width:
-        Raw: 2.5
+        Raw: 0.16
         Type: 0
       Blur:
         Raw: 1.5
@@ -46281,7 +46297,7 @@ MonoBehaviour:
         Y:
           Raw: 0
           Type: 0
-      Enabled: 1
+      Enabled: 0
       Direction: 0
     Image:
       Adjustment:
@@ -46455,8 +46471,8 @@ MonoBehaviour:
                 m_StringArgument: 
                 m_BoolArgument: 0
               m_CallState: 2
-        DefaultColor: {r: 0.67058825, g: 0.47843137, b: 0.33333334, a: 1}
-        HoverColor: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
+        DefaultColor: {r: 0.8509804, g: 0.68235296, b: 0.49019608, a: 1}
+        HoverColor: {r: 0.97304577, g: 0.82153875, b: 0.6491342, a: 1}
         PressedColor: {r: 0.8862745, g: 0.65882355, b: 0.48235294, a: 1}
 --- !u!114 &7813157343869806846
 MonoBehaviour:
@@ -46583,7 +46599,7 @@ Transform:
   m_GameObject: {fileID: 6148095295438446378}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -76.4375, y: 0, z: 0}
+  m_LocalPosition: {x: -66.1496, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

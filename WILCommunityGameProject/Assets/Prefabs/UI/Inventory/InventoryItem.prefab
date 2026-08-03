@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1505950083708227376}
   - component: {fileID: 6201741124154434771}
   - component: {fileID: 4946447795557491960}
+  - component: {fileID: 8017217778583204147}
   m_Layer: 0
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_GameObject: {fileID: 2603194366852984387}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -81.155, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -78,7 +79,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 10
+        Raw: 0
         Type: 0
       Z:
         Raw: 0
@@ -181,7 +182,7 @@ MonoBehaviour:
         Max: Infinity
     Alignment:
       X: 0
-      Y: 1
+      Y: 0
       Z: 0
     AutoSize:
       X: 0
@@ -227,7 +228,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 142.31, y: 142.31, z: 0}
   visuals:
-    Color: {r: 0.8862745, g: 0.65882355, b: 0.48235294, a: 1}
+    Color: {r: 0.84905654, g: 0.6818381, b: 0.48860797, a: 1}
     CornerRadius:
       Raw: 1.02
       Type: 0
@@ -261,9 +262,9 @@ MonoBehaviour:
       Rotation: 0.002319336
       Enabled: 0
     Border:
-      Color: {r: 0.14150941, g: 0.09320541, b: 0.055402268, a: 1}
+      Color: {r: 0.42318046, g: 0.31293145, b: 0.23668446, a: 1}
       Width:
-        Raw: 4.3
+        Raw: 3
         Type: 0
       Enabled: 1
       Direction: 0
@@ -282,7 +283,7 @@ MonoBehaviour:
         Y:
           Raw: 0
           Type: 0
-      Enabled: 1
+      Enabled: 0
       Direction: 1
     Image:
       Adjustment:
@@ -374,6 +375,22 @@ MonoBehaviour:
     Y: 0
     Z: 0
   GestureSpace: 0
+--- !u!114 &8017217778583204147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2603194366852984387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b2a531bfddefda4e85a827979d250a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.SortGroup
+  info:
+    SortingOrder: 5
+    RenderQueue: 4000
+    RenderOverOpaqueGeometry: 0
 --- !u!1 &4017176061247584428
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,8 +991,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282142828
+  m_fontColor: {r: 0.42318046, g: 0.31293145, b: 0.23668446, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1031,7 +1048,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -100.00001, y: -39.75, z: -100.00001, w: -39.75}
+  m_margin: {x: -92.62001, y: -32.37, z: -92.62001, w: -32.37}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -1123,16 +1140,16 @@ MonoBehaviour:
         Type: 0
     Padding:
       Left:
-        Raw: 0
+        Raw: 7.38
         Type: 0
       Right:
-        Raw: 0
+        Raw: 7.38
         Type: 0
       Bottom:
-        Raw: 0
+        Raw: 7.38
         Type: 0
       Top:
-        Raw: 0
+        Raw: 7.38
         Type: 0
       Front:
         Raw: 0
@@ -1265,7 +1282,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
   visuals:
-    Color: {r: 0.8862745, g: 0.65882355, b: 0.48235294, a: 1}
+    Color: {r: 0.84905654, g: 0.6818381, b: 0.48860797, a: 1}
     CornerRadius:
       Raw: 1
       Type: 0
@@ -1299,9 +1316,9 @@ MonoBehaviour:
       Rotation: 0
       Enabled: 0
     Border:
-      Color: {r: 0.14117648, g: 0.09411765, b: 0.05490196, a: 1}
+      Color: {r: 0.42318046, g: 0.31293145, b: 0.23668446, a: 1}
       Width:
-        Raw: 1.8
+        Raw: 2
         Type: 0
       Enabled: 1
       Direction: 0
@@ -1320,7 +1337,7 @@ MonoBehaviour:
         Y:
           Raw: -1
           Type: 0
-      Enabled: 1
+      Enabled: 0
       Direction: 0
     Image:
       Adjustment:
@@ -1640,8 +1657,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4282142828
+  m_fontColor: {r: 0.42318046, g: 0.31293145, b: 0.23668446, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1944,7 +1961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.SortGroup
   info:
-    SortingOrder: 1
+    SortingOrder: 10
     RenderQueue: 4000
     RenderOverOpaqueGeometry: 0
 --- !u!1 &8332457870995884078
