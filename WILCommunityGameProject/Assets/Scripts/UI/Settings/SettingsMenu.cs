@@ -10,6 +10,7 @@ using WILCommunityGame;
 public class SettingsMenu : MonoBehaviour
 {
     public static SettingsMenu Instance;
+    public MenuManager MenuManager;
     public UIBlock Root = null;
     public InputReader gameInput = null;
     public PopupManager popup = null;
@@ -35,17 +36,16 @@ public class SettingsMenu : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(Instance);
+            Destroy(gameObject);
             return;
         }
 
         Instance = this;
-        DontDestroyOnLoad(Instance);
     }
 
     private void Start()
     {
-        SettingsManager.Instance.LoadAllSettings();
+        SettingsManager.Instance.Menu = this;
 
         //Visual
         Root.AddGestureHandler<Gesture.OnHover, StepperSettingVisuals>(StepperSettingVisuals.HandleHover);
@@ -63,6 +63,7 @@ public class SettingsMenu : MonoBehaviour
 
         //Data Binding
         SettingsList.AddDataBinder<StepperSetting, StepperSettingVisuals>(BindStepperSetting);
+        SettingsList.AddDataUnbinder<StepperSetting, StepperSettingVisuals>(UnbindStepperSetting);
         SettingsList.AddDataBinder<BoolSetting, ToggleSettingVisuals>(BindToggleSetting);
         SettingsList.AddDataBinder<FloatSetting, SliderSettingVisuals>(BindSliderSetting);
 
@@ -86,6 +87,15 @@ public class SettingsMenu : MonoBehaviour
         gameInput.RestoreDefaults += OnRestoreDefaults;
         gameInput.Apply += OnApply;
         gameInput.Exit += OnExit;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+
+        if (SettingsManager.Instance != null && SettingsManager.Instance.Menu == this)
+            SettingsManager.Instance.Menu = null;
     }
 
     private void FixedUpdate()
@@ -142,6 +152,8 @@ public class SettingsMenu : MonoBehaviour
 
     private void OnExit(bool pressed)
     {
+        if (!pressed) return;
+
         if (popup.IsOpen)
         {
             popup.Cancel();
@@ -151,6 +163,22 @@ public class SettingsMenu : MonoBehaviour
         //Check if settings are saved
         //IF they are not then show popup
         //IF they are then return to main menu 
+        if (!HasUnsavedSettings())
+        {
+            MenuManager.HideSettings();
+            return;
+        }
+
+        PopupData popupData = new PopupData(
+            PopupType.ExitSettings,
+            "Discard unsaved settings?",
+            new List<PopupButtonData>
+            {
+                new("Confirm", OnConfirmPressed),
+                new("Cancel", OnCancelPressed)
+            });
+
+        popup.Show(popupData);
     }
 
     private void OnRestoreDefaults(bool pressed)
@@ -183,11 +211,29 @@ public class SettingsMenu : MonoBehaviour
             case PopupType.RestoreDefaults:
                 SettingsManager.Instance.ResetAllSettings();
                 break;
+            case PopupType.ExitSettings:
+                SettingsManager.Instance.LoadAllSettings();
+                MenuManager.HideSettings();
+                break;
         }
     }
 
     private void OnCancelPressed(PopupType popupType)
     {
+    }
+
+    private bool HasUnsavedSettings()
+    {
+        foreach (SettingsCollection collection in SettingsCollection)
+        {
+            foreach (Setting setting in collection.Settings)
+            {
+                if (setting.HasUnsavedChanges)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     #endregion
@@ -357,7 +403,7 @@ public class SettingsMenu : MonoBehaviour
     {
         ApplySettingInput(index, 1);
     }
-    
+
     private void HandleTabClicked(Gesture.OnClick evt, TabButtonVisuals target, int index)
     {
         SelectTab(target, index);
@@ -366,15 +412,16 @@ public class SettingsMenu : MonoBehaviour
     private void HandleSliderDragged(Gesture.OnDrag evt, SliderSettingVisuals target, int index)
     {
         FloatSetting setting = currentSortedSettings[index] as FloatSetting;
-        Vector3 localPointerPos = target.SliderBackground.transform.InverseTransformPoint(evt.PointerPositions.Current);
+        Vector3 localPointerPos =
+            target.SliderBackground.transform.InverseTransformPoint(evt.PointerPositions.Current);
         float sliderWidth = target.SliderBackground.CalculatedSize.X.Value;
 
         float startX = target.MinVisualOffset;
         float endX = sliderWidth;
-        float currentX = Mathf.Clamp(localPointerPos.x + sliderWidth  * .5f, startX, endX);
+        float currentX = Mathf.Clamp(localPointerPos.x + sliderWidth * .5f, startX, endX);
         float normalized = Mathf.InverseLerp(startX, endX, currentX);
-        float visualPercent = Mathf.Lerp(startX / sliderWidth, 1f , normalized);
-        
+        float visualPercent = Mathf.Lerp(startX / sliderWidth, 1f, normalized);
+
         setting.Value = Mathf.Lerp(setting.Min, setting.Max, normalized);
         target.FillBar.Size.X.Percent = visualPercent;
         target.ValueLabel.Text = setting.DisplayValue;
@@ -411,6 +458,7 @@ public class SettingsMenu : MonoBehaviour
                     toggleVisuals.isCheckedVisual = toggle.IsChecked;
                     CheckUnsavedChanges(toggle.HasUnsavedChanges, toggleVisuals.SettingLabel);
                 }
+
                 break;
             case FloatSetting slider:
                 slider.InputMove(direction);
@@ -422,6 +470,7 @@ public class SettingsMenu : MonoBehaviour
                     //sliderVisuals.FillBar.Size.X.Percent = visualPercent;
                     CheckUnsavedChanges(slider.HasUnsavedChanges, sliderVisuals.SettingLabel);
                 }
+
                 break;
         }
     }
@@ -437,22 +486,25 @@ public class SettingsMenu : MonoBehaviour
 
     private void BindToggleSetting(Data.OnBind<BoolSetting> evt, ToggleSettingVisuals target, int index)
     {
-        BoolSetting setting = evt.UserData;
         target.SettingLabel.Text = evt.UserData.Name;
         target.isCheckedVisual = evt.UserData.IsChecked;
-        
-        setting.OnStateChanged -= SettingsManager.Instance.UpdateSetting;
-        setting.OnStateChanged += SettingsManager.Instance.UpdateSetting;
     }
 
     private void BindStepperSetting(Data.OnBind<StepperSetting> evt, StepperSettingVisuals target, int index)
     {
         StepperSetting setting = evt.UserData;
-        target.SettingLabel.Text = evt.UserData.Name;
-        target.Initialize(evt.UserData, index);
-        
-        setting.OnIndexChanged -= SettingsManager.Instance.UpdateSetting;
-        setting.OnIndexChanged += SettingsManager.Instance.UpdateSetting;
+        if (setting is ResolutionSetting resolutionSetting)
+        {
+            resolutionSetting.Initialize();
+        }
+
+        target.SettingLabel.Text = setting.Name;
+        target.Initialize(setting, index);
+    }
+
+    private void UnbindStepperSetting(Data.OnUnbind<StepperSetting> evt, StepperSettingVisuals target, int index)
+    {
+        target.Unbind(evt.UserData);
     }
 
     private void BindSliderSetting(Data.OnBind<FloatSetting> evt, SliderSettingVisuals visuals, int index)
@@ -460,12 +512,9 @@ public class SettingsMenu : MonoBehaviour
         FloatSetting setting = evt.UserData;
         visuals.SettingLabel.Text = setting.Name;
         visuals.ValueLabel.Text = setting.DisplayValue;
-        
+
         float normalized = Mathf.InverseLerp(setting.Min, setting.Max, setting.Value);
         visuals.FillBar.Size.X.Percent = normalized;
-
-        setting.OnValueChanged -= SettingsManager.Instance.UpdateSetting;
-        setting.OnValueChanged += SettingsManager.Instance.UpdateSetting;
     }
 
     #endregion

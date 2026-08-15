@@ -274,7 +274,6 @@ Transform:
   m_LocalScale: {x: 0.009259259, y: 0.009259259, z: 0.009259259}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7473363034344401502}
   - {fileID: 3176496310034559977}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -512,6 +511,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84c62a3b218e0364b85f6c996e63f0cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SettingsMenu
+  MenuManager: {fileID: 0}
   Root: {fileID: 4273085944567133245}
   gameInput: {fileID: 0}
   popup: {fileID: 744091814332412672}
@@ -1783,7 +1783,7 @@ GameObject:
   - component: {fileID: 896305352387858496}
   - component: {fileID: 5294110205944157829}
   m_Layer: 0
-  m_Name: Background
+  m_Name: DarkBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1797,12 +1797,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1558912790338017868}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2373950190143164341}
+  m_Father: {fileID: 3176496310034559977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &896305352387858496
 MonoBehaviour:
@@ -6443,7 +6443,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 38.296806
+        Raw: 36.925003
         Type: 0
       Y:
         Raw: 0
@@ -7240,6 +7240,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7473363034344401502}
   - {fileID: 119395130949778882}
   - {fileID: 3857518909191988890}
   m_Father: {fileID: 2373950190143164341}

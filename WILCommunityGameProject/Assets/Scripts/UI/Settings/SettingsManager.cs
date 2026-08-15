@@ -3,16 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Video;
+using WILCommunityGame;
 
 public class SettingsManager : MonoBehaviour
 {
-    public static SettingsManager Instance;
-    
+   public static SettingsManager Instance;
+
     public SettingsCollection AudioCollection;
     public SettingsCollection VideoCollection;
-    public SettingsCollection GameplayColleciton;
-    public SettingsCollection KeybindsCollection;
-    public SettingsMenu Menu;
+    [NonSerialized] public SettingsMenu Menu;
 
     private Dictionary<string, Setting> settingsLookup;
 
@@ -20,21 +19,30 @@ public class SettingsManager : MonoBehaviour
     {
         if (Instance != null && Instance != this)
         {
-            Destroy(Instance);
+            Destroy(gameObject);
             return;
         }
         Instance = this;
-        DontDestroyOnLoad(Instance);
+        DontDestroyOnLoad(gameObject);
+
+        settingsLookup = new Dictionary<string, Setting>();
+        AddSettingsFromCollection(AudioCollection);
+        AddSettingsFromCollection(VideoCollection);
+
+        LoadAllSettings();
     }
 
     private void Start()
     {
-        settingsLookup = new Dictionary<string, Setting>();
-        
-        AddSettingsFromCollection(AudioCollection);
-        AddSettingsFromCollection(GameplayColleciton);
-        AddSettingsFromCollection(KeybindsCollection);
-        AddSettingsFromCollection(VideoCollection);
+        SubscribeToSettings();
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance != this) return;
+
+        UnsubscribeFromSettings();
+        Instance = null;
     }
     
     private void AddSettingsFromCollection(SettingsCollection collection)
@@ -49,10 +57,46 @@ public class SettingsManager : MonoBehaviour
                 {
                     settingsLookup.Add(setting.Key, setting);
                 }
-                else
-                {
-                    Debug.LogWarning($"Duplicate key: {setting.Key}");
-                }
+            }
+        }
+    }
+
+    private void SubscribeToSettings()
+    {
+        foreach (Setting setting in settingsLookup.Values)
+        {
+            switch (setting)
+            {
+                case BoolSetting boolSetting:
+                    boolSetting.OnStateChanged += UpdateSetting;
+                    break;
+                case FloatSetting floatSetting:
+                    floatSetting.OnValueChanged += UpdateSetting;
+                    break;
+                case MultiOptionSetting multiOptionSetting:
+                    multiOptionSetting.OnIndexChanged += UpdateSetting;
+                    break;
+            }
+        }
+    }
+
+    private void UnsubscribeFromSettings()
+    {
+        if (settingsLookup == null) return;
+
+        foreach (Setting setting in settingsLookup.Values)
+        {
+            switch (setting)
+            {
+                case BoolSetting boolSetting:
+                    boolSetting.OnStateChanged -= UpdateSetting;
+                    break;
+                case FloatSetting floatSetting:
+                    floatSetting.OnValueChanged -= UpdateSetting;
+                    break;
+                case MultiOptionSetting multiOptionSetting:
+                    multiOptionSetting.OnIndexChanged -= UpdateSetting;
+                    break;
             }
         }
     }
@@ -97,74 +141,74 @@ public class SettingsManager : MonoBehaviour
         }
         return defualtValue;
     }
+
+    private T GetSetting<T>(string key) where T : Setting
+    {
+        if (settingsLookup != null && settingsLookup.TryGetValue(key, out Setting setting))
+        {
+            return setting as T;
+        }
+
+        return null;
+    }
     
     #endregion
 
     public bool ParticEnabled => GetBool("ParticlesEnabled", true);
     public int Difficulty => GetInt("Difficulty", 0);
     public float MasterVolume => GetFloat("MasterVolume", 1f);
-    public float MusicVolume => GetFloat("Music", 1f);
-    public float EffectsVolume => GetFloat("Effects", 1f);
-    public float MenuVolume => GetFloat("Menu", 1f);
-    
+    public float MusicVolume => GetFloat("MusicVolume", 1f);
+    public float EffectsVolume => GetFloat("SoundEffectsVolume", 1f);
+    public float MenuVolume => GetFloat("MenuVolume", 1f);
+    public ResolutionSetting Resolution => GetSetting<ResolutionSetting>("Resolution");
+    public int RenderMode => GetInt("RenderMode", 2);
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
     }
 
     #region HandleSettings
 
     public void ResetAllSettings()
     {
-        if (Menu == null) return;
-
-        foreach (var collection in Menu.SettingsCollection)
+        foreach (Setting setting in settingsLookup.Values)
         {
-            foreach (var setting in collection.Settings)
-            {
-                setting.ResetToDefault();
-            }
+            setting.ResetToDefault();
         }
+
         PlayerPrefs.Save();
-        Menu.SettingsList.Refresh();        
+        Menu?.SettingsList?.Refresh();
     }
 
     public void LoadAllSettings()
     {
-        if (Menu == null) return;
-
-        foreach (var collection in Menu.SettingsCollection)
+        foreach (Setting setting in settingsLookup.Values)
         {
-            foreach (var setting in collection.Settings)
+            switch (setting)
             {
-                switch (setting)
-                {
-                    case BoolSetting boolSetting: boolSetting.Load(); break;
-                    case FloatSetting floatSetting: floatSetting.Load(); break;
-                    case MultiOptionSetting multiOptionSetting: multiOptionSetting.Load(); break;
-                }
+                case BoolSetting boolSetting: boolSetting.Load(); break;
+                case FloatSetting floatSetting: floatSetting.Load(); break;
+                case MultiOptionSetting multiOptionSetting: multiOptionSetting.Load(); break;
             }
         }
+        ApplyVideoSettings();
+        Menu?.SettingsList?.Refresh();
     }
 
     public void SaveAllSettings()
     {
-        if  (Menu == null) return;
-
-        foreach (var collection in Menu.SettingsCollection)
+        foreach (Setting setting in settingsLookup.Values)
         {
-            foreach (var setting in collection.Settings)
+            switch (setting)
             {
-                switch (setting)
-                {
-                    case BoolSetting boolSetting: boolSetting.Save(); break;
-                    case FloatSetting floatSetting: floatSetting.Save(); break;
-                    case MultiOptionSetting multiOptionSetting: multiOptionSetting.Save(); break;
-                }
+                case BoolSetting boolSetting: boolSetting.Save(); break;
+                case FloatSetting floatSetting: floatSetting.Save(); break;
+                case MultiOptionSetting multiOptionSetting: multiOptionSetting.Save(); break;
             }
         }
         PlayerPrefs.Save();
-        Menu.SettingsList.Refresh();
+        ApplyVideoSettings();
+        Menu?.SettingsList?.Refresh();
     }
 
     public void UpdateSetting(Setting setting)
@@ -174,7 +218,7 @@ public class SettingsManager : MonoBehaviour
             switch (floatSetting.category)
             {
                 case Setting.SettingCategory.Audio:
-                    //Update all volumes with AudioManager
+                    AudioManager.Instance?.UpdateAllVolumes();
                     break;
             }
         }
@@ -186,6 +230,19 @@ public class SettingsManager : MonoBehaviour
         {
             
         }
+    }
+
+    private void ApplyVideoSettings()
+    {
+        Resolution resolution = Resolution.GetSelectedResolution();
+        FullScreenMode mode = RenderMode switch
+        {
+            0 => FullScreenMode.Windowed,
+            1 => FullScreenMode.FullScreenWindow,
+            2 => FullScreenMode.ExclusiveFullScreen
+        };
+        
+        Screen.SetResolution(resolution.width, resolution.height, mode, resolution.refreshRateRatio);
     }
 
     #endregion

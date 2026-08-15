@@ -2,6 +2,7 @@ using DG.Tweening;
 using Nova;
 using UnityEngine;
 using UnityEngine.PlayerLoop;
+using WILCommunityGame;
 
 [System.Serializable]
 public class StepperSettingVisuals : ItemVisuals
@@ -61,8 +62,31 @@ public class StepperSettingVisuals : ItemVisuals
         UpdateValue();
     }
 
+    public void Unbind(StepperSetting dataSource)
+    {
+        if (DataSource != dataSource)
+        {
+            return;
+        }
+
+        DataSource.OnIndexChanged -= HandleIndexChanged;
+        DataSource = null;
+        boundIndex = -1;
+    }
+
     private void HandleIndexChanged(Setting setting)
     {
+        if (ValueLabel == null)
+        {
+            if (DataSource != null)
+            {
+                DataSource.OnIndexChanged -= HandleIndexChanged;
+                DataSource = null;
+            }
+
+            return;
+        }
+
         UpdateValue();
     }
 
@@ -71,7 +95,8 @@ public class StepperSettingVisuals : ItemVisuals
     internal static void HandleHover(Gesture.OnHover evt, StepperSettingVisuals target)
     {
         if (SettingsMenu.Instance.popup.IsOpen) return;
-
+        
+        AudioManager.Instance.Play("HoverSound");
         target.Background.DOKill();
         target.Background.transform.DOScale(target.SettingLabel.transform.localScale * HoverScale, 0.15f)
             .SetEase(Ease.OutBack);
@@ -92,11 +117,18 @@ public class StepperSettingVisuals : ItemVisuals
         if (SettingsMenu.Instance.popup.IsOpen) return;
 
         //Play SFX
+        AudioManager.Instance.Play("ClickSound");
     }
 
     private void UpdateValue()
     {
-        ValueLabel.Text = DataSource.Options[DataSource.SelectedIndex];
+        if (ValueLabel == null || DataSource == null ||
+            DataSource.Options == null || DataSource.Options.Length == 0)
+        {
+            return;
+        }
+
+        ValueLabel.Text = DataSource.CurrentSelection;
     }
     
     private void HandleLeftArrowClicked(Gesture.OnClick evt)

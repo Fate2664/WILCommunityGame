@@ -14,25 +14,41 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SettingsCollection
   Category: Video
   Settings:
-  - rid: 6841561965315489867
+  - rid: 4351329720630247522
   - rid: 6841561965315489868
   - rid: 6841561965315489869
   references:
     version: 2
     RefIds:
-    - rid: 6841561965315489867
-      type: {class: StepperSetting, ns: , asm: Assembly-CSharp}
+    - rid: 4351329720630247522
+      type: {class: ResolutionSetting, ns: , asm: Assembly-CSharp}
       data:
-        Key: Graphics Preset
-        Name: Graphics Preset
-        Order: 1
+        Key: Resolution
+        Name: Resolution
+        Order: 0
         category: 1
         Options:
-        - Low
-        - Medium
-        - High
-        - Epic
-        DefaultIndex: 2
+        - 1920 x 1080 @ 239,76Hz
+        - 1680 x 1050 @ 239,76Hz
+        - 1600 x 1024 @ 239,76Hz
+        - 1600 x 900 @ 239,76Hz
+        - 1440 x 1080 @ 239,76Hz
+        - 1440 x 900 @ 239,76Hz
+        - 1366 x 768 @ 239,76Hz
+        - 1360 x 768 @ 239,76Hz
+        - 1280 x 1024 @ 239,76Hz
+        - 1280 x 960 @ 239,76Hz
+        - 1280 x 800 @ 239,76Hz
+        - 1280 x 768 @ 239,76Hz
+        - 1280 x 720 @ 239,76Hz
+        - 1176 x 664 @ 239,76Hz
+        - 1152 x 864 @ 239,76Hz
+        - 1024 x 768 @ 239,76Hz
+        - 800 x 600 @ 239,76Hz
+        - 720 x 576 @ 239,76Hz
+        - 720 x 480 @ 239,76Hz
+        - 640 x 480 @ 239,76Hz
+        DefaultIndex: 0
     - rid: 6841561965315489868
       type: {class: StepperSetting, ns: , asm: Assembly-CSharp}
       data:
@@ -44,12 +60,12 @@ MonoBehaviour:
         - Windowed
         - Windowed Borderless
         - Fullscreen
-        DefaultIndex: 2
+        DefaultIndex: 1
     - rid: 6841561965315489869
       type: {class: BoolSetting, ns: , asm: Assembly-CSharp}
       data:
         Key: Particle Effects Enabled
         Name: Particle Effects Enabled
-        Order: 0
+        Order: 2
         DefaultState: 1
         category: 1

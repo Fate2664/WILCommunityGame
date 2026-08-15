@@ -4,11 +4,11 @@ using DG.Tweening;
 using Nova;
 using UnityEngine;
 using UnityEngine.Events;
-
 public enum PopupType
 {
     RestoreDefaults,
     ApplySettings,
+    ExitSettings,
 }
 
 
@@ -39,4 +39,3 @@ public class PopupButtonData
         this.Callback = callback;
     }
 }
-
