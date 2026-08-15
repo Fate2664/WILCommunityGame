@@ -6,26 +6,26 @@ namespace WILCommunityGame
 {
     public class WaterTankCapacityBar : MonoBehaviour
     {
-        [SerializeField] private RainTank raintTank;
+        [SerializeField] private RainTank RainTank;
         [SerializeField] private UIBlock2D Background;
         [SerializeField] private UIBlock2D Fillbar;
 
         private void OnEnable()
         {
-            if (raintTank != null)
-                raintTank.OnWaterAmountChanged += UpdateBar;
+            if (RainTank != null)
+                RainTank.OnWaterAmountChanged += UpdateBar;
         }
 
         private void OnDisable()
         {
-            if (raintTank != null)
-                raintTank.OnWaterAmountChanged -= UpdateBar;
+            if (RainTank != null)
+                RainTank.OnWaterAmountChanged -= UpdateBar;
         }
 
         private void Start()
         {
-            if (raintTank != null)
-                UpdateBar(raintTank.WaterAmount, raintTank.Capacity);
+            if (RainTank != null)
+                UpdateBar(RainTank.WaterAmount, RainTank.Capacity);
         }
 
         private void UpdateBar(int raintTankWaterAmount, int raintTankCapacity)

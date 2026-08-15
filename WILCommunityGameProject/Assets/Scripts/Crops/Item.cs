@@ -45,6 +45,7 @@ namespace WILCommunityGame
         private int waterAmount;
 
         public event Action OnCountDecreased;
+        public event Action<int, int> OnWaterAmountChanged;
         public bool isEmpty => item == null;
         public bool IsTool => item is ToolItemSO;
         public bool IsSeed => item is SeedItemSO;
@@ -79,6 +80,10 @@ namespace WILCommunityGame
 
             int addedWater = Mathf.Min(availableWater, WaterCapacity - waterAmount);
             waterAmount += addedWater;
+            
+            if (addedWater > 0)
+                OnWaterAmountChanged?.Invoke(waterAmount, WaterCapacity);
+            
             return addedWater;
         }
 
@@ -88,6 +93,7 @@ namespace WILCommunityGame
                 return false;
             
             waterAmount -= amount;
+            OnWaterAmountChanged?.Invoke(waterAmount, WaterCapacity);
             return true;
         }
     }

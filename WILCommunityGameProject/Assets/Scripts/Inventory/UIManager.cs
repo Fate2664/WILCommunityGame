@@ -32,6 +32,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     [SerializeField] private TextBlock DayText = null;
 
     public InventoryItem EquippedItem => equippedItem;
+    public event Action<InventoryItem> OnEquippedItemChanged;
     private List<InventoryItem> Items;
     private readonly InventoryItem emptyEquippedItem = new ();
     private InventoryItem equippedItem;
@@ -247,6 +248,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         if (EquipItemRoot == null || !EquipItemRoot.TryGetVisuals(out InventoryItemVisuals visuals)) return;
         
         visuals.Bind(equippedItem ?? emptyEquippedItem, this);
+        OnEquippedItemChanged?.Invoke(equippedItem);
     }
 
     #endregion
