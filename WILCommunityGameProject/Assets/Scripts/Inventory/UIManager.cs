@@ -221,6 +221,20 @@ public class UIManager : MonoBehaviour, ITimeTracker
         buildPlacer.placementPieceType = BuildPieceType.Wall;
     }
 
+    public int FillEquippedWateringCan(int availableWater)
+    {
+        if (equippedItem == null || !equippedItem.IsWateringCan) 
+            return 0;
+        
+        int transferredWater = equippedItem.FillWater(availableWater);
+        if (transferredWater > 0)
+        {
+            RefreshEquippedItem();
+        }
+        
+        return transferredWater;
+    }
+
     public void DestroyEquipped()
     {
         playerController.ToggleInventory();

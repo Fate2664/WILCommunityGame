@@ -6,5 +6,7 @@ namespace WILCommunityGame
     public class ToolItemSO : InventoryItemData
     {
         public ToolType toolType;
+
+        [Min(1)] public int waterCapacity = 10;
     }
 }

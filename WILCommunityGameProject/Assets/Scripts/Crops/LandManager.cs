@@ -63,8 +63,7 @@ namespace WILCommunityGame
                 return;
             }
 
-            if (equipped.IsTool && equipped.item is ToolItemSO tool && tool.toolType == ToolType.WateringCan &&
-                cropBehaviour.CanWater())
+            if (equipped.IsWateringCan && cropBehaviour.NeedsWater && equipped.TryUseWater() && cropBehaviour.CanWater())
             {
                 pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
                 RefreshIndicator();

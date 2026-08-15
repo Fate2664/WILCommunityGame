@@ -16,6 +16,7 @@ namespace WILCommunityGame
         
         public WeatherData.WeatherType WeatherToday { get; private set; }
         public WeatherData.WeatherType WeatherTomorrow { get; private set; }
+        public event Action<WeatherData.WeatherType> OnWeatherChange;
         public bool IsRaining => WeatherToday == WeatherData.WeatherType.Rain;
         private bool weatherSet = false;
         private const float defaultSunIntensity = 2.0f;
@@ -34,10 +35,14 @@ namespace WILCommunityGame
             weatherEffectController = GetComponent<WeatherEffectController>();
         }
 
-        private void OnEnable() => TimeManager.Instance?.RegisterTracker(this);
+        private void Start()
+        {
+            TimeManager.Instance?.RegisterTracker(this);
+        }
+
         private void OnDisable() => TimeManager.Instance?.UnregisterTracker(this);
 
-        private void Update()
+        private void FixedUpdate()
         {
             // if (setRain)
             // {
@@ -97,6 +102,7 @@ namespace WILCommunityGame
                 WeatherTomorrow = ComputeWeather();
                 weatherSet = true;
                 ApplyWeatherLight();
+                OnWeatherChange?.Invoke(WeatherToday);
             }
         }
     }
