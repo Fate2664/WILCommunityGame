@@ -9,34 +9,35 @@ public class UIManager : MonoBehaviour, ITimeTracker
 {
     #region Class Variables
 
-    [Header("References")]
-    [SerializeField] private PlayerController playerController;
-    [SerializeField] private BuildPlacer  buildPlacer;
-    [Header("Inventory")]
-    [SerializeField] private ItemDatabase ItemDatabase = null;
+    [Header("References")] [SerializeField]
+    private PlayerController playerController;
+
+    [SerializeField] private BuildPlacer buildPlacer;
+    [Header("Inventory")] [SerializeField] private ItemDatabase ItemDatabase = null;
     [SerializeField] private ItemView EquipItemRoot = null;
     [SerializeField] private ItemView closeButtonRoot = null;
     [SerializeField] private ItemView fenceButtonRoot = null;
     [SerializeField] private ItemView destructionButtonRoot = null;
-    [Space(10)]
-    [Header("Grid Layout")]
-    public GridView Grid = null;
+    [Space(10)] [Header("Grid Layout")] public GridView Grid = null;
     public int Count = 24;
-    [Space(10)]
-    [Header("Row Styling")] [SerializeField]
+
+    [Space(10)] [Header("Row Styling")] [SerializeField]
     private int padding = 10;
-    
-    [Header("Date & Time")]
-    [SerializeField] private TextBlock TimeText = null;
+
+    [Header("Date & Time")] [SerializeField]
+    private TextBlock TimeText = null;
+
     [SerializeField] private TextBlock TimePrefix = null;
     [SerializeField] private TextBlock DayText = null;
 
     public InventoryItem EquippedItem => equippedItem;
     public event Action<InventoryItem> OnEquippedItemChanged;
     private List<InventoryItem> Items;
-    private readonly InventoryItem emptyEquippedItem = new ();
+    private readonly InventoryItem emptyEquippedItem = new();
     private InventoryItem equippedItem;
     private bool inventoryNeedsRefresh;
+    public event Action<InformationTipSO> OnInformationTipRequested;
+    private readonly HashSet<InformationTipSO> shownInformtationTips = new();
 
     #endregion
 
@@ -54,7 +55,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     public void AddItemToInventory(InventoryItemData item, int count = 1)
     {
         if (item == null) return;
-        
+
         var existing = Items.Find(x => !x.isEmpty && x.item == item);
         if (existing != null && existing.count + count != InventoryItem.maxCount)
         {
@@ -70,7 +71,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
                     item = item,
                     count = count
                 };
-            } 
+            }
         }
 
         inventoryNeedsRefresh = true;
@@ -81,7 +82,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
             RefreshEquippedItem();
         }
     }
-    
+
     public void RefreshInventory()
     {
         if (!Grid.gameObject.activeInHierarchy)
@@ -101,7 +102,6 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     private void InitGrid(GridView grid, List<InventoryItem> datasource)
     {
-
         grid.AddDataBinder<InventoryItem, InventoryItemVisuals>(BindItem);
 
         grid.SetSliceProvider(ProvideSlice);
@@ -120,42 +120,58 @@ public class UIManager : MonoBehaviour, ITimeTracker
         gridslice.AutoLayout.AutoSpace = true;
         gridslice.Layout.Padding.Value = padding;
     }
-    
-    private void BindItem(Data.OnBind<InventoryItem> evt, InventoryItemVisuals target, int index) => target.Bind(evt.UserData, this);
+
+    private void BindItem(Data.OnBind<InventoryItem> evt, InventoryItemVisuals target, int index) =>
+        target.Bind(evt.UserData, this);
 
     private void RegisterStandaloneGestureHandlers()
     {
         if (EquipItemRoot != null)
         {
-            
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals.HandleHover);
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals.HandleUnhover);
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals.HandlePress);
-            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals.HandleRelease);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryItemVisuals>(InventoryItemVisuals
+                .HandleHover);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryItemVisuals>(InventoryItemVisuals
+                .HandleUnhover);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryItemVisuals>(InventoryItemVisuals
+                .HandlePress);
+            EquipItemRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryItemVisuals>(InventoryItemVisuals
+                .HandleRelease);
         }
 
         if (closeButtonRoot != null)
         {
-            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
-            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
-            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
-            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandleHover);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandleUnhover);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandlePress);
+            closeButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandleRelease);
         }
 
         if (fenceButtonRoot != null)
         {
-            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
-            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
-            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
-            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandleHover);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandleUnhover);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandlePress);
+            fenceButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals
+                .HandleRelease);
         }
 
         if (destructionButtonRoot != null)
         {
-            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleHover);
-            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(InventoryButtonVisuals.HandleUnhover);
-            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(InventoryButtonVisuals.HandlePress);
-            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(InventoryButtonVisuals.HandleRelease);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnHover, InventoryButtonVisuals>(
+                InventoryButtonVisuals.HandleHover);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnUnhover, InventoryButtonVisuals>(
+                InventoryButtonVisuals.HandleUnhover);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnPress, InventoryButtonVisuals>(
+                InventoryButtonVisuals.HandlePress);
+            destructionButtonRoot.UIBlock.AddGestureHandler<Gesture.OnRelease, InventoryButtonVisuals>(
+                InventoryButtonVisuals.HandleRelease);
         }
     }
 
@@ -178,6 +194,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
                     break;
             }
         }
+
         playerController.ToggleInventory();
         RefreshEquippedItem();
     }
@@ -185,7 +202,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     public bool TryUseEquippedItem(int amount = 1)
     {
         if (equippedItem.isEmpty || equippedItem.count < amount) return false;
-        
+
         equippedItem.DecreaseCount(amount);
 
         if (equippedItem.count <= 0)
@@ -194,7 +211,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
             if (index >= 0) Items[index] = new InventoryItem();
             equippedItem = null;
         }
-        
+
         inventoryNeedsRefresh = true;
         RefreshInventory();
         RefreshEquippedItem();
@@ -224,15 +241,15 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     public int FillEquippedWateringCan(int availableWater)
     {
-        if (equippedItem == null || !equippedItem.IsWateringCan) 
+        if (equippedItem == null || !equippedItem.IsWateringCan)
             return 0;
-        
+
         int transferredWater = equippedItem.FillWater(availableWater);
         if (transferredWater > 0)
         {
             RefreshEquippedItem();
         }
-        
+
         return transferredWater;
     }
 
@@ -242,11 +259,11 @@ public class UIManager : MonoBehaviour, ITimeTracker
         buildPlacer.enabled = true;
         buildPlacer.SetDestroyMode(true);
     }
-    
+
     private void RefreshEquippedItem()
     {
         if (EquipItemRoot == null || !EquipItemRoot.TryGetVisuals(out InventoryItemVisuals visuals)) return;
-        
+
         visuals.Bind(equippedItem ?? emptyEquippedItem, this);
         OnEquippedItemChanged?.Invoke(equippedItem);
     }
@@ -260,7 +277,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         int hours = timestamp.hour;
         int minutes = timestamp.minute;
         string prefix = "AM";
-        
+
         if (hours > 12)
         {
             prefix = "PM";
@@ -268,11 +285,26 @@ public class UIManager : MonoBehaviour, ITimeTracker
         }
 
         TimePrefix.Text = prefix;
-        TimeText.Text = hours.ToString("00") +  ":" + minutes.ToString("00");
+        TimeText.Text = hours.ToString("00") + ":" + minutes.ToString("00");
         DayText.Text = timestamp.day.ToString();
     }
 
     private void OnDisable() => TimeManager.Instance?.UnregisterTracker(this);
+
+    #endregion
+
+    #region Information Tip Methods
+
+    public void ShowInformationTip(InformationTipSO tip)
+    {
+        if (tip == null)
+            return;
+
+        if (!shownInformtationTips.Add(tip))
+            return;
+        
+        OnInformationTipRequested?.Invoke(tip);
+    }
 
     #endregion
 }

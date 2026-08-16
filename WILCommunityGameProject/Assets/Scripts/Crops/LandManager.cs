@@ -8,11 +8,16 @@ namespace WILCommunityGame
         [Header("Icons")] 
         [SerializeField] private Sprite seedIcon;
         [SerializeField] private Sprite waterIcon;
+
+        [Header("Information Tips")] 
+        [SerializeField] private InformationTipSO seedingTip;
         
         private CropBehaviour cropBehaviour;
         private UIManager uiManager;
         private IndicatorManager indicatorManager;
         private GameObject pendingSwapPrefab;
+
+        private bool firstSeeding = true;
 
         private void Awake()
         {
@@ -58,8 +63,15 @@ namespace WILCommunityGame
 
             if (equipped.IsSeed && cropBehaviour.CanPlant(equipped.Seed))
             {
-                uiManager.TryUseEquippedItem(1);
-                RefreshIndicator();
+                if (uiManager.TryUseEquippedItem(1))
+                {
+                    if (seedingTip != null)
+                    {
+                        uiManager.ShowInformationTip(seedingTip);
+                    }
+                    RefreshIndicator();
+                    firstSeeding = false;
+                }
                 return;
             }
 
