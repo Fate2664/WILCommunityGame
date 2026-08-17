@@ -83,6 +83,44 @@ public class UIManager : MonoBehaviour, ITimeTracker
         }
     }
 
+    public int RemoveProduce(ProduceType type, int amount)
+    {
+        int remainingToRemove = amount;
+
+        for (int i = 0; i < Items.Count && remainingToRemove > 0; i++)
+        {
+            InventoryItem stack = Items[i];
+
+            if (stack == null || stack.isEmpty || !stack.IsProduce || stack.Produce.produceType != type)
+                continue;
+            
+            int removedFromStack = Mathf.Min(stack.count, remainingToRemove);
+            
+            stack.DecreaseCount(removedFromStack);
+            remainingToRemove -= removedFromStack;
+
+            if (stack.count <= 0)
+            {
+                if (ReferenceEquals(equippedItem, stack))
+                {
+                    equippedItem = null;
+                }
+
+                Items[i] = new InventoryItem();
+            }
+        }
+        
+        int removedTotal = amount - remainingToRemove;
+
+        if (removedTotal > 0)
+        {
+            inventoryNeedsRefresh = true;
+            RefreshInventory();
+            RefreshEquippedItem();
+        }
+        return removedTotal;
+    }
+
     public void RefreshInventory()
     {
         if (!Grid.gameObject.activeInHierarchy)
