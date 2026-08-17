@@ -12,36 +12,47 @@ namespace WILCommunityGame
         public ProduceItemSO Produce;
         public int Requested;
         public int Delivered;
-        
+
         public int Remaining => Mathf.Max(0, Requested - Delivered);
         public bool IsComplete => Delivered >= Requested;
     }
-    
+
+    public enum CommunityHouseSatisfaction
+    {
+        Empty,
+        Neutral,
+        Full
+    }
+
     public class CommunityHouse : MonoBehaviour, IInteractable, ITimeTracker
     {
-        [Header("Connections")] 
-        [SerializeField] private UIManager uiManager;
+        [Header("Connections")] [SerializeField]
+        private UIManager uiManager;
+
+        [SerializeField] private CommunityUIManager communityUIManager;
         [SerializeField] private ListView cropRequestList;
         [SerializeField] private UIBlock2D bowlIcon;
-        
-        [Header("Bowl Sprites")]
-        [SerializeField] private Sprite emptyBowlSprite;
-        [SerializeField] private Sprite neutalBowlSprite;
-        [SerializeField] private Sprite fullBowlSprite;
-        
-        [Header("Available Crops")]
-        [SerializeField] private ProduceItemSO[] availableCrops;
 
-        [Header("Daily Request Settings")]
-        [SerializeField] private int minCropTypesPerHouse = 1;
+        [Header("Available Crops")] [SerializeField]
+        private ProduceItemSO[] availableCrops;
+
+        [Header("Daily Request Settings")] [SerializeField]
+        private int minCropTypesPerHouse = 1;
+
         [SerializeField] private int maxCropTypesPerHouse = 5;
         [SerializeField] private int maxAmountPerCrop = 30;
-        
+
         private readonly List<CropRequest> requests = new();
+        private CommunityHouseVisuals visuals;
         private int requestDay;
+        public CommunityHouseSatisfaction Satisfaction { get; private set; } = CommunityHouseSatisfaction.Empty;
+        public event Action<CommunityHouse, CommunityHouseSatisfaction> OnSatisfactionChanged;
+
 
         private void Start()
         {
+            visuals = GetComponentInChildren<CommunityHouseVisuals>();
+
             if (cropRequestList != null)
             {
                 cropRequestList.AddDataBinder<CropRequest, CropIconVisuals>(BindCropIcon);
@@ -49,7 +60,7 @@ namespace WILCommunityGame
 
             requestDay = TimeManager.Instance.CurrentGameTimeStamp.day;
             GenerateDailyRequests();
-            
+
             TimeManager.Instance.RegisterTracker(this);
         }
 
@@ -69,9 +80,10 @@ namespace WILCommunityGame
             {
                 if (request == null || request.IsComplete)
                     continue;
-                
+
                 int delivered = uiManager.RemoveProduce(request.Produce.produceType, request.Remaining);
                 request.Delivered += delivered;
+                communityUIManager.AddDelivered(request.Produce.produceType, delivered);
             }
 
             RefreshVisuals();
@@ -81,7 +93,7 @@ namespace WILCommunityGame
         {
             if (timestamp.day == requestDay)
                 return;
-            
+
             requestDay = timestamp.day;
             GenerateDailyRequests();
         }
@@ -97,9 +109,9 @@ namespace WILCommunityGame
                 RefreshVisuals();
                 return;
             }
-            
+
             Shuffle(uniqueCrops);
-            
+
             int minTypes = Mathf.Clamp(minCropTypesPerHouse, 1, uniqueCrops.Count);
             int maxTypes = Mathf.Clamp(maxCropTypesPerHouse, minTypes, uniqueCrops.Count);
             int numberOfCropTypes = UnityEngine.Random.Range(minTypes, maxTypes + 1);
@@ -120,12 +132,17 @@ namespace WILCommunityGame
         private void RefreshVisuals()
         {
             cropRequestList?.SetDataSource(requests);
-            
+
             bool hasDeliveredAnything = requests.Exists(request => request.Delivered > 0);
             bool allRequestsComplete = requests.Count > 0 && requests.TrueForAll(request => request.IsComplete);
+
+            CommunityHouseSatisfaction satisfaction = allRequestsComplete ? CommunityHouseSatisfaction.Full :
+                hasDeliveredAnything ? CommunityHouseSatisfaction.Neutral : CommunityHouseSatisfaction.Empty;
             
-            Sprite sprite = allRequestsComplete ? fullBowlSprite : hasDeliveredAnything ? neutalBowlSprite : emptyBowlSprite;
-            bowlIcon.SetImage(sprite);
+            SetSatisfaction(satisfaction);
+
+            bowlIcon.SetImage(visuals.UpdateBowlImage(hasDeliveredAnything, allRequestsComplete));
+            visuals.UpdateBowlBackground(hasDeliveredAnything, allRequestsComplete);
         }
 
         private void Shuffle(List<ProduceItemSO> crops)
@@ -149,8 +166,17 @@ namespace WILCommunityGame
                     uniqueCrops.Add(crop);
                 }
             }
+
             return uniqueCrops;
         }
-        
+
+        private void SetSatisfaction(CommunityHouseSatisfaction newSatisfaction)
+        {
+            if (Satisfaction == newSatisfaction)
+                return;
+            
+            Satisfaction = newSatisfaction;
+            OnSatisfactionChanged?.Invoke(this, newSatisfaction);
+        }
     }
 }
