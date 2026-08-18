@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f186b23a6cd01b4ba29b71aeef5f247, type: 3}
-  m_Name: Seeding
+  m_Name: Hoeing
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.InformationTipSO
   text: 'This will show the text of the tips and information for the player. It must
     be able to show text that the player can read.

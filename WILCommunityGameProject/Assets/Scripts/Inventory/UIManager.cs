@@ -11,22 +11,29 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     [Header("References")] [SerializeField]
     private PlayerController playerController;
-
     [SerializeField] private BuildPlacer buildPlacer;
-    [Header("Inventory")] [SerializeField] private ItemDatabase ItemDatabase = null;
+    
+    [Header("Inventory")] 
+    [SerializeField] private ItemDatabase ItemDatabase = null;
     [SerializeField] private ItemView EquipItemRoot = null;
     [SerializeField] private ItemView closeButtonRoot = null;
     [SerializeField] private ItemView fenceButtonRoot = null;
     [SerializeField] private ItemView destructionButtonRoot = null;
-    [Space(10)] [Header("Grid Layout")] public GridView Grid = null;
+    
+    [Header("Information")]
+    [SerializeField] private InformationTipSO hoeTip;
+    
+    [Space(10)]
+    [Header("Grid Layout")] 
+    public GridView Grid = null;
     public int Count = 24;
 
-    [Space(10)] [Header("Row Styling")] [SerializeField]
-    private int padding = 10;
-
-    [Header("Date & Time")] [SerializeField]
-    private TextBlock TimeText = null;
-
+    [Space(10)] 
+    [Header("Row Styling")] 
+    [SerializeField] private int padding = 10;
+    
+    [Header("Date & Time")] 
+    [SerializeField] private TextBlock TimeText = null;
     [SerializeField] private TextBlock TimePrefix = null;
     [SerializeField] private TextBlock DayText = null;
 
@@ -38,6 +45,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     private bool inventoryNeedsRefresh;
     public event Action<InformationTipSO> OnInformationTipRequested;
     private readonly HashSet<InformationTipSO> shownInformtationTips = new();
+    private bool firstTimeHoeEquipped = true; //<-- Nice naming lol
 
     #endregion
 
@@ -267,6 +275,11 @@ public class UIManager : MonoBehaviour, ITimeTracker
         buildPlacer.enabled = true;
         buildPlacer.SetDestroyMode(false);
         buildPlacer.placementPieceType = BuildPieceType.Floor;
+        if (hoeTip != null && firstTimeHoeEquipped)
+        {
+            ShowInformationTip(hoeTip);
+            firstTimeHoeEquipped = false;
+        }
     }
 
     public void FenceEquipped()

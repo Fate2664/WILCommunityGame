@@ -108,13 +108,13 @@ namespace WILCommunityGame
 
             float categoryVolume = GetCategoryVolume(s.category);
             //Final audio = audio source volume * category volume * master volume
-            s.source.volume = (s.volume * (categoryVolume / 100) * (SettingsManager.Instance.MasterVolume / 100));
+            s.source.volume = (s.volume * (categoryVolume / 100)); //* (SettingsManager.Instance?.MasterVolume / 100));
             s.source.Play();
         }
 
         private void PlayMusicForScene(Scene scene)
         {
-            string musicKey = scene.name == "MainMenu" ? "MenuMusic" : "GameplayMusic";
+            string musicKey = scene.name == "MenuScene" ? "MenuMusic" : "GameplayMusic";
 
             if (!string.IsNullOrEmpty(currentMusic))
             {
@@ -136,6 +136,9 @@ namespace WILCommunityGame
 
         private float GetCategoryVolume(SoundCategory category)
         {
+            if (SettingsManager.Instance == null)
+                return 100;
+            
             switch (category)
             {
                 case SoundCategory.Music:
@@ -155,7 +158,7 @@ namespace WILCommunityGame
             {
                 float categoryVolume = GetCategoryVolume(s.category);
                 //Final audio = audio source volume * category volume * master volume
-                s.source.volume = (s.volume * (categoryVolume / 100) * (SettingsManager.Instance.MasterVolume / 100));
+                s.source.volume = (s.volume * (categoryVolume / 100)); // * (SettingsManager.Instance.MasterVolume / 100));
             }
         }
     }

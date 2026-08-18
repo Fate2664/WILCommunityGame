@@ -587,6 +587,7 @@ MonoBehaviour:
   seedIcon: {fileID: 21300000, guid: 2db45bf23a656174a9222f11cc0d8d8d, type: 3}
   waterIcon: {fileID: 21300000, guid: 1a1063b6df4bebc44b1855b1adeb9417, type: 3}
   seedingTip: {fileID: 11400000, guid: f501d2d91c6c1184786a4460c248f399, type: 2}
+  wateringTip: {fileID: 11400000, guid: 81df3bf45ca9f424eb2c8050601a0734, type: 2}
 --- !u!1001 &8338387316760936355
 PrefabInstance:
   m_ObjectHideFlags: 0

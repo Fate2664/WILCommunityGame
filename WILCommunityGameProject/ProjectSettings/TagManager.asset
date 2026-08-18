@@ -6,6 +6,7 @@ TagManager:
   tags:
   - House
   - CommunityHouse
+  - Marketplace
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,9 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: WorldUI
+    uniqueID: 478842569
     locked: 0
   - name: WorldIcons
     uniqueID: 3680516967

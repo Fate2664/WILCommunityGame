@@ -138,6 +138,9 @@ namespace WILCommunityGame
         {
             if (prefab == null || (placementPieceType == BuildPieceType.Floor && IsFloorOccupied(pose.position))) return;
             var go = Instantiate(prefab, pose.position, pose.rotation);
+            if (placementPieceType == BuildPieceType.Floor)
+            AudioManager.Instance.Play("Hoeing");
+            
             if (socketSnap == null) return;
             var part = go.GetComponent<BuildPart>();
             if (part != null) socketSnap.SetOccupant(part);
