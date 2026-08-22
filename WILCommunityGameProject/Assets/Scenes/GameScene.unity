@@ -42037,7 +42037,6 @@ GameObject:
   - component: {fileID: 1581307612}
   - component: {fileID: 1581307616}
   - component: {fileID: 1581307615}
-  - component: {fileID: 1581307614}
   - component: {fileID: 1581307613}
   m_Layer: 0
   m_Name: MarketplaceRoot
@@ -42074,22 +42073,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2e2fe898186af4b929d55faf4044cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceUI
---- !u!114 &1581307614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1581307611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2a531bfddefda4e85a827979d250a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Nova::Nova.SortGroup
-  info:
-    SortingOrder: 2
-    RenderQueue: 3000
-    RenderOverOpaqueGeometry: 0
 --- !u!114 &1581307615
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49715,7 +49698,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - key: Planting
     clip: {fileID: 8300000, guid: 4fb1acdfa62c9244c924092772ec91ac, type: 3}
-    volume: 0.641
+    volume: 0.523
     pitch: 1.01
     loop: 0
     category: 2
@@ -49729,7 +49712,7 @@ MonoBehaviour:
     source: {fileID: 0}
   - key: Hoeing
     clip: {fileID: 8300000, guid: f67aed3423341474e822ab33109d3a56, type: 3}
-    volume: 0.687
+    volume: 0.436
     pitch: 1.01
     loop: 0
     category: 2
