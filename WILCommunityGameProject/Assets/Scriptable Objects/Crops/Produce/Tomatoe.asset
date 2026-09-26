@@ -17,3 +17,4 @@ MonoBehaviour:
     ToolTip: This is a tomato.
     Icon: {fileID: 21300000, guid: 3f951ce72539ac0489f8c0edfd3a653a, type: 3}
   produceType: 3
+  sellPrice: 15
