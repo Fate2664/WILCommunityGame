@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1505950083708227376}
   - component: {fileID: 6201741124154434771}
   - component: {fileID: 4946447795557491960}
-  - component: {fileID: 8017217778583204147}
+  - component: {fileID: 3056930382344453266}
   m_Layer: 0
   m_Name: InventoryItem
   m_TagString: Untagged
@@ -375,7 +375,7 @@ MonoBehaviour:
     Y: 0
     Z: 0
   GestureSpace: 0
---- !u!114 &8017217778583204147
+--- !u!114 &3056930382344453266
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -388,9 +388,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.SortGroup
   info:
-    SortingOrder: 5
+    SortingOrder: 3
     RenderQueue: 4000
-    RenderOverOpaqueGeometry: 0
+    RenderOverOpaqueGeometry: 1
 --- !u!1 &4017176061247584428
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,7 +1734,7 @@ GameObject:
   - component: {fileID: 785719712549490491}
   - component: {fileID: 3878803176793951492}
   - component: {fileID: 8312627450790845144}
-  - component: {fileID: 5042596046689536277}
+  - component: {fileID: 2581681166489960191}
   m_Layer: 0
   m_Name: ToolTipRoot
   m_TagString: Untagged
@@ -1948,7 +1948,7 @@ MonoBehaviour:
     ShadowCastingMode: 2
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
---- !u!114 &5042596046689536277
+--- !u!114 &2581681166489960191
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1963,7 +1963,7 @@ MonoBehaviour:
   info:
     SortingOrder: 10
     RenderQueue: 4000
-    RenderOverOpaqueGeometry: 0
+    RenderOverOpaqueGeometry: 1
 --- !u!1 &8332457870995884078
 GameObject:
   m_ObjectHideFlags: 0

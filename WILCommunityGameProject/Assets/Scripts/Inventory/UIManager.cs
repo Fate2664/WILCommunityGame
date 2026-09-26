@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     public event Action<InformationTipSO> OnInformationTipRequested;
     private readonly HashSet<InformationTipSO> shownInformtationTips = new();
     private bool firstTimeHoeEquipped = true; //<-- Nice naming lol
+    public event Action OnInventoryChanged;
 
     #endregion
 
@@ -56,6 +57,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         RegisterStandaloneGestureHandlers();
         RefreshEquippedItem();
         TimeManager.Instance.RegisterTracker(this);
+        OnInventoryChanged?.Invoke();
     }
 
     #region Inventory Methods
@@ -89,43 +91,59 @@ public class UIManager : MonoBehaviour, ITimeTracker
         {
             RefreshEquippedItem();
         }
+        OnInventoryChanged?.Invoke();
     }
 
     public int RemoveProduce(ProduceType type, int amount)
     {
-        int remainingToRemove = amount;
+        return RemoveMatchingProduce(stack => stack.Produce.produceType == type, amount);
+    }
+    
+    public int RemoveProduce(ProduceItemSO produce, int amount)
+    {
+        if (produce == null)
+            return 0;
 
-        for (int i = 0; i < Items.Count && remainingToRemove > 0; i++)
+        return RemoveMatchingProduce(stack => stack.Produce == produce, amount);
+    }
+    
+    private int RemoveMatchingProduce(Predicate<InventoryItem> matches, int amount)
+    {
+        if (Items == null || amount <= 0) return 0;
+
+        int remaining = amount;
+
+        for (int i = 0; i < Items.Count && remaining > 0; i++)
         {
             InventoryItem stack = Items[i];
 
-            if (stack == null || stack.isEmpty || !stack.IsProduce || stack.Produce.produceType != type)
+            if (stack == null || !stack.IsProduce || stack.count <= 0 || !matches(stack))
                 continue;
-            
-            int removedFromStack = Mathf.Min(stack.count, remainingToRemove);
-            
-            stack.DecreaseCount(removedFromStack);
-            remainingToRemove -= removedFromStack;
+
+            int removed = Mathf.Min(stack.count, remaining);
+
+            stack.DecreaseCount(removed);
+            remaining -= removed;
 
             if (stack.count <= 0)
             {
                 if (ReferenceEquals(equippedItem, stack))
-                {
                     equippedItem = null;
-                }
 
                 Items[i] = new InventoryItem();
             }
         }
-        
-        int removedTotal = amount - remainingToRemove;
+
+        int removedTotal = amount - remaining;
 
         if (removedTotal > 0)
         {
             inventoryNeedsRefresh = true;
             RefreshInventory();
             RefreshEquippedItem();
+            OnInventoryChanged?.Invoke();
         }
+
         return removedTotal;
     }
 
@@ -140,6 +158,48 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
         Grid.Refresh();
         inventoryNeedsRefresh = false;
+    }
+
+    public List<InventoryItem> GetProduceItems()
+    {
+        List<InventoryItem> crops = new();
+        if (Items == null) return crops;
+
+        foreach (var stack in Items)
+        {
+            if (stack == null || !stack.IsProduce || stack.count <= 0)
+                continue;
+            
+            InventoryItem existing = crops.Find(x => x.item == stack.item);
+
+            if (existing != null)
+            {
+                existing.count += stack.count;
+            }
+            else
+            {
+                crops.Add(new InventoryItem
+                {
+                    item = stack.item,
+                    count = stack.count
+                });
+            }
+        }
+        return crops;
+    }
+
+    public int GetProduceCount(ProduceItemSO produce)
+    {
+        if (Items == null || produce == null) return 0;
+
+        int total = 0;
+
+        foreach (var stack in Items)
+        {
+            if (stack != null && stack.item == produce && stack.count > 0)
+                total += stack.count;
+        }
+        return total;
     }
 
     #endregion
@@ -228,7 +288,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
     public void EquipItem(InventoryItem item)
     {
         equippedItem = item != null && !item.isEmpty ? item : null;
-        if (equippedItem.IsTool)
+        if (equippedItem != null && equippedItem.IsTool)
         {
             ToolItemSO tool = equippedItem.item as ToolItemSO;
             switch (tool.toolType)
@@ -247,7 +307,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     public bool TryUseEquippedItem(int amount = 1)
     {
-        if (equippedItem.isEmpty || equippedItem.count < amount) return false;
+        if (equippedItem == null || equippedItem.isEmpty || amount <= 0 || equippedItem.count < amount)
+            return false;
 
         equippedItem.DecreaseCount(amount);
 
@@ -261,6 +322,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         inventoryNeedsRefresh = true;
         RefreshInventory();
         RefreshEquippedItem();
+        OnInventoryChanged?.Invoke();
         return true;
     }
 

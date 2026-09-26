@@ -308,7 +308,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   info:
-    SortingOrder: 0
+    SortingOrder: 1
     RenderQueue: 4000
     RenderOverOpaqueGeometry: 1
 --- !u!1 &1649791192226457656

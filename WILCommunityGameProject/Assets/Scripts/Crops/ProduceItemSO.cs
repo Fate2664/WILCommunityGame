@@ -6,5 +6,7 @@ namespace WILCommunityGame
     public class ProduceItemSO : InventoryItemData
     {
         public ProduceType produceType;
+        
+        [Header("Marketplace")] public int sellPrice = 1;
     }
 }
