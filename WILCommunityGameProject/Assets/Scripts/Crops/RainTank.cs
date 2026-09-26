@@ -50,5 +50,14 @@ namespace WILCommunityGame
             OnWaterAmountChanged?.Invoke(currentWaterAmount, capacity);
         }
 
+        public void IncreaseCapacity(int amount)
+        {
+            if (amount <= 0 || (long)capacity + amount > int.MaxValue)
+                return;
+            
+            capacity += amount;
+            SetWaterAmount(currentWaterAmount);
+        }
+
     }
 }

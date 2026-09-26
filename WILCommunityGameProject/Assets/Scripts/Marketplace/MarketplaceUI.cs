@@ -16,6 +16,7 @@ namespace WILCommunityGame
         [Header("Tabs")]
         [SerializeField] private MarketplaceSellTabUI sellTabUI;
         [SerializeField] private GameObject sellCropsRoot;
+        [SerializeField] private MarketplaceUpgradesTabUI upgradesTabUI;
         [SerializeField] private GameObject buyUpgradesRoot;
         
         [Header("Currency")]
@@ -85,6 +86,8 @@ namespace WILCommunityGame
         {
             sellCropsRoot.SetActive(false);
             buyUpgradesRoot.SetActive(true);
+            
+            upgradesTabUI.RefreshTab();
         }
         
         private void HandleInventoryChanged()
@@ -99,6 +102,9 @@ namespace WILCommunityGame
 
             if (uiOpen && sellCropsRoot.activeInHierarchy)
                 sellTabUI.RefreshSaleDetails();
+            
+            if (uiOpen && buyUpgradesRoot.activeInHierarchy)
+                upgradesTabUI.RefreshPurchaseStates();
         }
 
     }

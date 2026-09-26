@@ -7,12 +7,16 @@ namespace WILCommunityGame
 {
     public class MarketplaceSellTabUI : MonoBehaviour
     {
-        [Header("References")]
-        [SerializeField] private MarketplaceUI marketplaceUI;
-        
+        [Header("References")] [SerializeField]
+        private MarketplaceUI marketplaceUI;
+
         [Header("Crops")] [SerializeField] private GridView cropsGrid;
         [SerializeField] private TextBlock emptyInventoryText;
-        [SerializeField] private int padding = 10;
+        [SerializeField] private ProduceItemSO[] allCrops = new ProduceItemSO[8];
+
+        [Header("Grid Spacing")]
+        [SerializeField, Min(0f)] private float columnSpacing = 30f;
+        [SerializeField, Min(0f)] private float rowSpacing = 16f;
 
         [Header("Selected Crop")] [SerializeField]
         private GameObject sellRoot;
@@ -29,7 +33,7 @@ namespace WILCommunityGame
         [SerializeField] private Interactable sellButton;
 
         [Header("Currency")] [SerializeField] private TextBlock currencyText;
-        
+
         private readonly List<InventoryItem> crops = new();
         private ProduceItemSO selectedCrop;
         private int quantity;
@@ -46,13 +50,20 @@ namespace WILCommunityGame
         private void InitializeGrid()
         {
             if (gridInitialized) return;
-            
+
+            cropsGrid.PrimaryAxis = Axis.Y;
+            cropsGrid.CrossAxis = Axis.X;
+            cropsGrid.CrossAxisItemCount = 4;
+
+            cropsGrid.UIBlock.AutoLayout.AutoSpace = false;
+            cropsGrid.UIBlock.AutoLayout.Spacing.Value = rowSpacing;
+
             cropsGrid.AddDataBinder<InventoryItem, MarketplaceCropItemVisuals>(BindCrop);
             cropsGrid.AddGestureHandler<Gesture.OnClick, MarketplaceCropItemVisuals>(HandleCropClicked);
 
             cropsGrid.SetSliceProvider(ProvideSlice);
             cropsGrid.SetDataSource(crops);
-            
+
             gridInitialized = true;
         }
 
@@ -60,22 +71,20 @@ namespace WILCommunityGame
         {
             if (cropsGrid != null && gridInitialized)
             {
-                cropsGrid.RemoveDataBinder
-                    <InventoryItem, MarketplaceCropItemVisuals>(BindCrop);
-
-                cropsGrid.RemoveGestureHandler
-                    <Gesture.OnClick, MarketplaceCropItemVisuals>(
-                        HandleCropClicked);
+                cropsGrid.RemoveDataBinder<InventoryItem, MarketplaceCropItemVisuals>(BindCrop);
+                cropsGrid.RemoveGestureHandler<Gesture.OnClick, MarketplaceCropItemVisuals>(HandleCropClicked);
             }
         }
-        
+
         private void ProvideSlice(int index, GridView grid, ref GridSlice2D slice)
         {
             slice.Layout.AutoSize.Y = AutoSize.Shrink;
-            slice.AutoLayout.AutoSpace = true;
-            slice.Layout.Padding.Value = padding;
+            // Outer padding belongs to CropsRoot; row padding adds to the visible row gap.
+            slice.Layout.Padding.Value = 0f;
+            slice.AutoLayout.AutoSpace = false;
+            slice.AutoLayout.Spacing.Value = columnSpacing;
         }
-        
+
         private void BindCrop(Data.OnBind<InventoryItem> evt, MarketplaceCropItemVisuals target, int index)
         {
             target.Bind(evt.UserData, evt.UserData.Produce == selectedCrop);
@@ -87,45 +96,48 @@ namespace WILCommunityGame
                 return;
 
             selectedCrop = crops[index].Produce;
-            quantity = 1;
+            quantity = inventory.GetProduceCount(selectedCrop) > 0 ? 1 : 0;
 
             cropsGrid.Refresh();
             RefreshSaleDetails();
         }
-        
+
         public void RefreshCrops()
         {
             if (!isActiveAndEnabled) return;
 
             InitializeGrid();
-            
-            crops.Clear();
-            crops.AddRange(inventory.GetProduceItems());
 
-            if (selectedCrop != null &&
-                inventory.GetProduceCount(selectedCrop) == 0)
+            crops.Clear();
+
+            foreach (var crop in allCrops)
             {
-                selectedCrop = null;
+                if (crop == null)
+                    continue;
+
+                crops.Add(new InventoryItem
+                {
+                    item = crop,
+                    count = inventory.GetProduceCount(crop)
+                });
             }
+
+            if (selectedCrop != null && !crops.Exists(entry => entry.Produce == selectedCrop))
+                selectedCrop = null;
 
             if (emptyInventoryText != null)
-            {
-                emptyInventoryText.Text = "No crops to sell.";
-                emptyInventoryText.gameObject.SetActive(crops.Count == 0);
-            }
+                emptyInventoryText.gameObject.SetActive(false);
 
             cropsGrid.Refresh();
             RefreshSaleDetails();
         }
-        
+
         public void RefreshSaleDetails()
         {
-            int available = inventory.GetProduceCount(selectedCrop);
-            bool hasCrop = selectedCrop != null && available > 0;
+            bool hasSelection = selectedCrop != null;
+            sellRoot.SetActive(hasSelection);
 
-            sellRoot.SetActive(hasCrop);
-
-            if (!hasCrop)
+            if (!hasSelection)
             {
                 quantity = 0;
                 decreaseButton.enabled = false;
@@ -134,7 +146,8 @@ namespace WILCommunityGame
                 return;
             }
 
-            quantity = Mathf.Clamp(quantity, 1, available);
+            int available = inventory.GetProduceCount(selectedCrop);
+            quantity = available > 0 ? Mathf.Clamp(quantity, 1, available) : 0;
 
             selectedCropIcon.SetImage(selectedCrop.itemDesc.Icon);
             selectedCropCount.Text = available.ToString();
@@ -146,10 +159,12 @@ namespace WILCommunityGame
             totalAmountText.Text = total.ToString();
 
             decreaseButton.enabled = quantity > 1;
-            increaseButton.enabled = quantity < available;
-            sellButton.enabled = playerStats.CanReceiveCurrency(total);
+            increaseButton.enabled = available > 0 && quantity < available;
+
+            sellButton.enabled = available > 0 && quantity > 0 && selectedCrop.sellPrice > 0 &&
+                                 playerStats.CanReceiveCurrency(total);
         }
-        
+
         public void IncreaseQuantity()
         {
             ChangeQuantity(1);
@@ -159,7 +174,7 @@ namespace WILCommunityGame
         {
             ChangeQuantity(-1);
         }
-        
+
         private void ChangeQuantity(int change)
         {
             if (!CanInteract || selectedCrop == null)
@@ -176,12 +191,12 @@ namespace WILCommunityGame
             quantity = Mathf.Clamp(quantity + change, 1, available);
             RefreshSaleDetails();
         }
-        
+
         public void SellSelectedCrop()
         {
             if (!CanInteract || selectedCrop == null || quantity <= 0)
                 return;
-            
+
             ProduceItemSO crop = selectedCrop;
             int unitPrice = crop.sellPrice;
             int available = inventory.GetProduceCount(crop);
@@ -202,6 +217,5 @@ namespace WILCommunityGame
             if (removed > 0)
                 playerStats.AddCurrency((int)((long)removed * unitPrice));
         }
-        
     }
 }

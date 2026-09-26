@@ -1,20 +1,20 @@
-﻿using System;
-using DG.Tweening;
+﻿using DG.Tweening;
 using Nova;
 using UnityEngine;
 
 namespace WILCommunityGame
-{
-    [Serializable]
-    public class MarketplaceCropItemVisuals : ItemVisuals
+{   
+    [System.Serializable]
+    public class UpgradeCategoryItemVisuals : ItemVisuals
     {
         public UIBlock2D background;
         public UIBlock2D Icon;
-        public TextBlock CountText;
+        public TextBlock NameText;
 
-        public Color DefaultColor = new (0.97f, 0.82f, 0.65f);
+        public Color DefaultColor = new(0.97f, 0.82f, 0.65f);
         public Color HoverColor = new (0.97f, 0.82f, 0.65f);
-        public Color SelectedColor = new (0.65f, 0.85f, 0.45f);
+        public Color SelectedColor = Color.white;
+        public Color SelectedTextColor = Color.white;
         
         public float hoverScale = 1.05f;
         public float pressedScale = 0.98f;
@@ -28,7 +28,7 @@ namespace WILCommunityGame
         private bool initialized;
         private bool isSelected;
 
-        public void Bind(InventoryItem crop, bool selected)
+        public void Bind(MarketplaceUpgradeCategory category, bool selected)
         {
             if (!initialized)
             {
@@ -36,16 +36,17 @@ namespace WILCommunityGame
                 RegisterGestureHandlers();
                 initialized = true;
             }
-
+            
             isSelected = selected;
-
-            Icon.SetImage(crop.item.itemDesc.Icon);
-            CountText.Text = crop.count.ToString();
-
+            
+            Icon.SetImage(category.icon);
+            NameText.Text = category.displayName;
+            NameText.Color = selected ? SelectedTextColor : DefaultColor;
+            
             RefreshBackgroundColor();
         }
-
-        private void RefreshBackgroundColor()
+        
+         private void RefreshBackgroundColor()
         {
             background.Color = isSelected ? SelectedColor : isHovered ? HoverColor : DefaultColor;
         }
@@ -55,11 +56,6 @@ namespace WILCommunityGame
             defaultScale = background.transform.localScale;
             defaultBackgroundColor = background.Color;
             defaultBodyEnabled = background.BodyEnabled;
-
-            if (CountText != null)
-            {
-                defaultTextColor = CountText.Color;
-            }
         }
 
         private void RegisterGestureHandlers()
@@ -87,10 +83,6 @@ namespace WILCommunityGame
             background.BodyEnabled = defaultBodyEnabled;
             RefreshBackgroundColor();
 
-            if (CountText != null)
-            {
-                CountText.Color = defaultTextColor;
-            }
             AnimateScale(defaultScale, Ease.OutQuad);
         }
 

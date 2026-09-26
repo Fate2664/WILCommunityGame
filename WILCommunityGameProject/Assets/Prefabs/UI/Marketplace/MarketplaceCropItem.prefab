@@ -328,7 +328,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 70.79688, y: -52.753548}
+  m_AnchoredPosition: {x: 68.376884, y: -50.33355}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &802025087858814714
@@ -919,7 +919,7 @@ Transform:
   m_GameObject: {fileID: 4365728673036932019}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 82.65, y: -82.65, z: 0}
+  m_LocalPosition: {x: 80.23, y: -80.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -955,10 +955,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 165.3
+        Raw: 160.46
         Type: 0
       Y:
-        Raw: 165.3
+        Raw: 160.46
         Type: 0
       Z:
         Raw: 0
@@ -1115,7 +1115,7 @@ MonoBehaviour:
     LightingModel: 0
     ShadowCastingMode: 2
     ReceiveShadows: 1
-  PreviewSize: {x: 165.3, y: 165.3, z: 0}
+  PreviewSize: {x: 160.46, y: 160.49, z: 0}
   visuals:
     Color: {r: 0.97304577, g: 0.82153875, b: 0.6491342, a: 1}
     CornerRadius:
@@ -1205,11 +1205,15 @@ MonoBehaviour:
     - rid: 3062713331366232140
       type: {class: MarketplaceCropItemVisuals, ns: WILCommunityGame, asm: Assembly-CSharp}
       data:
-        Background: {fileID: 7175270236288592915}
+        background: {fileID: 7175270236288592915}
         Icon: {fileID: 267401491254349058}
         CountText: {fileID: 7739061879536646446}
         DefaultColor: {r: 0.97, g: 0.82, b: 0.65, a: 1}
+        HoverColor: {r: 0.9811321, g: 0.89645714, b: 0.8006408, a: 1}
         SelectedColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
+        hoverScale: 1.05
+        pressedScale: 0.98
+        animationDuration: 0.15
 --- !u!114 &6559774238682295974
 MonoBehaviour:
   m_ObjectHideFlags: 0

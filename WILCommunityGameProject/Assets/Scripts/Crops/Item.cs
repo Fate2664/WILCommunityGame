@@ -16,7 +16,10 @@ namespace WILCommunityGame
         Carrot,
         Cabbage,
         Tomato,
-        Corn
+        Corn,
+        Wheat,
+        Sugarcane,
+        Soybean
     }
 
     public enum ProduceType
@@ -25,7 +28,10 @@ namespace WILCommunityGame
         Carrot,
         Cabbage,
         Tomato,
-        Corn
+        Corn,
+        Wheat,
+        Sugarcane,
+        Soybean
     }
 
     [System.Serializable]
