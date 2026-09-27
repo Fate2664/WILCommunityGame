@@ -8,5 +8,6 @@ namespace WILCommunityGame
     {
         public string objectiveName;
         public List<ObjectiveItem> objectiveItems = new();
+        public Objective nextObjective;
     }
 }

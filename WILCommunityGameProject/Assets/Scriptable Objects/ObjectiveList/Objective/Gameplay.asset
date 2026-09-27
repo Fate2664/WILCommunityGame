@@ -10,12 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4a539992a61d4262aa34e32644827e39, type: 3}
-  m_Name: Tutorial
+  m_Name: Gameplay
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.Objective
-  objectiveName: Tutorial
+  objectiveName: Gameplay
   objectiveItems:
-  - {fileID: 11400000, guid: a27b65b992d3a714b8f60a7621511b53, type: 2}
-  - {fileID: 11400000, guid: 90ee21b3efaedea4d85b579663f2d697, type: 2}
-  - {fileID: 11400000, guid: 74a389964af9a2e48b5a3f59e3c1583f, type: 2}
-  - {fileID: 11400000, guid: b5d2c242e8766b44ab861fdddf550b5a, type: 2}
-  nextObjective: {fileID: 11400000, guid: fbe998c28fda8c54fa33ffa3e999c4be, type: 2}
+  - {fileID: 11400000, guid: d488cdb487d276249987dcb2f050e785, type: 2}
+  - {fileID: 11400000, guid: 37b4f9a1285199f46813cefe656e1650, type: 2}
+  nextObjective: {fileID: 0}
