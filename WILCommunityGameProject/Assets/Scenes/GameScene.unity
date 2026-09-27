@@ -2840,7 +2840,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0, y: -25.461105, z: -0, w: -25.461105}
+  m_margin: {x: -0, y: -19.983658, z: -0, w: -19.983658}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -5458,7 +5458,7 @@ Transform:
   m_GameObject: {fileID: 148014913}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -128.95004, y: 0, z: 0}
+  m_LocalPosition: {x: -103.09495, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5492,7 +5492,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -128.95004
+        Raw: -116.22495
         Type: 0
       Y:
         Raw: 0
@@ -6701,7 +6701,7 @@ Transform:
   m_GameObject: {fileID: 191595619}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -256.49393, y: 0, z: 0}
+  m_LocalPosition: {x: -234.84338, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7753,7 +7753,7 @@ Transform:
   m_GameObject: {fileID: 230271300}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -99.86862, z: 0}
+  m_LocalPosition: {x: 0, y: -89.70491, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7791,7 +7791,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -74.05362
+        Raw: -63.889908
         Type: 0
       Z:
         Raw: 0
@@ -14118,7 +14118,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -66.56462}
+  m_AnchoredPosition: {x: 0, y: -53.437172}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &410896586
@@ -14246,7 +14246,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -86.14226
+        Raw: -61.087173
         Type: 0
       Z:
         Raw: 0
@@ -16523,7 +16523,17 @@ MonoBehaviour:
   marketplaceUI: {fileID: 1581307613}
   cropsGrid: {fileID: 704504476}
   emptyInventoryText: {fileID: 817806852}
-  padding: 40
+  allCrops:
+  - {fileID: 11400000, guid: d98d594602a7ef7489b49bfcc2963724, type: 2}
+  - {fileID: 11400000, guid: 0fce6a7ad649f404a8018b21e72a55f6, type: 2}
+  - {fileID: 11400000, guid: 813270655fecea9448330a21bf03f3e5, type: 2}
+  - {fileID: 11400000, guid: 7c59f78086584a4bb07e1169d7ce7d20, type: 2}
+  - {fileID: 11400000, guid: 0314afab28c129a40bfd5735263a3e81, type: 2}
+  - {fileID: 11400000, guid: e8ff6d2aad1a1004fa82a1a2f7eb0ac0, type: 2}
+  - {fileID: 11400000, guid: 05069e9e9b1677e4d9b08e3f5af27a08, type: 2}
+  - {fileID: 11400000, guid: 8fbe69cd6fb333f4ba012b0c16a7035d, type: 2}
+  columnSpacing: 30
+  rowSpacing: 30
   sellRoot: {fileID: 689301554}
   selectedCropIcon: {fileID: 267401491296647178}
   selectedCropCount: {fileID: 7739061879645473830}
@@ -16562,7 +16572,7 @@ Transform:
   m_GameObject: {fileID: 464941258}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: 1.323489e-23, w: 1}
-  m_LocalPosition: {x: 0, y: 414, z: -0.00048438367}
+  m_LocalPosition: {x: 0, y: 372.5, z: -0.00048438367}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -16599,7 +16609,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 414
+        Raw: 372.5
         Type: 0
       Z:
         Raw: -0.00048438367
@@ -17166,7 +17176,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 60.038742}
+  m_AnchoredPosition: {x: 0, y: 62.211296}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &479432559
@@ -17294,7 +17304,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 86.14226
+        Raw: 54.561295
         Type: 0
       Z:
         Raw: 0
@@ -18382,7 +18392,7 @@ Transform:
   m_GameObject: {fileID: 512949775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -179.99733, y: 0, z: 0}
+  m_LocalPosition: {x: -159.9054, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -18416,7 +18426,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -179.99733
+        Raw: -159.9054
         Type: 0
       Y:
         Raw: 0
@@ -20074,7 +20084,7 @@ Transform:
   m_GameObject: {fileID: 567760723}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 53.07113, z: 0}
+  m_LocalPosition: {x: 0, y: 44.157406, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20228,7 +20238,7 @@ MonoBehaviour:
   autoLayout:
     Axis: 1
     Spacing:
-      Raw: 48.9
+      Raw: 35.77
       Type: 0
     SpacingMinMax:
       Min: 0
@@ -22385,7 +22395,7 @@ Transform:
   m_GameObject: {fileID: 643152692}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 179.99733, y: 0, z: 0}
+  m_LocalPosition: {x: 159.9054, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -22419,7 +22429,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 179.99733
+        Raw: 159.9054
         Type: 0
       Y:
         Raw: 0
@@ -23423,7 +23433,7 @@ Transform:
   m_GameObject: {fileID: 689301554}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 422.4561, y: 0, z: 0}
+  m_LocalPosition: {x: 387.4298, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -23459,7 +23469,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 844.9122
+        Raw: 774.8596
         Type: 0
       Y:
         Raw: 0
@@ -23577,7 +23587,7 @@ MonoBehaviour:
   autoLayout:
     Axis: 2
     Spacing:
-      Raw: 15
+      Raw: 0
       Type: 0
     SpacingMinMax:
       Min: 0
@@ -24076,16 +24086,16 @@ MonoBehaviour:
         Type: 0
     Padding:
       Left:
-        Raw: 35
+        Raw: 5
         Type: 0
       Right:
-        Raw: 35
+        Raw: 5
         Type: 0
       Bottom:
-        Raw: 35
+        Raw: 40
         Type: 0
       Top:
-        Raw: 35
+        Raw: 5
         Type: 0
       Front:
         Raw: 0
@@ -26155,7 +26165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 177.45221}
+  m_AnchoredPosition: {x: 0, y: 136.79732}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &817806851
@@ -26283,7 +26293,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 268.8145
+        Raw: 136.79732
         Type: 0
       Z:
         Raw: 0
@@ -27950,7 +27960,7 @@ Transform:
   m_GameObject: {fileID: 853256846}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 157.67226, z: 0}
+  m_LocalPosition: {x: 0, y: 129.84482, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -27988,7 +27998,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 157.67226
+        Raw: 129.84482
         Type: 0
       Z:
         Raw: 0
@@ -29866,7 +29876,7 @@ Transform:
   m_GameObject: {fileID: 922994149}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 128.95004, y: 0, z: 0}
+  m_LocalPosition: {x: 103.09496, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -29900,7 +29910,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 128.95004
+        Raw: 114.900154
         Type: 0
       Y:
         Raw: 0
@@ -30405,7 +30415,7 @@ Transform:
   m_GameObject: {fileID: 930273775}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 280.0495, z: 0}
+  m_LocalPosition: {x: 0, y: 239.39462, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30443,7 +30453,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 305.8645
+        Raw: 265.20963
         Type: 0
       Z:
         Raw: 0
@@ -31058,6 +31068,7 @@ GameObject:
   - component: {fileID: 939477497}
   - component: {fileID: 939477499}
   - component: {fileID: 939477498}
+  - component: {fileID: 939477500}
   m_Layer: 0
   m_Name: BuyUpgradesRoot
   m_TagString: Untagged
@@ -31272,6 +31283,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.UIBlockActivator
+--- !u!114 &939477500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 939477496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f6f191c287405abd1ec12cff149e0c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceUpgradesTabUI
+  marketplaceUI: {fileID: 1581307613}
+  upgradeManager: {fileID: 1501503222}
+  categoryList: {fileID: 1240157271}
+  upgradeList: {fileID: 1000653065}
+  categories:
+  - {fileID: 11400000, guid: 55b345e09c3fb1546ae311bf77385dbe, type: 2}
 --- !u!1001 &950258388
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -32370,6 +32399,8 @@ GameObject:
   - component: {fileID: 1000653067}
   - component: {fileID: 1000653066}
   - component: {fileID: 1000653065}
+  - component: {fileID: 1000653069}
+  - component: {fileID: 1000653068}
   m_Layer: 0
   m_Name: UpgradesListRoot
   m_TagString: Untagged
@@ -32386,7 +32417,7 @@ Transform:
   m_GameObject: {fileID: 1000653063}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 201.435, y: 0, z: 0}
+  m_LocalPosition: {x: 184.43198, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -32435,7 +32466,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 201.435
+        Raw: 184.43198
         Type: 0
       Y:
         Raw: 0
@@ -32667,6 +32698,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.UIBlockActivator
+--- !u!114 &1000653068
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000653063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388f1fceb3d2beb408ed2d18963ab884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.ClipMask
+  info:
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Clip: 1
+  maskTexture: {fileID: 0}
+--- !u!114 &1000653069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000653063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2541297f90fa9c14eab33d90c1489959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.Scroller
+  ObstructDrags: 0
+  DragThreshold: 1
+  LowAccuracyDragThreshold: 30
+  ClickBehavior: 2
+  navigable: 1
+  onSelect: 2
+  autoSelect: 0
+  Navigation:
+    Left:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Right:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Down:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Up:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Forward:
+      Type: 1
+      Fallback: 1
+      Target: {fileID: 0}
+    Back:
+      Type: 1
+      Fallback: 1
+      Target: {fileID: 0}
+  OverscrollEffect: 0
+  VectorScrollMultiplier: 1
+  dragScrolling: 1
+  vectorScrolling: 1
+  scrollbarVisual: {fileID: 0}
+  draggableScrollbar: 0
 --- !u!1001 &1002658649
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -33545,7 +33642,7 @@ Transform:
   m_GameObject: {fileID: 1017532761}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -90.95317, y: 0, z: 0}
+  m_LocalPosition: {x: -107.90321, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -34198,7 +34295,7 @@ Transform:
   m_GameObject: {fileID: 1022712158}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -323.85538, y: 0, z: 0}
+  m_LocalPosition: {x: -307.36243, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -34233,7 +34330,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -323.85538
+        Raw: -307.36243
         Type: 0
       Y:
         Raw: 0
@@ -35191,7 +35288,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f243e02232ce59d4db9b36008c674427, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.PlayerStats
-  currency: 0
+  currency: 2000
 --- !u!1001 &1043614916
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -36847,7 +36944,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 40.57
+        Raw: 101.14439
         Type: 0
       Y:
         Raw: 0
@@ -40350,7 +40447,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2101899674418940026, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 155.45537
+      value: 138.96242
       objectReference: {fileID: 0}
     - target: {fileID: 2101899674418940026, guid: 9798f623d9a19f64d8be5155be02a3b6, type: 3}
       propertyPath: m_LocalPosition.y
@@ -41320,7 +41417,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.0000076293945, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1237377351
@@ -41409,7 +41506,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -15.455581, y: -48.07113, z: -15.455581, w: -48.07113}
+  m_margin: {x: -10.93759, y: -44.157406, z: -10.93759, w: -44.157406}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -41445,7 +41542,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 0
+        Raw: 0.0000076293945
         Type: 0
       Y:
         Raw: 0
@@ -41674,6 +41771,8 @@ GameObject:
   - component: {fileID: 1240157273}
   - component: {fileID: 1240157272}
   - component: {fileID: 1240157271}
+  - component: {fileID: 1240157274}
+  - component: {fileID: 1240157275}
   m_Layer: 0
   m_Name: CategoriesRoot
   m_TagString: Untagged
@@ -41690,7 +41789,7 @@ Transform:
   m_GameObject: {fileID: 1240157269}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -477.515, y: 0, z: 0}
+  m_LocalPosition: {x: -437.84122, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41739,7 +41838,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -477.515
+        Raw: -437.84122
         Type: 0
       Y:
         Raw: 0
@@ -41902,6 +42001,72 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.UIBlockActivator
+--- !u!114 &1240157274
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240157269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2541297f90fa9c14eab33d90c1489959, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.Scroller
+  ObstructDrags: 0
+  DragThreshold: 1
+  LowAccuracyDragThreshold: 30
+  ClickBehavior: 2
+  navigable: 1
+  onSelect: 2
+  autoSelect: 0
+  Navigation:
+    Left:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Right:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Down:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Up:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Forward:
+      Type: 1
+      Fallback: 1
+      Target: {fileID: 0}
+    Back:
+      Type: 1
+      Fallback: 1
+      Target: {fileID: 0}
+  OverscrollEffect: 0
+  VectorScrollMultiplier: 1
+  dragScrolling: 1
+  vectorScrolling: 1
+  scrollbarVisual: {fileID: 0}
+  draggableScrollbar: 0
+--- !u!114 &1240157275
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1240157269}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 388f1fceb3d2beb408ed2d18963ab884, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.ClipMask
+  info:
+    Color: {r: 1, g: 1, b: 1, a: 1}
+    Clip: 1
+  maskTexture: {fileID: 0}
 --- !u!4 &1241048064 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
@@ -42333,7 +42498,7 @@ Transform:
   m_GameObject: {fileID: 1268147035}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 488.39465, y: 75.2, z: 0}
+  m_LocalPosition: {x: 448.21075, y: 62.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -42368,10 +42533,10 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 488.39465
+        Raw: 448.21075
         Type: 0
       Y:
-        Raw: 75.2
+        Raw: 62.8
         Type: 0
       Z:
         Raw: 0
@@ -46101,7 +46266,7 @@ Transform:
   m_GameObject: {fileID: 1429405954}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 98.75, y: 0, z: 0}
+  m_LocalPosition: {x: 78.19999, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -46137,7 +46302,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 98.75
+        Raw: 78.19999
         Type: 0
       Y:
         Raw: 0
@@ -46153,10 +46318,10 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Bottom:
-        Raw: 15
+        Raw: 15.3
         Type: 0
       Top:
-        Raw: 15
+        Raw: 0
         Type: 0
       Front:
         Raw: 0
@@ -48188,6 +48353,7 @@ GameObject:
   - component: {fileID: 1501503219}
   - component: {fileID: 1501503220}
   - component: {fileID: 1501503221}
+  - component: {fileID: 1501503222}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -48344,6 +48510,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.WeatherEffectController
   rainParticles: {fileID: 1006975631}
+--- !u!114 &1501503222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1501503214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d6c2726a7cf432ab0591bf29e8b40c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceUpgradeManager
+  playerStats: {fileID: 1042870445}
+  bindings:
+  - upgrade: {fileID: 11400000, guid: f7170dc061f69c3409c07303f7ee99d2, type: 2}
+    onPurchased:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 399319462}
+          m_TargetAssemblyTypeName: WILCommunityGame.RainTank, Assembly-CSharp
+          m_MethodName: IncreaseCapacity
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 20
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!4 &1508191072 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
@@ -50679,6 +50875,7 @@ MonoBehaviour:
   playerStats: {fileID: 1042870445}
   sellTabUI: {fileID: 464442450}
   sellCropsRoot: {fileID: 464442446}
+  upgradesTabUI: {fileID: 939477500}
   buyUpgradesRoot: {fileID: 939477496}
   currencyText: {fileID: 1765760903}
 --- !u!114 &1581307615
@@ -50698,10 +50895,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 0.75
+        Raw: 0.6903
         Type: 1
       Y:
-        Raw: 0.792
+        Raw: 0.696
         Type: 1
       Z:
         Raw: 0
@@ -51208,7 +51405,7 @@ Transform:
   m_GameObject: {fileID: 1597358017}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -53.07113, z: 0}
+  m_LocalPosition: {x: 0, y: -44.157406, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -51247,7 +51444,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 106.14226
+        Raw: 93.31481
         Type: 0
       Z:
         Raw: 0
@@ -53738,7 +53935,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -294.0384, y: 246.18512}
+  m_AnchoredPosition: {x: -259.01212, y: 205.53023}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1678495160
@@ -53866,7 +54063,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 278.8145
+        Raw: 205.53023
         Type: 0
       Z:
         Raw: 0
@@ -54738,7 +54935,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -40.57
+        Raw: -67.79271
         Type: 0
       Y:
         Raw: 0
@@ -54979,7 +55176,7 @@ Transform:
   m_GameObject: {fileID: 1707862262}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -217.28452, z: 0}
+  m_LocalPosition: {x: 0, y: -176.62962, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -55910,7 +56107,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -174.99733, y: -54.403625, z: -174.99733, w: -54.403625}
+  m_margin: {x: -154.9054, y: -44.239902, z: -154.9054, w: -44.239902}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -56753,7 +56950,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 10.77
+        Raw: 18.97
         Type: 0
       Y:
         Raw: 0
@@ -56990,7 +57187,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -109.24818, y: -37.99814, z: -109.24818, w: -37.99814}
+  m_margin: {x: -126.19822, y: -32.00154, z: -126.19822, w: -32.00154}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -57076,7 +57273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 10.77, y: 0}
+  m_AnchoredPosition: {x: 18.97, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1765887270
@@ -58205,7 +58402,7 @@ Transform:
   m_GameObject: {fileID: 1792942454}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -6.525879, z: 0}
+  m_LocalPosition: {x: 0, y: 1.1241212, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -60493,7 +60690,7 @@ Transform:
   m_GameObject: {fileID: 1867727077}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -59.61226, z: 0}
+  m_LocalPosition: {x: 0, y: -46.784813, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -60518,7 +60715,7 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 1
+        Raw: 0.78339994
         Type: 1
       Y:
         Raw: 1
@@ -60531,7 +60728,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -59.61226
+        Raw: -46.784813
         Type: 0
       Z:
         Raw: 0
@@ -60637,7 +60834,7 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 1
+      X: 0
       Y: 1
       Z: 0
     RotateSize: 0
@@ -60646,7 +60843,7 @@ MonoBehaviour:
   autoLayout:
     Axis: 2
     Spacing:
-      Raw: 10
+      Raw: 0
       Type: 0
     SpacingMinMax:
       Min: 0
@@ -61719,7 +61916,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -174.99733, y: -54.403625, z: -174.99733, w: -54.403625}
+  m_margin: {x: -154.9054, y: -44.239902, z: -154.9054, w: -44.239902}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -65210,7 +65407,7 @@ Transform:
   m_GameObject: {fileID: 2033041018}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -18.21, y: 0, z: 0}
+  m_LocalPosition: {x: -45.8, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -65235,7 +65432,7 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 0.545
+        Raw: 0.686
         Type: 1
       Y:
         Raw: 0.59
@@ -65245,7 +65442,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -18.21
+        Raw: -45.8
         Type: 0
       Y:
         Raw: 0
@@ -72371,7 +72568,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 81.89688, y: -63.853546}
+  m_AnchoredPosition: {x: 61.346874, y: -43.303543}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6779366797301105756
@@ -72450,17 +72647,17 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 187.5
+        Raw: 146.4
         Type: 0
       Y:
-        Raw: 187.5
+        Raw: 146.4
         Type: 0
       Z:
         Raw: 0
         Type: 0
     Position:
       X:
-        Raw: -130.24393
+        Raw: -129.14339
         Type: 0
       Y:
         Raw: 0
@@ -73010,7 +73207,7 @@ Transform:
   m_GameObject: {fileID: 4365728672961783483}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -130.24393, y: 7.3922577, z: 0}
+  m_LocalPosition: {x: -129.14339, y: 15.114815, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:

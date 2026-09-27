@@ -385,6 +385,7 @@ GameObject:
   - component: {fileID: 1090204786743743568}
   - component: {fileID: 4555011688519325755}
   - component: {fileID: 136257211256126995}
+  - component: {fileID: 60679652999221533}
   m_Layer: 0
   m_Name: UpgradeCategoryItem
   m_TagString: Untagged
@@ -681,12 +682,72 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.ItemView
   visuals:
-    rid: -2
+    rid: 3062713335776542846
   references:
     version: 2
     RefIds:
-    - rid: -2
-      type: {class: , ns: , asm: }
+    - rid: 3062713335776542846
+      type: {class: UpgradeCategoryItemVisuals, ns: WILCommunityGame, asm: Assembly-CSharp}
+      data:
+        background: {fileID: 4555011688519325755}
+        Icon: {fileID: 1512828791839895436}
+        NameText: {fileID: 142938182651551060}
+        DefaultColor: {r: 0.47058824, g: 0.34509805, b: 0.2509804, a: 1}
+        HoverColor: {r: 0.6132076, g: 0.44279182, b: 0.32106623, a: 1}
+        SelectedColor: {r: 0.9811321, g: 0.8644731, b: 0.7358491, a: 1}
+        SelectedTextColor: {r: 0.20754719, g: 0.15447983, b: 0.11258456, a: 1}
+        hoverScale: 1.05
+        pressedScale: 0.98
+        animationDuration: 0.15
+--- !u!114 &60679652999221533
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5525831891537086646}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0e5f112b0a05b43b4ba50233a47743, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.Interactable
+  ObstructDrags: 0
+  DragThreshold: 1
+  LowAccuracyDragThreshold: 30
+  ClickBehavior: 0
+  navigable: 1
+  onSelect: 0
+  autoSelect: 0
+  Navigation:
+    Left:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Right:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Down:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Up:
+      Type: 0
+      Fallback: 0
+      Target: {fileID: 0}
+    Forward:
+      Type: 1
+      Fallback: 1
+      Target: {fileID: 0}
+    Back:
+      Type: 1
+      Fallback: 1
+      Target: {fileID: 0}
+  draggable:
+    X: 0
+    Y: 0
+    Z: 0
+  GestureSpace: 0
 --- !u!1 &5705766611431199009
 GameObject:
   m_ObjectHideFlags: 0

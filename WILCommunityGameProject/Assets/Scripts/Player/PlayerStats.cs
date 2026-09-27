@@ -22,5 +22,15 @@ namespace WILCommunityGame
             currency += amount;
             OnCurrencyChanged?.Invoke(currency);
         }
+
+        public bool TrySpendCurrency(int amount)
+        {
+            if (amount < 0 || currency < amount)
+                return false;
+            
+            currency -= amount;
+            OnCurrencyChanged?.Invoke(currency);
+            return true;
+        }
     }
 }
