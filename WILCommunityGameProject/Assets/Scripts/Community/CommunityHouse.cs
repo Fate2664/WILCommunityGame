@@ -36,14 +36,20 @@ namespace WILCommunityGame
         [Header("Available Crops")] [SerializeField]
         private ProduceItemSO[] availableCrops;
 
-        [Header("Daily Request Settings")] [SerializeField]
-        private int minCropTypesPerHouse = 1;
-
+        [Header("Daily Request Settings")] 
+        [SerializeField] private int minCropTypesPerHouse = 1;
         [SerializeField] private int maxCropTypesPerHouse = 5;
         [SerializeField] private int maxAmountPerCrop = 30;
+        
+        [Header("Availability")]
+        [SerializeField] private bool feedingEnabled = true;
+        [SerializeField] private GameObject feedingUIRoot;
 
         private readonly List<CropRequest> requests = new();
         private CommunityHouseVisuals visuals;
+        public bool FeedingEnabled => feedingEnabled;
+        private bool hasStarted;
+        private TimeManager registeredClock;
         private int requestDay;
         public CommunityHouseSatisfaction Satisfaction { get; private set; } = CommunityHouseSatisfaction.Empty;
         public event Action<CommunityHouse, CommunityHouseSatisfaction> OnSatisfactionChanged;
@@ -51,17 +57,18 @@ namespace WILCommunityGame
 
         private void Start()
         {
-            visuals = GetComponentInChildren<CommunityHouseVisuals>();
+            visuals = GetComponentInChildren<CommunityHouseVisuals>(true);
 
             if (cropRequestList != null)
             {
                 cropRequestList.AddDataBinder<CropRequest, CropIconVisuals>(BindCropIcon);
             }
 
-            requestDay = TimeManager.Instance.CurrentGameTimeStamp.day;
-            GenerateDailyRequests();
+            hasStarted = true;
+            feedingUIRoot.SetActive(feedingEnabled);
 
-            TimeManager.Instance.RegisterTracker(this);
+            if (feedingEnabled)
+                BeginFeeding();
         }
 
         private void BindCropIcon(Data.OnBind<CropRequest> evt, CropIconVisuals target, int index)
@@ -69,13 +76,46 @@ namespace WILCommunityGame
             target.Bind(evt.UserData);
         }
 
+        public void EnableFeeding()
+        {
+            if (feedingEnabled)
+                return;
+            
+            feedingEnabled = true;
+
+            if (hasStarted)
+                BeginFeeding();
+        }
+
+        private void BeginFeeding()
+        {
+            feedingUIRoot.SetActive(true);
+
+            registeredClock = TimeManager.Instance;
+            requestDay = registeredClock.CurrentGameTimeStamp.day;
+            
+            GenerateDailyRequests();
+            registeredClock.RegisterTracker(this);
+            communityUIManager.RegisterHouse(this);
+        }
+
         private void OnDestroy()
         {
-            TimeManager.Instance.UnregisterTracker(this);
+            if (registeredClock != null)
+                registeredClock.UnregisterTracker(this);
+
+            if (hasStarted && cropRequestList != null)
+            {
+                cropRequestList.RemoveDataBinder<CropRequest, CropIconVisuals>(
+                    BindCropIcon);
+            }
         }
 
         public void Interact(PlayerController interactor)
         {
+            if (!feedingEnabled || !hasStarted || !isActiveAndEnabled)
+                return;
+            
             foreach (var request in requests)
             {
                 if (request == null || request.IsComplete)
@@ -91,6 +131,9 @@ namespace WILCommunityGame
 
         public void ClockUpdate(GameTimestamp timestamp)
         {
+            if (!feedingEnabled || !hasStarted || !isActiveAndEnabled)
+                return;
+
             if (timestamp.day == requestDay)
                 return;
 

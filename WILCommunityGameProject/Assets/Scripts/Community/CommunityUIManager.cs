@@ -7,20 +7,22 @@ namespace WILCommunityGame
 {
     public class CommunityUIManager : MonoBehaviour, ITimeTracker
     {
-        [Header("Community Level")]
-        [SerializeField] private TextBlock levelText;
-        
-        
-        [Header("Community Happiness")] 
-        [SerializeField] private CommunityHouse[] communityHouses;
+        [Header("Community Level")] [SerializeField]
+        private TextBlock levelText;
+
+
+        [Header("Community Happiness")] [SerializeField]
+        private CommunityHouse[] communityHouses;
+
         [SerializeField] private UIBlock2D[] happinessBarSegments;
         [SerializeField] private Color emptySegmentColor;
         [SerializeField] private Color firstThirdColor;
         [SerializeField] private Color secondThirdColor;
         [SerializeField] private Color thirdThirdColor;
-        
-        [Header("Crop Amounts")]
-        [SerializeField] private TextBlock tomatoCropAmount;
+
+        [Header("Crop Amounts")] [SerializeField]
+        private TextBlock tomatoCropAmount;
+
         [SerializeField] private TextBlock potatoCropAmount;
         [SerializeField] private TextBlock cornCropAmount;
         [SerializeField] private TextBlock cabbageCropAmount;
@@ -40,7 +42,7 @@ namespace WILCommunityGame
         {
             currentDay = TimeManager.Instance.CurrentGameTimeStamp.day;
             levelText.Text = levelNumber.ToString();
-            
+
             ResetDeliveryAmounts();
 
             foreach (CommunityHouse house in communityHouses)
@@ -54,12 +56,16 @@ namespace WILCommunityGame
 
         private void OnDestroy()
         {
-            foreach (CommunityHouse house in communityHouses)
+            foreach (CommunityHouse house in houseHappiness.Keys)
             {
-                house.OnSatisfactionChanged -= HandleHouseSatisfactionChanged;
+                if (house != null)
+                {
+                    house.OnSatisfactionChanged -= HandleHouseSatisfactionChanged;
+                }
             }
-            
-            TimeManager.Instance.UnregisterTracker(this);
+
+            if (TimeManager.Instance != null)
+                TimeManager.Instance.UnregisterTracker(this);
         }
 
         public void AddDelivered(ProduceType type, int amount)
@@ -85,14 +91,16 @@ namespace WILCommunityGame
 
             RefreshAmounts();
         }
-        
-        private void RegisterHouse(CommunityHouse house)
+
+        public void RegisterHouse(CommunityHouse house)
         {
-            if (houseHappiness.ContainsKey(house))
+            if (house == null || !house.FeedingEnabled || houseHappiness.ContainsKey(house))
                 return;
-            
+
             houseHappiness.Add(house, GetHappinessScore(house.Satisfaction));
             house.OnSatisfactionChanged += HandleHouseSatisfactionChanged;
+
+            RefreshHappinessBar();
         }
 
         private void HandleHouseSatisfactionChanged(CommunityHouse house, CommunityHouseSatisfaction satisfaction)
@@ -104,10 +112,10 @@ namespace WILCommunityGame
         private void RefreshHappinessBar()
         {
             int filledSegments = 0;
-            
+
             foreach (int score in houseHappiness.Values)
                 filledSegments += score;
-            
+
             filledSegments = Mathf.Clamp(filledSegments, 0, happinessBarSegments.Length);
 
             for (int i = 0; i < happinessBarSegments.Length; i++)
@@ -117,13 +125,16 @@ namespace WILCommunityGame
                     happinessBarSegments[i].Color = i < filledSegments ? GetFilledSegmentColor(i) : emptySegmentColor;
                 }
             }
-            
-            happinessBarFull = filledSegments == happinessBarSegments.Length;
-            if (happinessBarFull)
+
+            bool isFullNow = happinessBarSegments.Length > 0 && filledSegments == happinessBarSegments.Length;
+
+            if (isFullNow && !happinessBarFull)
             {
                 levelNumber++;
                 levelText.Text = levelNumber.ToString();
             }
+
+            happinessBarFull = isFullNow;
         }
 
         private Color GetFilledSegmentColor(int segmentIndex)
@@ -133,7 +144,7 @@ namespace WILCommunityGame
 
             if (segmentIndex < firstThird)
                 return firstThirdColor;
-            
+
             if (segmentIndex < secondThird)
                 return secondThirdColor;
 
@@ -154,7 +165,7 @@ namespace WILCommunityGame
         {
             if (timestamp.day == currentDay)
                 return;
-            
+
             currentDay = timestamp.day;
             ResetDeliveryAmounts();
         }

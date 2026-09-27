@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b8fc94c3fa7402b930a6f37cccd701b, type: 3}
+  m_Name: SoybeanSeeds
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceUpgradeItem
+  displayName: Soybean Seeds
+  description: Buy some soybean seeds.
+  icon: {fileID: 21300000, guid: ada90ebe779ac04488fbf65b05e4bb78, type: 3}
+  price: 5

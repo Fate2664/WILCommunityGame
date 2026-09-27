@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.Objective
   objectiveName: Gameplay
   objectiveItems:
-  - {fileID: 11400000, guid: d488cdb487d276249987dcb2f050e785, type: 2}
   - {fileID: 11400000, guid: 37b4f9a1285199f46813cefe656e1650, type: 2}
+  - {fileID: 11400000, guid: d488cdb487d276249987dcb2f050e785, type: 2}
   nextObjective: {fileID: 0}

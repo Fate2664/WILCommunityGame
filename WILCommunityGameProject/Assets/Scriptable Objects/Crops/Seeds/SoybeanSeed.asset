@@ -19,6 +19,6 @@ MonoBehaviour:
   seedType: 7
   daysToGrow: 1
   harvestAmount: 10
-  seedlingPrefab: {fileID: 7863790740695239896, guid: 449c56ca5fdacb742beddd4d76c70f85, type: 3}
-  harvestablePrefab: {fileID: 7863790740695239896, guid: 908a73d7059a3914a9da13f274fe1e0d, type: 3}
+  seedlingPrefab: {fileID: 7863790740695239896, guid: 5c7ceddfe7e9f3b4e97e3081e7f66273, type: 3}
+  harvestablePrefab: {fileID: 7863790740695239896, guid: 1135e663d49c44d49bfbef2b6b9886e8, type: 3}
   produceItem: {fileID: 11400000, guid: e8ff6d2aad1a1004fa82a1a2f7eb0ac0, type: 2}

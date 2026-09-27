@@ -15,6 +15,7 @@ namespace WILCommunityGame
         public Color HoverColor = new (0.97f, 0.82f, 0.65f);
         public Color SelectedColor = Color.white;
         public Color SelectedTextColor = Color.white;
+        public Color DefaultTextColor = Color.white;
         
         public float hoverScale = 1.05f;
         public float pressedScale = 0.98f;
@@ -22,7 +23,6 @@ namespace WILCommunityGame
         
         private Vector3 defaultScale;
         private Color defaultBackgroundColor;
-        private Color defaultTextColor;
         private bool defaultBodyEnabled;
         private bool isHovered;
         private bool initialized;
@@ -41,7 +41,7 @@ namespace WILCommunityGame
             
             Icon.SetImage(category.icon);
             NameText.Text = category.displayName;
-            NameText.Color = selected ? SelectedTextColor : DefaultColor;
+            NameText.Color = selected ? SelectedTextColor : DefaultTextColor;
             
             RefreshBackgroundColor();
         }

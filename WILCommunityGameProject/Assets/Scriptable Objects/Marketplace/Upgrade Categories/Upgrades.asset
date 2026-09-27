@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a93eeece4794483c959696ff13d2fe03, type: 3}
-  m_Name: Water
+  m_Name: Upgrades
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceUpgradeCategory
-  displayName: Water
+  displayName: Upgrades
   icon: {fileID: 21300000, guid: 1a1063b6df4bebc44b1855b1adeb9417, type: 3}
   upgrades:
   - {fileID: 11400000, guid: f7170dc061f69c3409c07303f7ee99d2, type: 2}

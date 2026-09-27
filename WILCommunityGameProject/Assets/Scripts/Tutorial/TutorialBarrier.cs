@@ -13,6 +13,9 @@ namespace WILCommunityGame
         [SerializeField] private Transform popup;
 
         [Header("Animation")] [SerializeField] private float scaleDuration;
+        
+        [Header("Tutorial Unlocks")]
+        [SerializeField] private CommunityHouse[] housesToUnlock;
 
         private Vector3 originalScale;
         private Tween scaleTween;
@@ -78,6 +81,13 @@ namespace WILCommunityGame
         private void DisableBarrier()
         {
             tutorialCompleted = true;
+
+            foreach (CommunityHouse house in housesToUnlock)
+            {
+                if (house != null)
+                    house.EnableFeeding();
+            }
+
             gameObject.SetActive(false);
         }
 
