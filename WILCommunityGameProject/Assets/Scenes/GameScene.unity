@@ -15676,7 +15676,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -61.087173
+        Raw: -80.66481
         Type: 0
       Z:
         Raw: 0
@@ -18708,7 +18708,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 54.561295
+        Raw: 80.66481
         Type: 0
       Z:
         Raw: 0
@@ -28261,7 +28261,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 136.79732
+        Raw: 228.15962
         Type: 0
       Z:
         Raw: 0
@@ -37801,12 +37801,6 @@ MonoBehaviour:
     count: 6
   - item: {fileID: 11400000, guid: a79908c71cdeba2458b65904ba1aeb51, type: 2}
     count: 6
-  - item: {fileID: 11400000, guid: 3dab46f2944520c44af56b5df72ccc02, type: 2}
-    count: 6
-  - item: {fileID: 11400000, guid: fceeffc7c67d66e47bfdc7e2c0a663e3, type: 2}
-    count: 6
-  - item: {fileID: 11400000, guid: b76b336badeab3a4db15652aa69c6817, type: 2}
-    count: 6
 --- !u!114 &1042870444
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39862,7 +39856,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 101.14439
+        Raw: 40.57
         Type: 0
       Y:
         Raw: 0
@@ -52292,6 +52286,57 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - upgrade: {fileID: 11400000, guid: 6b4b55a02bc603141aa90148e0a1ac99, type: 2}
+    onPurchased:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1501503219}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: Add5ItemsToInventory
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: 3dab46f2944520c44af56b5df72ccc02, type: 2}
+            m_ObjectArgumentAssemblyTypeName: WILCommunityGame.InventoryItemData,
+              Assembly-CSharp
+            m_IntArgument: 20
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - upgrade: {fileID: 11400000, guid: 243e957ca63bc384391d0278a8f99404, type: 2}
+    onPurchased:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1501503219}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: Add5ItemsToInventory
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: b76b336badeab3a4db15652aa69c6817, type: 2}
+            m_ObjectArgumentAssemblyTypeName: WILCommunityGame.InventoryItemData,
+              Assembly-CSharp
+            m_IntArgument: 20
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  - upgrade: {fileID: 11400000, guid: fb1e9ae39e320b641820e8846585a5f7, type: 2}
+    onPurchased:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1501503219}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: Add5ItemsToInventory
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: fceeffc7c67d66e47bfdc7e2c0a663e3, type: 2}
+            m_ObjectArgumentAssemblyTypeName: WILCommunityGame.InventoryItemData,
+              Assembly-CSharp
+            m_IntArgument: 20
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1001 &1506696015
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -58515,7 +58560,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 205.53023
+        Raw: 238.15962
         Type: 0
       Z:
         Raw: 0
@@ -59387,7 +59432,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: -67.79271
+        Raw: -40.57
         Type: 0
       Y:
         Raw: 0

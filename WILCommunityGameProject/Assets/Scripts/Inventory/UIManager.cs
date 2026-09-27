@@ -93,6 +93,16 @@ public class UIManager : MonoBehaviour, ITimeTracker
         }
         OnInventoryChanged?.Invoke();
     }
+    
+    public void Add5ItemsToInventory(InventoryItemData item)
+    {
+        AddItemToInventory(item, 5);
+    }
+    
+    public void Add1ItemToInventory(InventoryItemData item)
+    {
+        AddItemToInventory(item, 1);
+    }
 
     public int RemoveProduce(ProduceType type, int amount)
     {
