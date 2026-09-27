@@ -15,6 +15,8 @@ namespace WILCommunityGame
         [SerializeField] private GameObject floorTilePrefab;
         [SerializeField] private GameObject wallTilePrefab;
         [SerializeField] private GameObject doorTilePrefab;
+        [SerializeField] private ObjectiveItem hoeGroundObjective;
+        [SerializeField] private ObjectiveListUI objectiveListUI;
 
         [Space(10)] 
         [Header("GroundPlacement")] 
@@ -140,7 +142,7 @@ namespace WILCommunityGame
             var go = Instantiate(prefab, pose.position, pose.rotation);
             if (placementPieceType == BuildPieceType.Floor)
             AudioManager.Instance.Play("Hoeing");
-            
+            objectiveListUI.CompleteItem(hoeGroundObjective);
             if (socketSnap == null) return;
             var part = go.GetComponent<BuildPart>();
             if (part != null) socketSnap.SetOccupant(part);
