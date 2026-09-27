@@ -13,10 +13,16 @@ namespace WILCommunityGame
         [SerializeField] private InformationTipSO seedingTip;
         [SerializeField] private InformationTipSO wateringTip;
         
+        [Header("Objectives")]
+        [SerializeField] private ObjectiveItem plantSeedObjective;
+        [SerializeField] private ObjectiveItem waterCropObjective;
+        [SerializeField] private ObjectiveItem harvestCropObjective;
+        
         private CropBehaviour cropBehaviour;
         private UIManager uiManager;
         private IndicatorManager indicatorManager;
         private GameObject pendingSwapPrefab;
+        private ObjectiveListUI objectiveListUI;
 
         private bool firstSeeding = true;
         private bool firstWatering = true;
@@ -26,6 +32,7 @@ namespace WILCommunityGame
             cropBehaviour ??= GetComponent<CropBehaviour>();
             uiManager ??= FindFirstObjectByType<UIManager>();
             indicatorManager ??= GetComponentInChildren<IndicatorManager>();
+            objectiveListUI ??= FindFirstObjectByType<ObjectiveListUI>();
         }
 
         private void Start()
@@ -53,6 +60,7 @@ namespace WILCommunityGame
             {
                 //Add produce to inventory
                 uiManager.AddItemToInventory(cropBehaviour.SeedItem.produceItem, cropBehaviour.SeedItem.harvestAmount);
+                objectiveListUI?.CompleteItem(harvestCropObjective);
                 //reset back to sprout
                 cropBehaviour.ResetToSprout();
                 pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
@@ -71,6 +79,7 @@ namespace WILCommunityGame
                     {
                         uiManager.ShowInformationTip(seedingTip);
                     }
+                    objectiveListUI?.CompleteItem(plantSeedObjective);
                     AudioManager.Instance.Play("Planting");
                     RefreshIndicator();
                     firstSeeding = false;
@@ -86,6 +95,7 @@ namespace WILCommunityGame
                 {
                     uiManager.ShowInformationTip(wateringTip);
                 }
+                objectiveListUI?.CompleteItem(waterCropObjective);
                 AudioManager.Instance.Play("Watering");
                 RefreshIndicator();
                 firstWatering = false;
