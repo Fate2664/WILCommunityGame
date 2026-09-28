@@ -15048,7 +15048,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18.707184}
+  m_AnchoredPosition: {x: 0, y: 23.38398}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &409750138
@@ -15176,7 +15176,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 42.10246
+        Raw: 23.383982
         Type: 0
       Z:
         Raw: 0
@@ -17925,6 +17925,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceSellTabUI
   marketplaceUI: {fileID: 1581307613}
+  communityUIManager: {fileID: 1820788713}
+  sellingLockedText: {fileID: 817806852}
   cropsGrid: {fileID: 704504476}
   emptyInventoryText: {fileID: 817806852}
   allCrops:
@@ -22639,7 +22641,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18.707184}
+  m_AnchoredPosition: {x: 0, y: 23.38398}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &573639517
@@ -22767,7 +22769,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 42.10246
+        Raw: 23.383982
         Type: 0
       Z:
         Raw: 0
@@ -26053,7 +26055,7 @@ Transform:
   m_GameObject: {fileID: 704504474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -68.73291, z: 0}
+  m_LocalPosition: {x: 0, y: -140.3945, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26098,7 +26100,7 @@ MonoBehaviour:
         Raw: 1
         Type: 1
       Y:
-        Raw: 1
+        Raw: 0.41050246
         Type: 1
       Z:
         Raw: 0
@@ -26108,7 +26110,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -68.73291
+        Raw: -140.3945
         Type: 0
       Z:
         Raw: 0
@@ -28111,7 +28113,7 @@ GameObject:
   - component: {fileID: 817806852}
   - component: {fileID: 817806851}
   m_Layer: 0
-  m_Name: NoCropsText
+  m_Name: CannotSellCropsText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28133,7 +28135,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 136.79732}
+  m_AnchoredPosition: {x: 0, y: 65.13572}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &817806851
@@ -28156,7 +28158,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: You have no crops in your inventory.
+  m_text: You must feed the community until happiness is in the green before you
+    sell excess crops.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
   m_sharedMaterial: {fileID: 2645622778749731721, guid: 5b6549bea66470e4db96f587ee10be9b, type: 2}
@@ -28200,7 +28203,7 @@ MonoBehaviour:
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
-  m_TextWrappingMode: 0
+  m_TextWrappingMode: 1
   m_wordWrappingRatios: 0.4
   m_overflowMode: 0
   m_linkedTextComponent: {fileID: 0}
@@ -28222,7 +28225,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0, y: -0, z: -0, w: -0}
+  m_margin: {x: -379.9298, y: -97.765114, z: -379.9298, w: -97.765114}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -28248,11 +28251,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 653.4331
-        Type: 0
+        Raw: 1
+        Type: 1
       Y:
-        Raw: 52.20703
-        Type: 0
+        Raw: 1
+        Type: 1
       Z:
         Raw: 0
         Type: 0
@@ -28261,7 +28264,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 228.15962
+        Raw: 65.13572
         Type: 0
       Z:
         Raw: 0
@@ -28367,8 +28370,8 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 2
-      Y: 2
+      X: 1
+      Y: 1
       Z: 0
     RotateSize: 0
     AspectRatio: {x: 0, y: 0, z: 0}
@@ -28815,7 +28818,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18.707184}
+  m_AnchoredPosition: {x: 0, y: 23.38398}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &839262131
@@ -28943,7 +28946,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 42.10246
+        Raw: 23.383982
         Type: 0
       Z:
         Raw: 0
@@ -29329,7 +29332,7 @@ Transform:
   m_GameObject: {fileID: 843603640}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.343517, z: 0}
+  m_LocalPosition: {x: 0, y: -10.343519, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -29352,11 +29355,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 1
+        Raw: 1.25
         Type: 1
       Y:
-        Raw: 1
-        Type: 1
+        Raw: 46.767963
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -29365,7 +29368,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -10.343517
+        Raw: -10.343519
         Type: 0
       Z:
         Raw: 0
@@ -29471,12 +29474,12 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 1
-      Y: 1
+      X: 0
+      Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.8229812, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -29580,8 +29583,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 193edeb0a22e1f941886b54787c8b518, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: -333429938, guid: edbb085fb37da4947b2ea7a49e2ba25a, type: 3}
 --- !u!114 &843603643
 MonoBehaviour:
   m_ObjectHideFlags: 10
@@ -38909,7 +38912,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18.707184}
+  m_AnchoredPosition: {x: 0, y: 23.38398}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1081174340
@@ -39037,7 +39040,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 42.10246
+        Raw: 23.383982
         Type: 0
       Z:
         Raw: 0
@@ -48835,7 +48838,7 @@ Transform:
   m_GameObject: {fileID: 1374073587}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.343517, z: 0}
+  m_LocalPosition: {x: 0, y: -10.343519, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -48858,11 +48861,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 1
+        Raw: 1.25
         Type: 1
       Y:
-        Raw: 1
-        Type: 1
+        Raw: 46.767963
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -48871,7 +48874,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -10.343517
+        Raw: -10.343519
         Type: 0
       Z:
         Raw: 0
@@ -48977,12 +48980,12 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 1
-      Y: 1
+      X: 0
+      Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.8229812, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -49086,8 +49089,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 3f951ce72539ac0489f8c0edfd3a653a, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: -1755606277, guid: edbb085fb37da4947b2ea7a49e2ba25a, type: 3}
 --- !u!114 &1374073590
 MonoBehaviour:
   m_ObjectHideFlags: 10
@@ -56898,7 +56901,7 @@ Transform:
   m_GameObject: {fileID: 1646001496}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.343517, z: 0}
+  m_LocalPosition: {x: 0, y: -10.343519, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56921,11 +56924,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 1
+        Raw: 1.25
         Type: 1
       Y:
-        Raw: 1
-        Type: 1
+        Raw: 46.767963
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -56934,7 +56937,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -10.343517
+        Raw: -10.343519
         Type: 0
       Z:
         Raw: 0
@@ -57040,12 +57043,12 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 1
-      Y: 1
+      X: 0
+      Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.8229812, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -57149,8 +57152,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: ece632acd5246204bbe6e50d9b18959f, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: -2114031753, guid: edbb085fb37da4947b2ea7a49e2ba25a, type: 3}
 --- !u!114 &1646001499
 MonoBehaviour:
   m_ObjectHideFlags: 10
@@ -60983,7 +60986,7 @@ Transform:
   m_GameObject: {fileID: 1755407434}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.343517, z: 0}
+  m_LocalPosition: {x: 0, y: -10.343519, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -61006,11 +61009,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 1
+        Raw: 1.25
         Type: 1
       Y:
-        Raw: 1
-        Type: 1
+        Raw: 46.767963
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -61019,7 +61022,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -10.343517
+        Raw: -10.343519
         Type: 0
       Z:
         Raw: 0
@@ -61125,12 +61128,12 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 1
-      Y: 1
+      X: 0
+      Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.8229812, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -61234,8 +61237,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 8f63aabc92c67a9439aca96c620a56fe, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: -148409003, guid: edbb085fb37da4947b2ea7a49e2ba25a, type: 3}
 --- !u!114 &1755407437
 MonoBehaviour:
   m_ObjectHideFlags: 10
@@ -64451,8 +64454,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 1a1063b6df4bebc44b1855b1adeb9417, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: 585689177, guid: dc110ac04867d3046a342af9546c04ab, type: 3}
 --- !u!114 &1829412550
 MonoBehaviour:
   m_ObjectHideFlags: 10
@@ -69632,7 +69635,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 18.707184}
+  m_AnchoredPosition: {x: 0, y: 23.38398}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2024472356
@@ -69760,7 +69763,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 42.10246
+        Raw: 23.383982
         Type: 0
       Z:
         Raw: 0
@@ -72146,7 +72149,7 @@ Transform:
   m_GameObject: {fileID: 2109586064}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -10.343517, z: 0}
+  m_LocalPosition: {x: 0, y: -10.343519, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72169,11 +72172,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 1
+        Raw: 1.25
         Type: 1
       Y:
-        Raw: 1
-        Type: 1
+        Raw: 46.767963
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -72182,7 +72185,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -10.343517
+        Raw: -10.343519
         Type: 0
       Z:
         Raw: 0
@@ -72288,12 +72291,12 @@ MonoBehaviour:
       Y: 0
       Z: 0
     AutoSize:
-      X: 1
-      Y: 1
+      X: 0
+      Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.8229812, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -72397,8 +72400,8 @@ MonoBehaviour:
       Mode: 1
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 27d4b9ca59343c149a5c202499e1faf2, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: -1954109288, guid: edbb085fb37da4947b2ea7a49e2ba25a, type: 3}
 --- !u!114 &2109586067
 MonoBehaviour:
   m_ObjectHideFlags: 10

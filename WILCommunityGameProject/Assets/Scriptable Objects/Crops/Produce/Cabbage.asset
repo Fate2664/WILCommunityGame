@@ -15,6 +15,6 @@ MonoBehaviour:
   itemDesc:
     Name: Cabbage
     ToolTip: This is a cabbage
-    Icon: {fileID: 21300000, guid: 27d4b9ca59343c149a5c202499e1faf2, type: 3}
+    Icon: {fileID: -1954109288, guid: edbb085fb37da4947b2ea7a49e2ba25a, type: 3}
   produceType: 2
   sellPrice: 15

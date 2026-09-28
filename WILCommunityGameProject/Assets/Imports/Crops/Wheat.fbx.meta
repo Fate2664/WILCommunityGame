@@ -3,7 +3,17 @@ guid: 13cd919112b09d74c84d63b53c8e1458
 ModelImporter:
   serializedVersion: 24200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WheatMaterial
+    second: {fileID: 2100000, guid: 031b6dd620aeb674e9fef9c1729b3411, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: WheatStalkMaterial
+    second: {fileID: 2100000, guid: 26c3a4046d3b3bf44b767119c40e5d96, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

@@ -681,8 +681,8 @@ MonoBehaviour:
       Mode: 0
     SoftenEdges: 1
     FillEnabled: 1
-  texture: {fileID: 2800000, guid: 05f17c2b2edd8b444826f4e88c4de15a, type: 3}
-  sprite: {fileID: 0}
+  texture: {fileID: 0}
+  sprite: {fileID: 585689177, guid: dc110ac04867d3046a342af9546c04ab, type: 3}
 --- !u!1 &4049429530551073939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1657,8 +1657,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4282142828
-  m_fontColor: {r: 0.42318046, g: 0.31293145, b: 0.23668446, a: 1}
+    rgba: 4280100661
+  m_fontColor: {r: 0.20754719, g: 0.15447983, b: 0.11258456, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

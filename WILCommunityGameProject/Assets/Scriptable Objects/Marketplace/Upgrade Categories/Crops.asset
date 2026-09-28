@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Crops
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.MarketplaceUpgradeCategory
   displayName: Crops
-  icon: {fileID: 21300000, guid: 2db45bf23a656174a9222f11cc0d8d8d, type: 3}
+  icon: {fileID: -1632363530, guid: dc110ac04867d3046a342af9546c04ab, type: 3}
   upgrades:
   - {fileID: 11400000, guid: 243e957ca63bc384391d0278a8f99404, type: 2}
   - {fileID: 11400000, guid: fb1e9ae39e320b641820e8846585a5f7, type: 2}

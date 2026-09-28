@@ -10,12 +10,16 @@ namespace WILCommunityGame
         [Header("References")] [SerializeField]
         private MarketplaceUI marketplaceUI;
 
+        [SerializeField] private CommunityUIManager communityUIManager;
+        [SerializeField] private TextBlock sellingLockedText;
+
         [Header("Crops")] [SerializeField] private GridView cropsGrid;
         [SerializeField] private TextBlock emptyInventoryText;
         [SerializeField] private ProduceItemSO[] allCrops = new ProduceItemSO[8];
 
-        [Header("Grid Spacing")]
-        [SerializeField, Min(0f)] private float columnSpacing = 30f;
+        [Header("Grid Spacing")] [SerializeField, Min(0f)]
+        private float columnSpacing = 30f;
+
         [SerializeField, Min(0f)] private float rowSpacing = 16f;
 
         [Header("Selected Crop")] [SerializeField]
@@ -41,9 +45,11 @@ namespace WILCommunityGame
         private UIManager inventory => marketplaceUI.Inventory;
         private PlayerStats playerStats => marketplaceUI.PlayerStats;
         private bool CanInteract => marketplaceUI.IsOpen && isActiveAndEnabled;
+        private bool CanSellCrops => communityUIManager.IsHappinessGreen;
 
         private void Start()
         {
+            communityUIManager.OnHappinessGreenChanged += HandleHappinessChanged;
             RefreshCrops();
         }
 
@@ -74,6 +80,14 @@ namespace WILCommunityGame
                 cropsGrid.RemoveDataBinder<InventoryItem, MarketplaceCropItemVisuals>(BindCrop);
                 cropsGrid.RemoveGestureHandler<Gesture.OnClick, MarketplaceCropItemVisuals>(HandleCropClicked);
             }
+
+            communityUIManager.OnHappinessGreenChanged -= HandleHappinessChanged;
+        }
+
+        private void HandleHappinessChanged()
+        {
+            if (isActiveAndEnabled && gridInitialized)
+                RefreshSaleDetails();
         }
 
         private void ProvideSlice(int index, GridView grid, ref GridSlice2D slice)
@@ -92,7 +106,7 @@ namespace WILCommunityGame
 
         private void HandleCropClicked(Gesture.OnClick evt, MarketplaceCropItemVisuals target, int index)
         {
-            if (!CanInteract || index < 0 || index >= crops.Count)
+            if (!CanInteract || !CanSellCrops || index < 0 || index >= crops.Count)
                 return;
 
             selectedCrop = crops[index].Produce;
@@ -134,10 +148,19 @@ namespace WILCommunityGame
 
         public void RefreshSaleDetails()
         {
-            bool hasSelection = selectedCrop != null;
-            sellRoot.SetActive(hasSelection);
+            bool canSell = CanSellCrops;
 
-            if (!hasSelection)
+            cropsGrid.gameObject.SetActive(canSell);
+
+            if (sellingLockedText != null)
+            {
+                sellingLockedText.gameObject.SetActive(!canSell);
+            }
+
+            bool hasSelection = selectedCrop != null;
+            sellRoot.SetActive(canSell && hasSelection);
+
+            if (!canSell || !hasSelection)
             {
                 quantity = 0;
                 decreaseButton.enabled = false;
@@ -161,7 +184,7 @@ namespace WILCommunityGame
             decreaseButton.enabled = quantity > 1;
             increaseButton.enabled = available > 0 && quantity < available;
 
-            sellButton.enabled = available > 0 && quantity > 0 && selectedCrop.sellPrice > 0 &&
+            sellButton.enabled = CanSellCrops && available > 0 && quantity > 0 && selectedCrop.sellPrice > 0 &&
                                  playerStats.CanReceiveCurrency(total);
         }
 
@@ -177,7 +200,7 @@ namespace WILCommunityGame
 
         private void ChangeQuantity(int change)
         {
-            if (!CanInteract || selectedCrop == null)
+            if (!CanInteract || !CanSellCrops || selectedCrop == null)
                 return;
 
             int available = inventory.GetProduceCount(selectedCrop);
@@ -196,6 +219,12 @@ namespace WILCommunityGame
         {
             if (!CanInteract || selectedCrop == null || quantity <= 0)
                 return;
+
+            if (!CanSellCrops)
+            {
+                RefreshSaleDetails();
+                return;
+            }
 
             ProduceItemSO crop = selectedCrop;
             int unitPrice = crop.sellPrice;

@@ -356,7 +356,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 3f951ce72539ac0489f8c0edfd3a653a, type: 3}
+  m_Sprite: {fileID: 318486625, guid: a0676e38d85975843b9f19895e52b53c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1012,6 +1012,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 196.266
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (3)
@@ -1234,6 +1238,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage
@@ -1456,6 +1464,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 217.788
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (6)
@@ -1530,6 +1542,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 285.463
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (4)
@@ -1678,6 +1694,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -30.788
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (1)
@@ -1752,6 +1772,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 270.792
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (5)
@@ -2056,6 +2080,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 58.137
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (2)
@@ -2130,6 +2158,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 129.567
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (8)
@@ -2204,6 +2236,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 129.567
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
     - target: {fileID: 919132149155446097, guid: d3b8c3626b0cfe240afec10cddf1841b, type: 3}
       propertyPath: m_Name
       value: TomatoPlantMiddleStage (7)

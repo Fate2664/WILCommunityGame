@@ -9,6 +9,16 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: LeafMaterial
     second: {fileID: 2100000, guid: b362f5a41ef9fed4199f11ba8062a4c9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SugarcaneMaterial
+    second: {fileID: 2100000, guid: d7c18f787ef704944bb6650bdb14f139, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: SugarcaneMaterial2
+    second: {fileID: 2100000, guid: d85f5894390870f4d9f897b500ba45c4, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

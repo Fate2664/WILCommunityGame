@@ -27,6 +27,9 @@ namespace WILCommunityGame
         [SerializeField] private TextBlock cornCropAmount;
         [SerializeField] private TextBlock cabbageCropAmount;
         [SerializeField] private TextBlock carrotCropAmount;
+        
+        public bool IsHappinessGreen { get; private set; }
+        public event Action OnHappinessGreenChanged;
 
         private int tomatosDelivered;
         private int potatosDelivered;
@@ -135,6 +138,13 @@ namespace WILCommunityGame
             }
 
             happinessBarFull = isFullNow;
+            int greenStartIndex = Mathf.CeilToInt(happinessBarSegments.Length * 2f / 3f);
+            bool isGreenNow = happinessBarSegments.Length > 0 && filledSegments > greenStartIndex;
+            if (IsHappinessGreen != isGreenNow)
+            {
+                IsHappinessGreen = isGreenNow;
+                OnHappinessGreenChanged?.Invoke();
+            }
         }
 
         private Color GetFilledSegmentColor(int segmentIndex)

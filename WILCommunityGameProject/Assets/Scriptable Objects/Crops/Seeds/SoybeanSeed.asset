@@ -15,7 +15,7 @@ MonoBehaviour:
   itemDesc:
     Name: Soybean Seed
     ToolTip: Plant this seed to grow soybeans.
-    Icon: {fileID: 21300000, guid: ada90ebe779ac04488fbf65b05e4bb78, type: 3}
+    Icon: {fileID: 21300000, guid: c6c46ac423509e9448b1f44d0ddaae86, type: 3}
   seedType: 7
   daysToGrow: 1
   harvestAmount: 10
