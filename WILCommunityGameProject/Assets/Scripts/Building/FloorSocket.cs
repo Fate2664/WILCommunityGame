@@ -4,8 +4,11 @@ namespace WILCommunityGame
 {
     public class FloorSocket : EdgeSocket
     {
-       [SerializeField] bool acceptsFloorPieces =  true;
+        [SerializeField] bool acceptsFloorPieces = true;
 
-       public override bool CanAcceptPart(BuildPieceType pieceType) => pieceType == BuildPieceType.Floor && acceptsFloorPieces;
+        public override bool CanAcceptPart(BuildPieceType pieceType)
+        {
+            return acceptsFloorPieces && (pieceType == BuildPieceType.Floor || pieceType == BuildPieceType.BuildableObject);
+        }
     }
 }

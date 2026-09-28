@@ -11,29 +11,27 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     [Header("References")] [SerializeField]
     private PlayerController playerController;
+
     [SerializeField] private BuildPlacer buildPlacer;
-    
-    [Header("Inventory")] 
-    [SerializeField] private ItemDatabase ItemDatabase = null;
+
+    [Header("Inventory")] [SerializeField] private ItemDatabase ItemDatabase = null;
     [SerializeField] private ItemView EquipItemRoot = null;
     [SerializeField] private ItemView closeButtonRoot = null;
     [SerializeField] private ItemView fenceButtonRoot = null;
     [SerializeField] private ItemView destructionButtonRoot = null;
-    
-    [Header("Information")]
-    [SerializeField] private InformationTipSO hoeTip;
-    
-    [Space(10)]
-    [Header("Grid Layout")] 
-    public GridView Grid = null;
+
+    [Header("Information")] [SerializeField]
+    private InformationTipSO hoeTip;
+
+    [Space(10)] [Header("Grid Layout")] public GridView Grid = null;
     public int Count = 24;
 
-    [Space(10)] 
-    [Header("Row Styling")] 
-    [SerializeField] private int padding = 10;
-    
-    [Header("Date & Time")] 
-    [SerializeField] private TextBlock TimeText = null;
+    [Space(10)] [Header("Row Styling")] [SerializeField]
+    private int padding = 10;
+
+    [Header("Date & Time")] [SerializeField]
+    private TextBlock TimeText = null;
+
     [SerializeField] private TextBlock TimePrefix = null;
     [SerializeField] private TextBlock DayText = null;
 
@@ -64,51 +62,121 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     public void AddItemToInventory(InventoryItemData item, int count = 1)
     {
-        if (item == null) return;
+        if (item == null || count <= 0)
+            return;
 
-        var existing = Items.Find(x => !x.isEmpty && x.item == item);
-        if (existing != null && existing.count + count != InventoryItem.maxCount)
-        {
-            existing.IncreaseCount(count);
-        }
-        else
-        {
-            int emptyIndex = Items.FindIndex(x => x.isEmpty);
-            if (emptyIndex != -1)
-            {
-                Items[emptyIndex] = new InventoryItem
-                {
-                    item = item,
-                    count = count
-                };
-            }
-        }
-
-        inventoryNeedsRefresh = true;
-        RefreshInventory();
-
-        if (equippedItem != null && equippedItem.item == item)
-        {
-            RefreshEquippedItem();
-        }
-        OnInventoryChanged?.Invoke();
+        int added = TryAddItem(item, count);
     }
-    
+
     public void Add5ItemsToInventory(InventoryItemData item)
     {
-        AddItemToInventory(item, 5);
+        TryAddItem(item, 5);
     }
     
     public void Add1ItemToInventory(InventoryItemData item)
     {
-        AddItemToInventory(item, 1);
+        TryAddItem(item, 1);
+    }
+
+    public int GetRemainingCapacity(InventoryItemData item)
+    {
+        if (Items == null || item == null)
+            return 0;
+
+        int capacity = 0;
+
+        foreach (InventoryItem stack in Items)
+        {
+            if (stack == null || stack.isEmpty)
+            {
+                capacity += InventoryItem.maxCount;
+            }
+            else if (stack.item == item)
+            {
+                capacity += Mathf.Max(0, InventoryItem.maxCount - stack.count);
+            }
+        }
+
+        return capacity;
+    }
+
+    public int TryAddItem(InventoryItemData item, int amount)
+    {
+        if (Items == null || item == null || amount <= 0)
+            return 0;
+
+        int remaining = amount;
+
+        for (int i = 0; i < Items.Count && remaining > 0; i++)
+        {
+            InventoryItem stack = Items[i];
+
+            if (stack == null || stack.isEmpty || stack.item != item)
+                continue;
+
+            int availableSpace = Mathf.Max(0, InventoryItem.maxCount - stack.count);
+            int toAdd = Mathf.Min(remaining, availableSpace);
+
+            if (toAdd <= 0)
+                continue;
+
+            stack.IncreaseCount(toAdd);
+            remaining -= toAdd;
+        }
+
+        // Put the remaining quantity into empty slots.
+        for (int i = 0; i < Items.Count && remaining > 0; i++)
+        {
+            InventoryItem stack = Items[i];
+
+            if (stack != null && !stack.isEmpty)
+                continue;
+
+            int toAdd = Mathf.Min(remaining, InventoryItem.maxCount);
+
+            Items[i] = new InventoryItem
+            {
+                item = item,
+                count = toAdd
+            };
+
+            remaining -= toAdd;
+        }
+
+        int added = amount - remaining;
+
+        if (added > 0)
+        {
+            inventoryNeedsRefresh = true;
+            RefreshInventory();
+
+            if (equippedItem != null && equippedItem.item == item)
+            {
+                RefreshEquippedItem();
+            }
+
+            OnInventoryChanged?.Invoke();
+        }
+
+        return added;
+    }
+
+    public bool TryAddItemExact(InventoryItemData item, int amount)
+    {
+        if (item == null || amount <= 0)
+            return false;
+
+        if (GetRemainingCapacity(item) < amount)
+            return false;
+
+        return TryAddItem(item, amount) == amount;
     }
 
     public int RemoveProduce(ProduceType type, int amount)
     {
         return RemoveMatchingProduce(stack => stack.Produce.produceType == type, amount);
     }
-    
+
     public int RemoveProduce(ProduceItemSO produce, int amount)
     {
         if (produce == null)
@@ -116,7 +184,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
         return RemoveMatchingProduce(stack => stack.Produce == produce, amount);
     }
-    
+
     private int RemoveMatchingProduce(Predicate<InventoryItem> matches, int amount)
     {
         if (Items == null || amount <= 0) return 0;
@@ -159,12 +227,10 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     public void RefreshInventory()
     {
-        if (!Grid.gameObject.activeInHierarchy)
+        if (!Grid.gameObject.activeInHierarchy || !inventoryNeedsRefresh)
         {
             return;
         }
-
-        if (!inventoryNeedsRefresh) return;
 
         Grid.Refresh();
         inventoryNeedsRefresh = false;
@@ -179,7 +245,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         {
             if (stack == null || !stack.IsProduce || stack.count <= 0)
                 continue;
-            
+
             InventoryItem existing = crops.Find(x => x.item == stack.item);
 
             if (existing != null)
@@ -195,6 +261,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
                 });
             }
         }
+
         return crops;
     }
 
@@ -209,6 +276,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
             if (stack != null && stack.item == produce && stack.count > 0)
                 total += stack.count;
         }
+
         return total;
     }
 
@@ -234,11 +302,14 @@ public class UIManager : MonoBehaviour, ITimeTracker
     {
         gridslice.Layout.AutoSize.Y = AutoSize.Shrink;
         gridslice.AutoLayout.AutoSpace = true;
-        gridslice.Layout.Padding.Value = padding;
+        gridslice.Layout.Padding.Value = 0f;
+        gridslice.Layout.Padding.XY.Value = padding;
     }
 
-    private void BindItem(Data.OnBind<InventoryItem> evt, InventoryItemVisuals target, int index) =>
+    private void BindItem(Data.OnBind<InventoryItem> evt, InventoryItemVisuals target, int index)
+    {
         target.Bind(evt.UserData, this);
+    }
 
     private void RegisterStandaloneGestureHandlers()
     {
@@ -297,22 +368,41 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     public void EquipItem(InventoryItem item)
     {
-        equippedItem = item != null && !item.isEmpty ? item : null;
-        if (equippedItem != null && equippedItem.IsTool)
+        buildPlacer.enabled = false;
+        equippedItem = item != null && !item.isEmpty && item.count > 0 ? item : null;
+
+        if (playerController.IsInventoryOpen)
         {
-            ToolItemSO tool = equippedItem.item as ToolItemSO;
+            playerController.ToggleInventory();
+        }
+
+        RefreshEquippedItem();
+
+        if (equippedItem == null)
+            return;
+
+        if (equippedItem.item is BuildableObjectItemSO buildable)
+        {
+            if (!buildPlacer.BeginBuildablePlacement(buildable, this))
+            {
+                UnEquipItem();
+            }
+
+            return;
+        }
+
+        if (equippedItem.item is ToolItemSO tool)
+        {
             switch (tool.toolType)
             {
                 case ToolType.Hoe:
                     HoeEquipped();
                     break;
+
                 case ToolType.WateringCan:
                     break;
             }
         }
-
-        playerController.ToggleInventory();
-        RefreshEquippedItem();
     }
 
     public bool TryUseEquippedItem(int amount = 1)
@@ -425,7 +515,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
         if (!shownInformtationTips.Add(tip))
             return;
-        
+
         OnInformationTipRequested?.Invoke(tip);
     }
 

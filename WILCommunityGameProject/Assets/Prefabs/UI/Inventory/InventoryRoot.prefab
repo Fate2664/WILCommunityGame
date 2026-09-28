@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 795221907819826415}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.32, z: 1}
+  m_LocalPosition: {x: 0, y: -0.32, z: 0}
   m_LocalScale: {x: 0.0010691672, y: 0.0010691672, z: 0.0010691672}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -81,7 +81,7 @@ MonoBehaviour:
         Raw: -0.32
         Type: 0
       Z:
-        Raw: 1
+        Raw: 0
         Type: 0
     Padding:
       Left:
@@ -309,8 +309,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   info:
     SortingOrder: 1
-    RenderQueue: 4000
-    RenderOverOpaqueGeometry: 1
+    RenderQueue: 3000
+    RenderOverOpaqueGeometry: 0
 --- !u!1 &1649791192226457656
 GameObject:
   m_ObjectHideFlags: 0

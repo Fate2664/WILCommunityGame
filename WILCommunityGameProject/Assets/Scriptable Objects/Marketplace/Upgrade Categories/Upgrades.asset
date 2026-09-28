@@ -16,3 +16,4 @@ MonoBehaviour:
   icon: {fileID: 21300000, guid: 39de4194a8e7f054faf18c0759a6db0a, type: 3}
   upgrades:
   - {fileID: 11400000, guid: f7170dc061f69c3409c07303f7ee99d2, type: 2}
+  - {fileID: 11400000, guid: ce1f3dc30d87ad04da5a51faed7cff05, type: 2}
