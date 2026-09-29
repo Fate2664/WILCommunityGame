@@ -29,6 +29,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
     [Space(10)] [Header("Row Styling")] [SerializeField]
     private int padding = 10;
 
+    private int columnSpacing = 10;
+
     [Header("Date & Time")] [SerializeField]
     private TextBlock TimeText = null;
 
@@ -301,7 +303,8 @@ public class UIManager : MonoBehaviour, ITimeTracker
     private void ProvideSlice(int sliceIndex, GridView gridview, ref GridSlice2D gridslice)
     {
         gridslice.Layout.AutoSize.Y = AutoSize.Shrink;
-        gridslice.AutoLayout.AutoSpace = true;
+        gridslice.AutoLayout.AutoSpace = false;
+        gridslice.AutoLayout.Spacing.Value = columnSpacing;
         gridslice.Layout.Padding.Value = 0f;
         gridslice.Layout.Padding.XY.Value = padding;
     }

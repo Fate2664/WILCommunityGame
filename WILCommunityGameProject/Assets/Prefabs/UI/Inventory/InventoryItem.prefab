@@ -33,6 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 785719712549490491}
   - {fileID: 4818911466088122378}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -65,10 +66,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 142.31
+        Raw: 87.94
         Type: 0
       Y:
-        Raw: 142.31
+        Raw: 87.94
         Type: 0
       Z:
         Raw: 0
@@ -225,7 +226,7 @@ MonoBehaviour:
     LightingModel: 0
     ShadowCastingMode: 2
     ReceiveShadows: 1
-  PreviewSize: {x: 142.31, y: 142.31, z: 0}
+  PreviewSize: {x: 87.94, y: 87.94, z: 0}
   visuals:
     Color: {r: 0.84905654, g: 0.6818381, b: 0.48860797, a: 1}
     CornerRadius:
@@ -933,7 +934,7 @@ MonoBehaviour:
       alignment: -1
       ExpandToGrid: 0
   visibility:
-    ZIndex: 0
+    ZIndex: 11
     BlockType: 2
     Visible: 1
   surface:
@@ -1253,7 +1254,7 @@ MonoBehaviour:
       alignment: -1
       ExpandToGrid: 0
   visibility:
-    ZIndex: 0
+    ZIndex: 10
     BlockType: 1
     Visible: 1
   surface:
@@ -1369,7 +1370,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 59.301872, y: -41.258545}
+  m_AnchoredPosition: {x: 34.75125, y: -23.862364}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!23 &465680809427075680
@@ -1450,10 +1451,10 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 15.806251
+        Raw: 10.5375
         Type: 0
       Y:
-        Raw: 58.73291
+        Raw: 39.155273
         Type: 0
       Z:
         Raw: 0
@@ -1658,8 +1659,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 450
-  m_fontSizeBase: 450
+  m_fontSize: 300
+  m_fontSizeBase: 300
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1717,7 +1718,6 @@ GameObject:
   - component: {fileID: 785719712549490491}
   - component: {fileID: 3878803176793951492}
   - component: {fileID: 8312627450790845144}
-  - component: {fileID: 7517072432527888017}
   m_Layer: 0
   m_Name: ToolTipRoot
   m_TagString: Untagged
@@ -1733,13 +1733,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7968982314821280645}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 163.755, y: 70.705, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 136.57, y: 70.32, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 420176818266570513}
-  m_Father: {fileID: 4818911466088122378}
+  m_Father: {fileID: 62448756563306691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3878803176793951492
 MonoBehaviour:
@@ -1783,7 +1783,7 @@ MonoBehaviour:
         Raw: -192.6
         Type: 0
       Y:
-        Raw: -39.3
+        Raw: -66.1
         Type: 0
       Z:
         Raw: 0
@@ -1893,8 +1893,8 @@ MonoBehaviour:
       Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.39749998, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -1931,22 +1931,6 @@ MonoBehaviour:
     ShadowCastingMode: 2
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
---- !u!114 &7517072432527888017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7968982314821280645}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b2a531bfddefda4e85a827979d250a0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Nova::Nova.SortGroup
-  info:
-    SortingOrder: 10
-    RenderQueue: 3000
-    RenderOverOpaqueGeometry: 0
 --- !u!1 &8332457870995884078
 GameObject:
   m_ObjectHideFlags: 0
@@ -1980,7 +1964,6 @@ Transform:
   m_Children:
   - {fileID: 1407076050250090918}
   - {fileID: 1953280046520619740}
-  - {fileID: 785719712549490491}
   m_Father: {fileID: 62448756563306691}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4163803642399653173

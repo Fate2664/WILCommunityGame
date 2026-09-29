@@ -11,5 +11,6 @@ namespace WILCommunityGame
         public GameObject seedlingPrefab;
         public GameObject harvestablePrefab;
         public ProduceItemSO produceItem;
+        public InformationTipSO informationTip;
     }
 }

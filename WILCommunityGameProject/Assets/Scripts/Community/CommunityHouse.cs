@@ -36,6 +36,10 @@ namespace WILCommunityGame
         [Header("Available Crops")] [SerializeField]
         private ProduceItemSO[] availableCrops;
 
+        [Header("Objectives")]
+        [SerializeField] private ObjectiveListUI objectiveListUI;
+        [SerializeField] private ObjectiveItem fullyFeedCommunityHouseObjective;
+
         [Header("Daily Request Settings")] 
         [SerializeField] private int minCropTypesPerHouse = 1;
         [SerializeField] private int maxCropTypesPerHouse = 5;
@@ -220,6 +224,11 @@ namespace WILCommunityGame
             
             Satisfaction = newSatisfaction;
             OnSatisfactionChanged?.Invoke(this, newSatisfaction);
+            
+            if (newSatisfaction == CommunityHouseSatisfaction.Full)
+            {
+                objectiveListUI?.CompleteItem(fullyFeedCommunityHouseObjective);
+            }
         }
     }
 }

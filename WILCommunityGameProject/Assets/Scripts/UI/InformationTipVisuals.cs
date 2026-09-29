@@ -14,7 +14,7 @@ namespace WILCommunityGame
         [SerializeField] private float showDuration = 10.0f;
 
         private float offScreenY;
-        private float onScreenY = 450.0f;
+        private float onScreenY = 413.0f;
         private Sequence slideTween;
 
         private void Awake()

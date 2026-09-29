@@ -37,6 +37,10 @@ namespace WILCommunityGame
         [SerializeField] private Interactable sellButton;
 
         [Header("Currency")] [SerializeField] private TextBlock currencyText;
+        
+        [Header("Objectives")]
+        [SerializeField] private ObjectiveListUI objectiveListUI;
+        [SerializeField] private ObjectiveItem sellCropsObjective;
 
         private readonly List<InventoryItem> crops = new();
         private ProduceItemSO selectedCrop;
@@ -244,7 +248,10 @@ namespace WILCommunityGame
             int removed = inventory.RemoveProduce(crop, quantity);
 
             if (removed > 0)
+            {
                 playerStats.AddCurrency((int)((long)removed * unitPrice));
+                objectiveListUI?.CompleteItem(sellCropsObjective);
+            }
         }
     }
 }

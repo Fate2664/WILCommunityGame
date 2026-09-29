@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6f186b23a6cd01b4ba29b71aeef5f247, type: 3}
-  m_Name: Hoeing
+  m_Name: Cabbage
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.InformationTipSO
-  text: 'Healthy crops start with healthy soil. Loosening the soil with a hoe allows
-    plant roots to grow more easily and improves water absorption. In South Africa,
-    where poor soil quality can make farming difficult, preparing the soil is an
-    important first step towards growing food for your community.
-
-'
+  text: Cabbage is a nutritious vegetable commonly used in South African home cooking.
+    It provides vitamins C and K and can be included in many affordable meals. Growing
+    cabbage locally can help families access fresh vegetables without relying entirely
+    on food purchased from shops.

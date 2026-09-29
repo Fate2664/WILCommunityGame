@@ -27,6 +27,11 @@ namespace WILCommunityGame
         [Header("Upgrade Effects")]
         [SerializeField] private List<MarketplaceUpgradeBinding> bindings = new();
         
+        [Header("Objectives")]
+        [SerializeField] private ObjectiveListUI objectiveListUI;
+        [SerializeField] private ObjectiveItem buySeedsObjective;
+        [SerializeField] private MarketplaceUpgradeCategory cropsCategory;
+        
         private readonly HashSet<MarketplaceUpgradeItem> purchased = new();
         private bool purchaseInProgress;
 
@@ -75,6 +80,12 @@ namespace WILCommunityGame
                 }
 
                 binding.onPurchased.Invoke();
+
+                if (cropsCategory != null && cropsCategory.upgrades.Contains(upgrade))
+                {
+                    objectiveListUI?.CompleteItem(buySeedsObjective);
+                }
+
                 return true;
             }
             finally

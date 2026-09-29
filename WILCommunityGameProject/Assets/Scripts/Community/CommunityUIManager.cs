@@ -28,6 +28,10 @@ namespace WILCommunityGame
         [SerializeField] private TextBlock cabbageCropAmount;
         [SerializeField] private TextBlock carrotCropAmount;
         
+        [Header("Player Currency")]
+        [SerializeField] private PlayerStats playerStats;
+        [SerializeField] private TextBlock currencyText;
+        
         public bool IsHappinessGreen { get; private set; }
         public event Action OnHappinessGreenChanged;
 
@@ -56,6 +60,15 @@ namespace WILCommunityGame
             RefreshHappinessBar();
             TimeManager.Instance.RegisterTracker(this);
         }
+        
+        private void OnEnable()
+        {
+            if (playerStats == null || currencyText == null)
+                return;
+
+            playerStats.OnCurrencyChanged += RefreshCurrency;
+            RefreshCurrency(playerStats.Currency);
+        }
 
         private void OnDestroy()
         {
@@ -69,6 +82,11 @@ namespace WILCommunityGame
 
             if (TimeManager.Instance != null)
                 TimeManager.Instance.UnregisterTracker(this);
+        }
+        
+        private void RefreshCurrency(int amount)
+        {
+            currencyText.Text = $"R{amount}";
         }
 
         public void AddDelivered(ProduceType type, int amount)
@@ -114,22 +132,26 @@ namespace WILCommunityGame
 
         private void RefreshHappinessBar()
         {
-            int filledSegments = 0;
+            int totalScore = 0;
 
             foreach (int score in houseHappiness.Values)
-                filledSegments += score;
+                totalScore += score;
 
-            filledSegments = Mathf.Clamp(filledSegments, 0, happinessBarSegments.Length);
+            int maxScore = houseHappiness.Count * GetHappinessScore(CommunityHouseSatisfaction.Full);
+            int segmentCount = happinessBarSegments.Length;
+            int filledSegments = maxScore > 0 ? (int)((long)totalScore * segmentCount / maxScore) : 0;
 
-            for (int i = 0; i < happinessBarSegments.Length; i++)
+            for (int i = 0; i < segmentCount; i++)
             {
                 if (happinessBarSegments[i] != null)
                 {
-                    happinessBarSegments[i].Color = i < filledSegments ? GetFilledSegmentColor(i) : emptySegmentColor;
+                    happinessBarSegments[i].Color = i < filledSegments
+                        ? GetFilledSegmentColor(i)
+                        : emptySegmentColor;
                 }
             }
 
-            bool isFullNow = happinessBarSegments.Length > 0 && filledSegments == happinessBarSegments.Length;
+            bool isFullNow = segmentCount > 0 && maxScore > 0 && totalScore == maxScore;
 
             if (isFullNow && !happinessBarFull)
             {
@@ -138,8 +160,11 @@ namespace WILCommunityGame
             }
 
             happinessBarFull = isFullNow;
-            int greenStartIndex = Mathf.CeilToInt(happinessBarSegments.Length * 2f / 3f);
-            bool isGreenNow = happinessBarSegments.Length > 0 && filledSegments > greenStartIndex;
+
+            int greenStartIndex = Mathf.CeilToInt(segmentCount * 2f / 3f);
+            bool isGreenNow = segmentCount > 0 &&
+                              filledSegments > greenStartIndex;
+
             if (IsHappinessGreen != isGreenNow)
             {
                 IsHappinessGreen = isGreenNow;
@@ -198,6 +223,12 @@ namespace WILCommunityGame
             cornCropAmount.Text = cornDelivered.ToString();
             cabbageCropAmount.Text = cabbgeDelivered.ToString();
             carrotCropAmount.Text = carrotsDelivered.ToString();
+        }
+        
+        private void OnDisable()
+        {
+            if (playerStats != null)
+                playerStats.OnCurrencyChanged -= RefreshCurrency;
         }
     }
 }

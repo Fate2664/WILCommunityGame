@@ -18,4 +18,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 90ee21b3efaedea4d85b579663f2d697, type: 2}
   - {fileID: 11400000, guid: 74a389964af9a2e48b5a3f59e3c1583f, type: 2}
   - {fileID: 11400000, guid: b5d2c242e8766b44ab861fdddf550b5a, type: 2}
+  - {fileID: 11400000, guid: 2f84a0e5d9ed8a34a9e30f7a009d0ac6, type: 2}
   nextObjective: {fileID: 11400000, guid: fbe998c28fda8c54fa33ffa3e999c4be, type: 2}

@@ -22,3 +22,4 @@ MonoBehaviour:
   seedlingPrefab: {fileID: 7863790740695239896, guid: 449c56ca5fdacb742beddd4d76c70f85, type: 3}
   harvestablePrefab: {fileID: 7863790740695239896, guid: 908a73d7059a3914a9da13f274fe1e0d, type: 3}
   produceItem: {fileID: 11400000, guid: d98d594602a7ef7489b49bfcc2963724, type: 2}
+  informationTip: {fileID: 11400000, guid: 084a6ee0b70d30148977fcc40b4da979, type: 2}
