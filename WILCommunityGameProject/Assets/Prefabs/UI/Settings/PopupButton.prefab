@@ -227,7 +227,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 251.1023, y: 83.31055, z: 0}
   visuals:
-    Color: {r: 0.6603774, g: 0.48048687, b: 0.3519936, a: 1}
+    Color: {r: 0.84905654, g: 0.6818381, b: 0.48860797, a: 1}
     CornerRadius:
       Raw: 0.5
       Type: 1
@@ -261,7 +261,7 @@ MonoBehaviour:
       Rotation: 0
       Enabled: 0
     Border:
-      Color: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
+      Color: {r: 0.3301887, g: 0.21976937, b: 0.13550197, a: 1}
       Width:
         Raw: 4
         Type: 0
@@ -673,8 +673,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280232503
+  m_fontColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:

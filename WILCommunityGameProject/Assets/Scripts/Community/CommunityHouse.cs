@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Nova;
 using UnityEngine;
-using Random = System.Random;
 
 namespace WILCommunityGame
 {
@@ -30,11 +29,15 @@ namespace WILCommunityGame
         private UIManager uiManager;
 
         [SerializeField] private CommunityUIManager communityUIManager;
+        [SerializeField] private CommunityHouseUI communityHouseUI;
         [SerializeField] private ListView cropRequestList;
         [SerializeField] private UIBlock2D bowlIcon;
 
         [Header("Available Crops")] [SerializeField]
         private ProduceItemSO[] availableCrops;
+
+        [Header("Daily Trades")]
+        [SerializeField] private CommunityTradeSO[] availableTrades;
 
         [Header("Objectives")]
         [SerializeField] private ObjectiveListUI objectiveListUI;
@@ -52,6 +55,11 @@ namespace WILCommunityGame
         private readonly List<CropRequest> requests = new();
         private CommunityHouseVisuals visuals;
         public bool FeedingEnabled => feedingEnabled;
+        public IReadOnlyList<CropRequest> Requests => requests;
+        public CommunityTradeSO DailyTrade { get; private set; }
+        public bool HasTradedToday { get; private set; }
+        public Sprite BowlSprite => bowlIcon.Sprite;
+        public event Action OnHouseChanged;
         private bool hasStarted;
         private TimeManager registeredClock;
         private int requestDay;
@@ -119,7 +127,15 @@ namespace WILCommunityGame
         {
             if (!feedingEnabled || !hasStarted || !isActiveAndEnabled)
                 return;
-            
+
+            communityHouseUI?.ToggleHouseUI(this, interactor);
+        }
+
+        public void Feed()
+        {
+            if (!feedingEnabled || !hasStarted || !isActiveAndEnabled)
+                return;
+
             foreach (var request in requests)
             {
                 if (request == null || request.IsComplete)
@@ -131,6 +147,42 @@ namespace WILCommunityGame
             }
 
             RefreshVisuals();
+        }
+
+        public bool CanTrade(out string reason)
+        {
+            reason = "Fully feed this house first";
+
+            if (!feedingEnabled || !hasStarted || !isActiveAndEnabled ||
+                Satisfaction != CommunityHouseSatisfaction.Full)
+                return false;
+
+            reason = "Traded today";
+            if (HasTradedToday)
+                return false;
+
+            reason = "No trade available";
+            if (DailyTrade == null || !DailyTrade.IsValid)
+                return false;
+
+            return uiManager.CanExchangeItems(DailyTrade, out reason);
+        }
+
+        public bool TryTrade()
+        {
+            if (!CanTrade(out _))
+                return false;
+
+            HasTradedToday = true;
+
+            if (!uiManager.TryExchangeItems(DailyTrade))
+            {
+                HasTradedToday = false;
+                return false;
+            }
+
+            OnHouseChanged?.Invoke();
+            return true;
         }
 
         public void ClockUpdate(GameTimestamp timestamp)
@@ -148,6 +200,22 @@ namespace WILCommunityGame
         private void GenerateDailyRequests()
         {
             requests.Clear();
+            HasTradedToday = false;
+            DailyTrade = null;
+
+            if (availableTrades != null)
+            {
+                List<CommunityTradeSO> trades = new();
+
+                foreach (CommunityTradeSO trade in availableTrades)
+                {
+                    if (trade != null && trade.IsValid)
+                        trades.Add(trade);
+                }
+
+                if (trades.Count > 0)
+                    DailyTrade = trades[UnityEngine.Random.Range(0, trades.Count)];
+            }
 
             List<ProduceItemSO> uniqueCrops = GetUniqueCrops();
 
@@ -190,6 +258,7 @@ namespace WILCommunityGame
 
             bowlIcon.SetImage(visuals.UpdateBowlImage(hasDeliveredAnything, allRequestsComplete));
             visuals.UpdateBowlBackground(hasDeliveredAnything, allRequestsComplete);
+            OnHouseChanged?.Invoke();
         }
 
         private void Shuffle(List<ProduceItemSO> crops)

@@ -11,6 +11,8 @@ public class SliderSettingVisuals : ItemVisuals
     public TextBlock ValueLabel = null;
     public float MinVisualOffset = 2.63f;
     public static float HoverScale = 1.05f;
+    public Color HoverColor = Color.white;
+    public Color DefaultColor = Color.black;
 
     public bool isSelected
     {
@@ -18,8 +20,8 @@ public class SliderSettingVisuals : ItemVisuals
         set
         {
             MainBackground.BodyEnabled = value;
-            SettingLabel.Color = value ? Color.black : Color.white;
-            ValueLabel.Color = value ? Color.black : Color.white;
+            SettingLabel.Color = value ? DefaultColor : HoverColor;
+            ValueLabel.Color = value ? DefaultColor : HoverColor;
             // SliderBackground.Color = value ? HexToColor("765033") : HexToColor("E2A87B");
             // FillBar.Color = value ? HexToColor("E2A87B") : HexToColor("765033");
         }

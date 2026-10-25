@@ -13,9 +13,13 @@ public class ToggleSettingVisuals : ItemVisuals
     public TextBlock SettingLabel = null;
     public UIBlock2D CheckBox = null;
     public UIBlock2D CheckMark = null;
-    public Texture2D WhiteCheckMark = null;
-    public Texture2D BlackCheckMark = null;
     public static float HoverScale = 1.05f;
+    public Color DefaultColor = Color.black;
+    public Color DefaultBoxColor = Color.black;
+    public Color DefaultBorderColor = Color.black;
+    public Color HoverColor = Color.white;
+    public Color HoverBoxColor = Color.white;
+    public Color HoverBorderColor = Color.white;
 
     public bool isSelected
     {
@@ -24,11 +28,10 @@ public class ToggleSettingVisuals : ItemVisuals
         {
             Background.BodyEnabled = value;
             Background.Shadow.Enabled = value;
-            SettingLabel.Color = value ? Color.black : Color.white;
-            CheckBox.Color = value ? HexToColor("AB7A55") : HexToColor("765033");
-            CheckBox.Border.Color = value ? HexToColor("26190F") : Color.white;
-            CheckBox.Border.Width = value ? 6f : 4f;
-            CheckMark.SetImage(value ? BlackCheckMark : WhiteCheckMark);
+            SettingLabel.Color = value ? DefaultColor : HoverColor;
+            CheckBox.Color = value ? DefaultBoxColor : HoverBoxColor;
+            CheckBox.Border.Color = value ? DefaultBorderColor : HoverBorderColor;
+            CheckMark.Color = value ? DefaultColor : HoverBorderColor;
         }
     }
 

@@ -307,8 +307,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280232503
+  m_fontColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -600,7 +600,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 226.2, y: 86.71, z: 0}
   visuals:
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 1, g: 0.95237666, b: 0.9009434, a: 1}
     CornerRadius:
       Raw: 1
       Type: 1
@@ -739,3 +739,5 @@ MonoBehaviour:
       data:
         label: {fileID: 4916223890310927130}
         Background: {fileID: 3458022393154462205}
+        DefaultColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
+        HoverColor: {r: 1, g: 1, b: 1, a: 1}

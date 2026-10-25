@@ -179,6 +179,114 @@ public class UIManager : MonoBehaviour, ITimeTracker
         return RemoveMatchingProduce(stack => stack.Produce.produceType == type, amount);
     }
 
+    public bool CanExchangeItems(CommunityTradeSO trade, out string reason)
+    {
+        return TryBuildTradeInventory(trade, out _, out reason);
+    }
+
+    public bool TryExchangeItems(CommunityTradeSO trade)
+    {
+        if (!TryBuildTradeInventory(trade, out List<InventoryItem> result, out _))
+            return false;
+
+        for (int index = 0; index < Items.Count; index++)
+        {
+            InventoryItem stack = Items[index];
+            InventoryItem updated = result[index];
+
+            if (stack != null && !stack.isEmpty && stack.item == updated.item)
+            {
+                stack.count = updated.count;
+            }
+            else
+            {
+                if (ReferenceEquals(equippedItem, stack))
+                    equippedItem = null;
+
+                Items[index] = updated;
+            }
+        }
+
+        inventoryNeedsRefresh = true;
+        RefreshInventory();
+        RefreshEquippedItem();
+        OnInventoryChanged?.Invoke();
+        return true;
+    }
+
+    private bool TryBuildTradeInventory(CommunityTradeSO trade, out List<InventoryItem> result, out string reason)
+    {
+        result = new List<InventoryItem>();
+        reason = "No trade available";
+
+        if (Items == null || trade == null || !trade.IsValid)
+            return false;
+
+        foreach (InventoryItem stack in Items)
+        {
+            result.Add(stack == null || stack.isEmpty ? new InventoryItem() :
+                new InventoryItem { item = stack.item, count = stack.count });
+        }
+
+        foreach (TradeItem entry in trade.Give)
+        {
+            int remaining = entry.Amount;
+
+            foreach (InventoryItem stack in result)
+            {
+                if (stack.item != entry.Item || remaining == 0)
+                    continue;
+
+                int removed = Mathf.Min(stack.count, remaining);
+                stack.count -= removed;
+                remaining -= removed;
+
+                if (stack.count == 0)
+                    stack.item = null;
+            }
+
+            if (remaining > 0)
+            {
+                reason = "Missing trade items";
+                return false;
+            }
+        }
+
+        foreach (TradeItem entry in trade.Receive)
+        {
+            int remaining = entry.Amount;
+
+            foreach (InventoryItem stack in result)
+            {
+                if (stack.item != entry.Item || remaining == 0)
+                    continue;
+
+                int added = Mathf.Min(remaining, InventoryItem.maxCount - stack.count);
+                stack.count += added;
+                remaining -= added;
+            }
+
+            foreach (InventoryItem stack in result)
+            {
+                if (!stack.isEmpty || remaining == 0)
+                    continue;
+
+                stack.item = entry.Item;
+                stack.count = Mathf.Min(remaining, InventoryItem.maxCount);
+                remaining -= stack.count;
+            }
+
+            if (remaining > 0)
+            {
+                reason = "Inventory full";
+                return false;
+            }
+        }
+
+        reason = "Trade";
+        return true;
+    }
+
     public int RemoveProduce(ProduceItemSO produce, int amount)
     {
         if (produce == null)

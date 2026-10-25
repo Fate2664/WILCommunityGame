@@ -64,9 +64,15 @@ public class PopupBoxVisuals : ItemVisuals
         
         ButtonList.AddGestureHandler<Gesture.OnHover, PopupButtonVisuals>(HandleButtonHover);
         ButtonList.AddGestureHandler<Gesture.OnUnhover, PopupButtonVisuals>(HandleButtonUnHover);
+        ButtonList.AddGestureHandler<Gesture.OnPress, PopupButtonVisuals>(HandleButtonPress);
         ButtonList.AddDataBinder<PopupButtonData, PopupButtonVisuals>(BindButtonData);
         
         ButtonList.AddGestureHandler<Gesture.OnClick, PopupButtonVisuals>(HandleButtonClick);
+    }
+
+    private void HandleButtonPress(Gesture.OnPress evt, PopupButtonVisuals target, int index)
+    {
+        AnimateScale(Vector3.one * 0.95f, Ease.OutBack, target.Background);
     }
 
     private void BindButtonData(Data.OnBind<PopupButtonData> evt, PopupButtonVisuals target, int index)
@@ -76,14 +82,25 @@ public class PopupBoxVisuals : ItemVisuals
 
     internal static void HandleButtonHover(Gesture.OnHover evt, PopupButtonVisuals target, int index)
     {
+        AnimateScale(Vector3.one * 1.05f, Ease.OutBack, target.Background);
     }
 
     internal static void HandleButtonUnHover(Gesture.OnUnhover evt, PopupButtonVisuals target, int index)
     {
+        AnimateScale(Vector3.one, Ease.OutQuad, target.Background);
     }
 
     private void HandleButtonClick(Gesture.OnClick evt, PopupButtonVisuals target, int index)
     {
         OnButtonClicked?.Invoke(index);
+    }
+    
+    private static void AnimateScale(Vector3 targetScale, Ease ease, UIBlock2D background)
+    {
+        background.DOKill();
+        background.transform
+            .DOScale(targetScale, .15f)
+            .SetEase(ease)
+            .SetUpdate(true);
     }
 }

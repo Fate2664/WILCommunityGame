@@ -984,6 +984,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.CommunityHouse
   uiManager: {fileID: 0}
+  communityHouseUI: {fileID: 0}
+  availableTrades:
+  - {fileID: 11400000, guid: e176632d4b2b4e96b9b8a91669a4f32e, type: 2}
+  - {fileID: 11400000, guid: e9a371c89bdb43d782a38e43164c5d41, type: 2}
+  - {fileID: 11400000, guid: 0b5efbbf6556499caf8c65f139a0a499, type: 2}
   cropRequestList: {fileID: 4317118231729363641}
   bowlIcon: {fileID: 3919574962119090339}
   availableCrops:

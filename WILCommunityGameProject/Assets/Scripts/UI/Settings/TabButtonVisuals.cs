@@ -11,6 +11,8 @@ public class TabButtonVisuals : ItemVisuals
     public TextBlock label = null;
     public UIBlock2D Background = null;
     public static float HoverScale = 1.1f;
+    public Color DefaultColor = Color.black;
+    public Color HoverColor = Color.white;
 
     public bool isSelected
     {
@@ -18,7 +20,7 @@ public class TabButtonVisuals : ItemVisuals
         set
         {
             Background.BodyEnabled = value;
-            label.Color = value ? Color.black : Color.white;
+            label.Color = value ? DefaultColor : HoverColor;
             
         }
     }

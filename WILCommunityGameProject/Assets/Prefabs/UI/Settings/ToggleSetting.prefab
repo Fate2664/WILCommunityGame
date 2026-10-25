@@ -226,7 +226,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
   visuals:
-    Color: {r: 0.4627451, g: 0.3137255, b: 0.2, a: 1}
+    Color: {r: 0.7830189, g: 0.5840631, b: 0.40997687, a: 1}
     CornerRadius:
       Raw: 8
       Type: 0
@@ -260,9 +260,9 @@ MonoBehaviour:
       Rotation: 0
       Enabled: 0
     Border:
-      Color: {r: 1, g: 1, b: 1, a: 1}
+      Color: {r: 0.3301887, g: 0.21976937, b: 0.13550197, a: 1}
       Width:
-        Raw: 4
+        Raw: 6
         Type: 0
       Enabled: 1
       Direction: 2
@@ -650,8 +650,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280232503
+  m_fontColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -944,7 +944,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
   visuals:
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 1, g: 0.95237666, b: 0.9009434, a: 1}
     CornerRadius:
       Raw: 100
       Type: 0
@@ -1036,8 +1036,12 @@ MonoBehaviour:
         SettingLabel: {fileID: 5186218618689056205}
         CheckBox: {fileID: 608028089891341098}
         CheckMark: {fileID: 815008630946616536}
-        WhiteCheckMark: {fileID: 2800000, guid: ae5ea6fabf8f2ba4890a12e41a95ad0a, type: 3}
-        BlackCheckMark: {fileID: 2800000, guid: a7300e4f92a4a0848a866b7dce37a145, type: 3}
+        DefaultColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
+        DefaultBoxColor: {r: 0.7830189, g: 0.5840631, b: 0.40997687, a: 1}
+        DefaultBorderColor: {r: 0.3301887, g: 0.21976937, b: 0.13550197, a: 1}
+        HoverColor: {r: 1, g: 1, b: 1, a: 1}
+        HoverBoxColor: {r: 0.97304577, g: 0.82153875, b: 0.6491342, a: 1}
+        HoverBorderColor: {r: 0.3301887, g: 0.21976937, b: 0.13550197, a: 1}
 --- !u!114 &1364830874263102402
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1311,7 +1315,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
   visuals:
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 0.3301887, g: 0.21976937, b: 0.13550197, a: 1}
     CornerRadius:
       Raw: 0
       Type: 0

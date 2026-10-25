@@ -12,9 +12,9 @@ public class StepperSettingVisuals : ItemVisuals
     public TextBlock ValueLabel = null;
     public UIBlock2D LeftArrow = null;
     public UIBlock2D RightArrow = null;
-    public Texture2D WhiteArrow = null;
-    public Texture2D BlackArrow = null;
     public static float HoverScale = 1.05f;
+    public Color DefaultColor = Color.black;
+    public Color HoverColor = Color.white;
 
     public bool isSelected
     {
@@ -22,10 +22,10 @@ public class StepperSettingVisuals : ItemVisuals
         set
         {
             Background.BodyEnabled = value;
-            SettingLabel.Color = value ? Color.black : Color.white;
-            ValueLabel.Color = value ? Color.black : Color.white;
-            LeftArrow.SetImage(value ? BlackArrow : WhiteArrow);
-            RightArrow.SetImage(value ? BlackArrow : WhiteArrow);
+            SettingLabel.Color = value ? DefaultColor : HoverColor;
+            ValueLabel.Color = value ? DefaultColor : HoverColor;
+            LeftArrow.Color = value ? DefaultColor : HoverColor;
+            RightArrow.Color = value ? DefaultColor : HoverColor;
         }
     }
 

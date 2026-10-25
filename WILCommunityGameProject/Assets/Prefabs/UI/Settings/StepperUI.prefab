@@ -307,8 +307,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4280232503
+  m_fontColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -601,7 +601,7 @@ MonoBehaviour:
     ReceiveShadows: 1
   PreviewSize: {x: 1, y: 1, z: 0}
   visuals:
-    Color: {r: 1, g: 1, b: 1, a: 1}
+    Color: {r: 1, g: 0.95237666, b: 0.9009434, a: 1}
     CornerRadius:
       Raw: 100
       Type: 0
@@ -694,8 +694,8 @@ MonoBehaviour:
         ValueLabel: {fileID: 5570824581256941373}
         LeftArrow: {fileID: 5994185459946826232}
         RightArrow: {fileID: 8466548906092624079}
-        WhiteArrow: {fileID: 2800000, guid: 76eed7ef7b0858d4491b71f9b3acc4f9, type: 3}
-        BlackArrow: {fileID: 2800000, guid: a666d87f8dfbc1340a4b2b68067256ea, type: 3}
+        DefaultColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
+        HoverColor: {r: 1, g: 1, b: 1, a: 1}
 --- !u!114 &7800148620940619955
 MonoBehaviour:
   m_ObjectHideFlags: 0
