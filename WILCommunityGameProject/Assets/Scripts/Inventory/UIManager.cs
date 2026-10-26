@@ -176,7 +176,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
 
     public int RemoveProduce(ProduceType type, int amount)
     {
-        return RemoveMatchingProduce(stack => stack.Produce.produceType == type, amount);
+        return RemoveMatchingItems(stack => stack.IsProduce && stack.Produce.produceType == type, amount);
     }
 
     public bool CanExchangeItems(CommunityTradeSO trade, out string reason)
@@ -292,10 +292,18 @@ public class UIManager : MonoBehaviour, ITimeTracker
         if (produce == null)
             return 0;
 
-        return RemoveMatchingProduce(stack => stack.Produce == produce, amount);
+        return RemoveMatchingItems(stack => stack.Produce == produce, amount);
     }
 
-    private int RemoveMatchingProduce(Predicate<InventoryItem> matches, int amount)
+    public int RemoveCompost(CompostItemSO compost, int amount)
+    {
+        if (compost == null)
+            return 0;
+
+        return RemoveMatchingItems(stack => stack.CompostItem == compost, amount);
+    }
+
+    private int RemoveMatchingItems(Predicate<InventoryItem> matches, int amount)
     {
         if (Items == null || amount <= 0) return 0;
 
@@ -305,7 +313,7 @@ public class UIManager : MonoBehaviour, ITimeTracker
         {
             InventoryItem stack = Items[i];
 
-            if (stack == null || !stack.IsProduce || stack.count <= 0 || !matches(stack))
+            if (stack == null || stack.isEmpty || stack.count <= 0 || !matches(stack))
                 continue;
 
             int removed = Mathf.Min(stack.count, remaining);
@@ -384,6 +392,46 @@ public class UIManager : MonoBehaviour, ITimeTracker
         foreach (var stack in Items)
         {
             if (stack != null && stack.item == produce && stack.count > 0)
+                total += stack.count;
+        }
+
+        return total;
+    }
+
+    public List<InventoryItem> GetCompostItems()
+    {
+        List<InventoryItem> compostItems = new();
+        if (Items == null) return compostItems;
+
+        foreach (InventoryItem stack in Items)
+        {
+            if (stack == null || (!stack.IsCompostItem && !stack.IsFertilizer) || stack.count <= 0)
+                continue;
+
+            InventoryItem existing = compostItems.Find(item => item.item == stack.item);
+
+            if (existing != null)
+            {
+                existing.count += stack.count;
+            }
+            else
+            {
+                compostItems.Add(new InventoryItem { item = stack.item, count = stack.count });
+            }
+        }
+
+        return compostItems;
+    }
+
+    public int GetCompostCount(CompostItemSO compost)
+    {
+        if (Items == null || compost == null) return 0;
+
+        int total = 0;
+
+        foreach (InventoryItem stack in Items)
+        {
+            if (stack != null && stack.item == compost && stack.count > 0)
                 total += stack.count;
         }
 

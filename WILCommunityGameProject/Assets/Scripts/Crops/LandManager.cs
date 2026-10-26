@@ -22,6 +22,7 @@ namespace WILCommunityGame
         private IndicatorManager indicatorManager;
         private GameObject pendingSwapPrefab;
         private ObjectiveListUI objectiveListUI;
+        private TimeManager timeManager;
 
         private bool firstWatering = true;
 
@@ -35,11 +36,26 @@ namespace WILCommunityGame
 
         private void Start()
         {
+            RegisterClock();
             RefreshIndicator();
         }
 
-        private void OnEnable() => TimeManager.Instance?.RegisterTracker(this);
-        private void OnDisable() => TimeManager.Instance?.UnregisterTracker(this);
+        private void OnEnable() => RegisterClock();
+
+        private void RegisterClock()
+        {
+            if (timeManager != null || TimeManager.Instance == null)
+                return;
+
+            timeManager = TimeManager.Instance;
+            timeManager.RegisterTracker(this);
+        }
+
+        private void OnDisable()
+        {
+            timeManager?.UnregisterTracker(this);
+            timeManager = null;
+        }
 
         private void LateUpdate()
         {
@@ -54,6 +70,18 @@ namespace WILCommunityGame
 
         public void Interact(PlayerController interactor)
         {
+            InventoryItem equipped = uiManager.EquippedItem;
+
+            if (equipped != null && equipped.IsFertilizer)
+            {
+                ToolItemSO fertilizer = equipped.Tool;
+
+                if (cropBehaviour.CanFertilize && uiManager.TryUseEquippedItem(1))
+                    cropBehaviour.ApplyFertilizer(fertilizer);
+
+                return;
+            }
+
             if (cropBehaviour.IsHarvestable && cropBehaviour.SeedItem.produceItem != null)
             {
                 //Add produce to inventory
@@ -66,7 +94,6 @@ namespace WILCommunityGame
                 return;
             }
 
-            InventoryItem equipped = uiManager.EquippedItem;
             if (equipped == null || equipped.isEmpty) return;
 
             if (equipped.IsSeed && cropBehaviour.CanPlant(equipped.Seed))

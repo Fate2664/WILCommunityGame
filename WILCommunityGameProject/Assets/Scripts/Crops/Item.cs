@@ -7,7 +7,8 @@ namespace WILCommunityGame
     public enum ToolType
     {
         Hoe,
-        WateringCan
+        WateringCan,
+        Fertilizer
     }
 
     public enum SeedType
@@ -34,6 +35,12 @@ namespace WILCommunityGame
         Soybean
     }
 
+    public enum CompostItem
+    {
+        CropWaste,
+        NaturalWaste
+    }
+
     [System.Serializable]
     public class ItemDescription
     {
@@ -56,10 +63,13 @@ namespace WILCommunityGame
         public bool IsTool => item is ToolItemSO;
         public bool IsSeed => item is SeedItemSO;
         public bool IsProduce => item is ProduceItemSO;
-        ToolItemSO Tool => item as ToolItemSO;
+        public bool IsCompostItem => item is CompostItemSO;
+        public ToolItemSO Tool => item as ToolItemSO;
         public SeedItemSO Seed => item as SeedItemSO;
         public ProduceItemSO Produce => item as ProduceItemSO;
+        public CompostItemSO CompostItem => item as CompostItemSO;
         public bool IsWateringCan => item is ToolItemSO tool && tool.toolType == ToolType.WateringCan;
+        public bool IsFertilizer => item is ToolItemSO tool && tool.toolType == ToolType.Fertilizer;
         public int WaterCapacity => item is ToolItemSO tool && tool.toolType == ToolType.WateringCan ? tool.waterCapacity : 0;
         public int WaterAmount => waterAmount;
 
