@@ -55,6 +55,7 @@ namespace WILCommunityGame
         private readonly List<CropRequest> requests = new();
         private CommunityHouseVisuals visuals;
         public bool FeedingEnabled => feedingEnabled;
+        public int RequestDay => requestDay;
         public IReadOnlyList<CropRequest> Requests => requests;
         public CommunityTradeSO DailyTrade { get; private set; }
         public bool HasTradedToday { get; private set; }
@@ -105,6 +106,7 @@ namespace WILCommunityGame
 
             registeredClock = TimeManager.Instance;
             requestDay = registeredClock.CurrentGameTimeStamp.day;
+            communityUIManager.OnStreakStageChanged += HandleStreakStageChanged;
             
             GenerateDailyRequests();
             registeredClock.RegisterTracker(this);
@@ -113,6 +115,9 @@ namespace WILCommunityGame
 
         private void OnDestroy()
         {
+            if (communityUIManager != null)
+                communityUIManager.OnStreakStageChanged -= HandleStreakStageChanged;
+
             if (registeredClock != null)
                 registeredClock.UnregisterTracker(this);
 
@@ -143,7 +148,6 @@ namespace WILCommunityGame
 
                 int delivered = uiManager.RemoveProduce(request.Produce.produceType, request.Remaining);
                 request.Delivered += delivered;
-                communityUIManager.AddDelivered(request.Produce.produceType, delivered);
             }
 
             RefreshVisuals();
@@ -197,25 +201,49 @@ namespace WILCommunityGame
             GenerateDailyRequests();
         }
 
+        private void HandleStreakStageChanged(int stage)
+        {
+            if (stage != 2 || HasTradedToday)
+                return;
+
+            GenerateDailyTrade();
+            OnHouseChanged?.Invoke();
+        }
+
+        private void GenerateDailyTrade()
+        {
+            DailyTrade = null;
+
+            if (availableTrades == null)
+                return;
+
+            List<CommunityTradeSO> trades = GetTrades(communityUIManager.TradeQuality);
+
+            if (trades.Count == 0 && communityUIManager.TradeQuality == CommunityTradeQuality.Improved)
+                trades = GetTrades(CommunityTradeQuality.Normal);
+
+            if (trades.Count > 0)
+                DailyTrade = trades[UnityEngine.Random.Range(0, trades.Count)];
+        }
+
+        private List<CommunityTradeSO> GetTrades(CommunityTradeQuality quality)
+        {
+            List<CommunityTradeSO> trades = new();
+
+            foreach (CommunityTradeSO trade in availableTrades)
+            {
+                if (trade != null && trade.IsValid && trade.Quality == quality)
+                    trades.Add(trade);
+            }
+
+            return trades;
+        }
+
         private void GenerateDailyRequests()
         {
             requests.Clear();
             HasTradedToday = false;
-            DailyTrade = null;
-
-            if (availableTrades != null)
-            {
-                List<CommunityTradeSO> trades = new();
-
-                foreach (CommunityTradeSO trade in availableTrades)
-                {
-                    if (trade != null && trade.IsValid)
-                        trades.Add(trade);
-                }
-
-                if (trades.Count > 0)
-                    DailyTrade = trades[UnityEngine.Random.Range(0, trades.Count)];
-            }
+            GenerateDailyTrade();
 
             List<ProduceItemSO> uniqueCrops = GetUniqueCrops();
 

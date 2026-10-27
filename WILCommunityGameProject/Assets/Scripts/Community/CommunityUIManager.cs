@@ -5,6 +5,15 @@ using UnityEngine;
 
 namespace WILCommunityGame
 {
+    [Serializable]
+    public class CommunityStreakStage
+    {
+        public UIBlock2D Background;
+        public UIBlock2D Connector;
+        public Texture2D Icon;
+        [TextArea] public string Description;
+    }
+
     public class CommunityUIManager : MonoBehaviour, ITimeTracker
     {
         [Header("Community Level")] [SerializeField]
@@ -20,13 +29,11 @@ namespace WILCommunityGame
         [SerializeField] private Color secondThirdColor;
         [SerializeField] private Color thirdThirdColor;
 
-        [Header("Crop Amounts")] [SerializeField]
-        private TextBlock tomatoCropAmount;
-
-        [SerializeField] private TextBlock potatoCropAmount;
-        [SerializeField] private TextBlock cornCropAmount;
-        [SerializeField] private TextBlock cabbageCropAmount;
-        [SerializeField] private TextBlock carrotCropAmount;
+        [Header("Community Food Streak")]
+        [SerializeField] private TextBlock streakNumber;
+        [SerializeField] private CommunityStreakStage[] streakStages;
+        [SerializeField] private Color lockedStageColor;
+        [SerializeField] private Color unlockedStageColor;
         
         [Header("Player Currency")]
         [SerializeField] private PlayerStats playerStats;
@@ -34,12 +41,14 @@ namespace WILCommunityGame
         
         public bool IsHappinessGreen { get; private set; }
         public event Action OnHappinessGreenChanged;
+        public int FoodStreak { get; private set; }
+        public int StreakStage { get; private set; }
+        public IReadOnlyList<CommunityStreakStage> StreakStages => streakStages;
+        public CommunityTradeQuality TradeQuality => StreakStage >= 2
+            ? CommunityTradeQuality.Improved : CommunityTradeQuality.Normal;
+        public event Action<int> OnStreakStageChanged;
 
-        private int tomatosDelivered;
-        private int potatosDelivered;
-        private int cornDelivered;
-        private int cabbgeDelivered;
-        private int carrotsDelivered;
+        private int lastFullyFedDay = -1;
         private int currentDay;
         private readonly Dictionary<CommunityHouse, int> houseHappiness = new();
         private int levelNumber = 0;
@@ -50,7 +59,7 @@ namespace WILCommunityGame
             currentDay = TimeManager.Instance.CurrentGameTimeStamp.day;
             levelText.Text = levelNumber.ToString();
 
-            ResetDeliveryAmounts();
+            RefreshStreak();
 
             foreach (CommunityHouse house in communityHouses)
             {
@@ -89,30 +98,6 @@ namespace WILCommunityGame
             currencyText.Text = $"R{amount}";
         }
 
-        public void AddDelivered(ProduceType type, int amount)
-        {
-            switch (type)
-            {
-                case ProduceType.Tomato:
-                    tomatosDelivered += amount;
-                    break;
-                case ProduceType.Potato:
-                    potatosDelivered += amount;
-                    break;
-                case ProduceType.Corn:
-                    cornDelivered += amount;
-                    break;
-                case ProduceType.Cabbage:
-                    cabbgeDelivered += amount;
-                    break;
-                case ProduceType.Carrot:
-                    carrotsDelivered += amount;
-                    break;
-            }
-
-            RefreshAmounts();
-        }
-
         public void RegisterHouse(CommunityHouse house)
         {
             if (house == null || !house.FeedingEnabled || houseHappiness.ContainsKey(house))
@@ -126,8 +111,42 @@ namespace WILCommunityGame
 
         private void HandleHouseSatisfactionChanged(CommunityHouse house, CommunityHouseSatisfaction satisfaction)
         {
+            ClockUpdate(TimeManager.Instance.CurrentGameTimeStamp);
             houseHappiness[house] = GetHappinessScore(satisfaction);
             RefreshHappinessBar();
+            CheckFoodStreak();
+        }
+
+        private void CheckFoodStreak()
+        {
+            if (lastFullyFedDay == currentDay || houseHappiness.Count == 0)
+                return;
+
+            foreach (CommunityHouse house in houseHappiness.Keys)
+            {
+                if (house == null || house.RequestDay != currentDay ||
+                    house.Satisfaction != CommunityHouseSatisfaction.Full)
+                    return;
+            }
+
+            lastFullyFedDay = currentDay;
+            FoodStreak++;
+
+            int newStage = Mathf.Min(FoodStreak / 5, 3);
+            bool stageIncreased = newStage > StreakStage;
+
+            if (stageIncreased)
+            {
+                StreakStage = newStage;
+
+                if (StreakStage == 1)
+                    playerStats.AddCurrency(1000);
+            }
+
+            RefreshStreak();
+
+            if (stageIncreased)
+                OnStreakStageChanged?.Invoke(StreakStage);
         }
 
         private void RefreshHappinessBar()
@@ -202,27 +221,28 @@ namespace WILCommunityGame
                 return;
 
             currentDay = timestamp.day;
-            ResetDeliveryAmounts();
+
+            if (lastFullyFedDay != currentDay - 1)
+                FoodStreak = 0;
+
+            RefreshStreak();
         }
 
-        private void ResetDeliveryAmounts()
+        private void RefreshStreak()
         {
-            tomatosDelivered = 0;
-            potatosDelivered = 0;
-            cornDelivered = 0;
-            cabbgeDelivered = 0;
-            carrotsDelivered = 0;
+            streakNumber.Text = FoodStreak.ToString();
 
-            RefreshAmounts();
-        }
+            for (int index = 0; index < streakStages.Length; index++)
+            {
+                CommunityStreakStage stage = streakStages[index];
+                Color color = index < StreakStage ? unlockedStageColor : lockedStageColor;
 
-        private void RefreshAmounts()
-        {
-            tomatoCropAmount.Text = tomatosDelivered.ToString();
-            potatoCropAmount.Text = potatosDelivered.ToString();
-            cornCropAmount.Text = cornDelivered.ToString();
-            cabbageCropAmount.Text = cabbgeDelivered.ToString();
-            carrotCropAmount.Text = carrotsDelivered.ToString();
+                if (stage.Background != null)
+                    stage.Background.Color = color;
+
+                if (stage.Connector != null)
+                    stage.Connector.Color = color;
+            }
         }
         
         private void OnDisable()

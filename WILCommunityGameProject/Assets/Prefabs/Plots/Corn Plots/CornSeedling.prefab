@@ -600,6 +600,76 @@ MonoBehaviour:
     SortingOrder: 0
     RenderQueue: 4000
     RenderOverOpaqueGeometry: 1
+--- !u!1 &5574983476698785816
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5080963845969705389}
+  - component: {fileID: 2075760439925666806}
+  - component: {fileID: 4700000000000000100}
+  m_Layer: 6
+  m_Name: SocketCenter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5080963845969705389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5574983476698785816}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1452802235512611899}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &2075760439925666806
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5574983476698785816}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4700000000000000100
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5574983476698785816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc2f918d76549ab8eb0f4f7e6526a10, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.PlotSocket
+  snapLocalPosition: {x: 0, y: 0, z: 0}
+  snapLocalRotation: {x: 0, y: 0, z: 0}
+  triggerRadius: 0.5
+  socketLayerName: Socket
 --- !u!1 &7016385084477856690
 GameObject:
   m_ObjectHideFlags: 0
@@ -722,6 +792,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 5080963845969705389}
   - {fileID: 8375954684922632264}
   - {fileID: 2127500880541918839}
   - {fileID: 1902052939098424314}
@@ -788,8 +859,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b32c3478ee3bc4ca4f7af0b50f4bdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.LandManager
-  seedIcon: {fileID: 21300000, guid: 2db45bf23a656174a9222f11cc0d8d8d, type: 3}
-  waterIcon: {fileID: 21300000, guid: 1a1063b6df4bebc44b1855b1adeb9417, type: 3}
+  emptyPlotPrefab: {fileID: 0}
+  seedIcon: {fileID: -1632363530, guid: dc110ac04867d3046a342af9546c04ab, type: 3}
+  waterIcon: {fileID: 585689177, guid: dc110ac04867d3046a342af9546c04ab, type: 3}
+  wateringTip: {fileID: 0}
+  plantSeedObjective: {fileID: 0}
+  waterCropObjective: {fileID: 0}
+  harvestCropObjective: {fileID: 0}
 --- !u!1001 &2111580944101314734
 PrefabInstance:
   m_ObjectHideFlags: 0

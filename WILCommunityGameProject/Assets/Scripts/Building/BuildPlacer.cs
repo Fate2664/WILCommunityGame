@@ -58,8 +58,11 @@ namespace WILCommunityGame
 
         #endregion
 
+        private bool RequiresPlotSocket => placementPieceType == BuildPieceType.BuildableObject &&
+                                           selectedBuildable != null && selectedBuildable.requiresPlotSocket;
+
         private bool IsGroundPiece => placementPieceType == BuildPieceType.Floor ||
-                                      placementPieceType == BuildPieceType.BuildableObject;
+                                      (placementPieceType == BuildPieceType.BuildableObject && !RequiresPlotSocket);
 
         private GameObject ActivePrefab => placementPieceType switch
         {
@@ -205,6 +208,8 @@ namespace WILCommunityGame
         private void Place(GameObject prefab, Pose pose, EdgeSocket socketSnap)
         {
             if (prefab == null || (IsGroundPiece && IsGroundPlacementOccupied(pose.position))) return;
+            if (RequiresPlotSocket && (socketSnap is not PlotSocket || socketSnap.IsOccupied ||
+                                       !socketSnap.CanAcceptPart(placementPieceType))) return;
             if (socketSnap != null && skipSocketOccupied && socketSnap.IsOccupied) return;
 
             bool consumesInventory = placementPieceType == BuildPieceType.BuildableObject;
@@ -229,6 +234,13 @@ namespace WILCommunityGame
             if (socketSnap != null && part != null)
             {
                 socketSnap.SetOccupant(part);
+
+                if (socketSnap is PlotSocket plotSocket)
+                {
+                    Sprinkler sprinkler = placed.GetComponent<Sprinkler>();
+                    if (sprinkler != null)
+                        sprinkler.AttachToPlot(plotSocket);
+                }
             }
 
             if (placementPieceType == BuildPieceType.Floor)
@@ -383,8 +395,16 @@ namespace WILCommunityGame
             Ray ray = mainCamera.ScreenPointToRay(screenPos);
 
             //Socket Snapping
-            if (useSocketSnapping && socketRaycastMask.value != 0 && TrySnapSocket(ray, out pose, out socketFromSnap))
+            if ((useSocketSnapping || RequiresPlotSocket) && socketRaycastMask.value != 0 &&
+                TrySnapSocket(ray, out pose, out socketFromSnap))
             {
+                if (RequiresPlotSocket)
+                {
+                    Sprinkler sprinkler = ActivePrefab.GetComponent<Sprinkler>();
+                    if (sprinkler != null)
+                        pose = sprinkler.GetPlacementPose(pose);
+                }
+
                 placementValid = !IsGroundPiece || !IsGroundPlacementOccupied(pose.position);
                 return true;
             }
@@ -443,6 +463,7 @@ namespace WILCommunityGame
                 for (var j = 0; j < availableSockets.Count; j++)
                 {
                     var s = availableSockets[j];
+                    if (RequiresPlotSocket != (s is PlotSocket)) continue;
                     if (s.CanAcceptPart(placementPieceType))
                     {
                         edge = s;
@@ -451,7 +472,7 @@ namespace WILCommunityGame
                 }
 
                 if (edge == null) continue;
-                if (skipSocketOccupied && edge.IsOccupied) continue;
+                if ((skipSocketOccupied || RequiresPlotSocket) && edge.IsOccupied) continue;
 
                 var candidate = edge.GetSnapPose();
 

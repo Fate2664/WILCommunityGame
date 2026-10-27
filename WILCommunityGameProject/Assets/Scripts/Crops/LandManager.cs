@@ -5,6 +5,8 @@ namespace WILCommunityGame
 {
     public class LandManager : MonoBehaviour, IInteractable, ITimeTracker
     {
+        [SerializeField] private GameObject emptyPlotPrefab;
+
         [Header("Icons")] 
         [SerializeField] private Sprite seedIcon;
         [SerializeField] private Sprite waterIcon;
@@ -37,6 +39,7 @@ namespace WILCommunityGame
         private void Start()
         {
             RegisterClock();
+            TryAutomaticWatering();
             RefreshIndicator();
         }
 
@@ -63,13 +66,34 @@ namespace WILCommunityGame
 
             GameObject nextPlot =
                 Instantiate(pendingSwapPrefab, transform.position, transform.rotation, transform.parent);
-            nextPlot.GetComponent<CropBehaviour>().CopyStateFrom(cropBehaviour);
+            if (pendingSwapPrefab != emptyPlotPrefab)
+            {
+                nextPlot.GetComponent<CropBehaviour>().CopyStateFrom(cropBehaviour);
+                nextPlot.GetComponent<LandManager>().firstWatering = firstWatering;
+            }
+
+            PlotSocket socket = GetComponentInChildren<PlotSocket>();
+            PlotSocket nextSocket = nextPlot.GetComponentInChildren<PlotSocket>();
+            if (socket != null && socket.Occupant != null && nextSocket != null)
+            {
+                Sprinkler sprinkler = socket.Occupant.GetComponent<Sprinkler>();
+                if (sprinkler != null)
+                    sprinkler.AttachToPlot(nextSocket);
+            }
             
             Destroy(gameObject);
         }
 
         public void Interact(PlayerController interactor)
         {
+            if (cropBehaviour.IsDead)
+            {
+                if (emptyPlotPrefab != null)
+                    pendingSwapPrefab = emptyPlotPrefab;
+
+                return;
+            }
+
             InventoryItem equipped = uiManager.EquippedItem;
 
             if (equipped != null && equipped.IsFertilizer)
@@ -78,6 +102,22 @@ namespace WILCommunityGame
 
                 if (cropBehaviour.CanFertilize && uiManager.TryUseEquippedItem(1))
                     cropBehaviour.ApplyFertilizer(fertilizer);
+
+                return;
+            }
+
+            if (equipped != null && equipped.IsWateringCan && cropBehaviour.NeedsWater)
+            {
+                if (equipped.TryUseWater() && WaterPlot())
+                {
+                    if (wateringTip != null && firstWatering)
+                    {
+                        uiManager.ShowInformationTip(wateringTip);
+                    }
+                    objectiveListUI?.CompleteItem(waterCropObjective);
+                    AudioManager.Instance.Play("Watering");
+                    firstWatering = false;
+                }
 
                 return;
             }
@@ -106,33 +146,45 @@ namespace WILCommunityGame
 
                     objectiveListUI?.CompleteItem(plantSeedObjective);
                     AudioManager.Instance.Play("Planting");
+                    TryAutomaticWatering();
                     RefreshIndicator();
                 }
 
                 return;
             }
+        }
 
-            if (equipped.IsWateringCan && cropBehaviour.NeedsWater && equipped.TryUseWater() && cropBehaviour.CanWater())
-            {
+        public bool WaterPlot()
+        {
+            CropBehaviour.CropStage previous = cropBehaviour.Stage;
+            if (!cropBehaviour.CanWater()) return false;
+
+            if (cropBehaviour.Stage != previous)
                 pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
-                
-                if (wateringTip != null && firstWatering)
-                {
-                    uiManager.ShowInformationTip(wateringTip);
-                }
-                objectiveListUI?.CompleteItem(waterCropObjective);
-                AudioManager.Instance.Play("Watering");
-                RefreshIndicator();
-                firstWatering = false;
-            }
+
+            RefreshIndicator();
+            return true;
+        }
+
+        private void TryAutomaticWatering()
+        {
+            if (cropBehaviour.NeedsWater && Sprinkler.IsPlotCovered(this))
+                WaterPlot();
         }
 
         public void ClockUpdate(GameTimestamp timestamp)
         {
-            if (!cropBehaviour.Grow()) return;
+            TryAutomaticWatering();
+            bool neededWater = cropBehaviour.NeedsWater;
+            bool stageChanged = cropBehaviour.Grow();
 
-            pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
-            RefreshIndicator();
+            if (stageChanged)
+                pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
+
+            TryAutomaticWatering();
+
+            if (stageChanged || neededWater != cropBehaviour.NeedsWater)
+                RefreshIndicator();
         }
 
         private void RefreshIndicator()

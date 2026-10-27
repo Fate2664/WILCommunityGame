@@ -6,5 +6,6 @@ namespace WILCommunityGame
     public class BuildableObjectItemSO : InventoryItemData
     {
         public GameObject prefab;
+        public bool requiresPlotSocket;
     }
 }

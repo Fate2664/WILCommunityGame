@@ -3,6 +3,12 @@ using UnityEngine;
 
 namespace WILCommunityGame
 {
+    public enum CommunityTradeQuality
+    {
+        Normal,
+        Improved
+    }
+
     [Serializable]
     public class TradeItem
     {
@@ -13,6 +19,7 @@ namespace WILCommunityGame
     [CreateAssetMenu(menuName = "Community/Trade")]
     public class CommunityTradeSO : ScriptableObject
     {
+        public CommunityTradeQuality Quality;
         public TradeItem[] Give;
         public TradeItem[] Receive;
 

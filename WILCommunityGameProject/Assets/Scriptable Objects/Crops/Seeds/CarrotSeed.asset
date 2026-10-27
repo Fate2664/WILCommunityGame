@@ -21,5 +21,6 @@ MonoBehaviour:
   harvestAmount: 10
   seedlingPrefab: {fileID: 7863790740695239896, guid: 5cb5ac40e6cdc81409917dfef475c840, type: 3}
   harvestablePrefab: {fileID: 7863790740695239896, guid: 164e979b09eaac94a9a1aa018de7156a, type: 3}
+  deadPrefab: {fileID: 7863790740695239896, guid: 1632a3378ddbe7242aa67d0339cf7c42, type: 3}
   produceItem: {fileID: 11400000, guid: 813270655fecea9448330a21bf03f3e5, type: 2}
   informationTip: {fileID: 11400000, guid: 4ad11562bc8f29644ae8dfb497e92f46, type: 2}

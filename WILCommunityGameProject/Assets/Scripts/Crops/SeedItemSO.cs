@@ -10,6 +10,7 @@ namespace WILCommunityGame
         public int harvestAmount = 10;
         public GameObject seedlingPrefab;
         public GameObject harvestablePrefab;
+        public GameObject deadPrefab;
         public ProduceItemSO produceItem;
         public InformationTipSO informationTip;
     }

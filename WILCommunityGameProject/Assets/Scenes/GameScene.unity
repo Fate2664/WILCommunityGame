@@ -6904,7 +6904,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 138.62999
+        Raw: 156.38998
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -9730,7 +9730,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 249.53398
+        Raw: 281.50198
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -10105,6 +10105,299 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45acdd0aca439cb43906b707a3e404f4, type: 3}
+--- !u!1 &206434773
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 206434774}
+  - component: {fileID: 206434776}
+  - component: {fileID: 206434775}
+  m_Layer: 0
+  m_Name: TextBackground
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &206434774
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206434773}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -52.415146, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 507091238}
+  m_Father: {fileID: 1547073644}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &206434775
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206434773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c395591f6f08fb41897eb437d91b587, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.UIBlock2D
+  sourceID:
+    val: 0
+  layout:
+    Size:
+      X:
+        Raw: 0.593
+        Type: 1
+      Y:
+        Raw: 0.3057
+        Type: 1
+      Z:
+        Raw: 0
+        Type: 0
+    Position:
+      X:
+        Raw: 0
+        Type: 0
+      Y:
+        Raw: -52.415146
+        Type: 0
+      Z:
+        Raw: 0
+        Type: 0
+    Padding:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    Margin:
+      Left:
+        Raw: 0
+        Type: 0
+      Right:
+        Raw: 0
+        Type: 0
+      Bottom:
+        Raw: 0
+        Type: 0
+      Top:
+        Raw: 0
+        Type: 0
+      Front:
+        Raw: 0
+        Type: 0
+      Back:
+        Raw: 0
+        Type: 0
+    SizeMinMax:
+      X:
+        Min: 0
+        Max: Infinity
+      Y:
+        Min: 0
+        Max: Infinity
+      Z:
+        Min: 0
+        Max: Infinity
+    PositionMinMax:
+      X:
+        Min: -Infinity
+        Max: Infinity
+      Y:
+        Min: -Infinity
+        Max: Infinity
+      Z:
+        Min: -Infinity
+        Max: Infinity
+    PaddingMinMax:
+      Left:
+        Min: 0
+        Max: Infinity
+      Right:
+        Min: 0
+        Max: Infinity
+      Bottom:
+        Min: 0
+        Max: Infinity
+      Top:
+        Min: 0
+        Max: Infinity
+      Front:
+        Min: 0
+        Max: Infinity
+      Back:
+        Min: 0
+        Max: Infinity
+    MarginMinMax:
+      Left:
+        Min: -Infinity
+        Max: Infinity
+      Right:
+        Min: -Infinity
+        Max: Infinity
+      Bottom:
+        Min: -Infinity
+        Max: Infinity
+      Top:
+        Min: -Infinity
+        Max: Infinity
+      Front:
+        Min: -Infinity
+        Max: Infinity
+      Back:
+        Min: -Infinity
+        Max: Infinity
+    Alignment:
+      X: 0
+      Y: 0
+      Z: 0
+    AutoSize:
+      X: 0
+      Y: 0
+      Z: 0
+    RotateSize: 0
+    AspectRatio: {x: 0, y: 0, z: 0}
+    AspectRatioAxis: 0
+  autoLayout:
+    Axis: 0
+    Spacing:
+      Raw: 0
+      Type: 0
+    SpacingMinMax:
+      Min: 0
+      Max: Infinity
+    AutoSpace: 0
+    ReverseOrder: 0
+    alignment: -1
+    Offset: 0
+    Cross:
+      Axis: 0
+      Spacing:
+        Raw: 0
+        Type: 0
+      SpacingMinMax:
+        Min: 0
+        Max: Infinity
+      AutoSpace: 0
+      ReverseOrder: 0
+      alignment: -1
+      ExpandToGrid: 0
+  visibility:
+    ZIndex: 0
+    BlockType: 1
+    Visible: 1
+  surface:
+    specularColor: {r: 1, g: 1, b: 1, a: 1}
+    param1: 0.5
+    param2: 0.5
+    LightingModel: 0
+    ShadowCastingMode: 2
+    ReceiveShadows: 1
+  PreviewSize: {x: 1, y: 1, z: 0}
+  visuals:
+    Color: {r: 0.4716981, g: 0.3432049, b: 0.25142398, a: 1}
+    CornerRadius:
+      Raw: 10
+      Type: 0
+    RadialFill:
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Rotation: 0
+      FillAngle: 90
+      Enabled: 0
+    Gradient:
+      Color: {r: 1, g: 1, b: 1, a: 1}
+      Center:
+        X:
+          Raw: 0
+          Type: 1
+        Y:
+          Raw: 0
+          Type: 1
+      Radius:
+        X:
+          Raw: 0.5
+          Type: 1
+        Y:
+          Raw: 0.5
+          Type: 1
+      Rotation: 0
+      Enabled: 0
+    Border:
+      Color: {r: 0.3301887, g: 0.21976937, b: 0.13550197, a: 1}
+      Width:
+        Raw: 4
+        Type: 0
+      Enabled: 1
+      Direction: 2
+    Shadow:
+      Color: {r: 0, g: 0, b: 0, a: 0.5}
+      Width:
+        Raw: 0
+        Type: 0
+      Blur:
+        Raw: 2
+        Type: 0
+      Offset:
+        X:
+          Raw: 0
+          Type: 0
+        Y:
+          Raw: -1
+          Type: 0
+      Enabled: 0
+      Direction: 0
+    Image:
+      Adjustment:
+        CenterUV: {x: 0, y: 0}
+        UVScale: {x: 1, y: 1}
+        PixelsPerUnitMultiplier: 1
+        scaleMode: 1
+      Mode: 1
+    SoftenEdges: 1
+    FillEnabled: 1
+  texture: {fileID: 0}
+  sprite: {fileID: 0}
+--- !u!114 &206434776
+MonoBehaviour:
+  m_ObjectHideFlags: 10
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206434773}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Nova::Nova.UIBlockActivator
 --- !u!1001 &206509886
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12600,7 +12893,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 54.76416}
+  m_AnchoredPosition: {x: 0, y: 66.72955}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &244594735
@@ -12728,7 +13021,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 54.76416
+        Raw: 66.72955
         Type: 0
       Z:
         Raw: 0
@@ -17838,7 +18131,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 221.80798
+        Raw: 250.22398
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -22260,7 +22553,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 304.98596
+        Raw: 344.05795
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -25949,11 +26242,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1547073644}
+  m_Father: {fileID: 206434774}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -44.685036}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507091239
@@ -25985,8 +26278,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4280232503
-  m_fontColor: {r: 0.21698111, g: 0.16378942, b: 0.121796004, a: 1}
+    rgba: 4278255480
+  m_fontColor: {r: 0.46923077, g: 1, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -26042,7 +26335,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -141.8976, y: -23.130882, z: -141.8976, w: -23.130882}
+  m_margin: {x: -84.14527, y: -27.366165, z: -84.14527, w: -27.366165}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   _SortingLayer: 0
@@ -26081,7 +26374,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: -44.685036
+        Raw: 0
         Type: 0
       Z:
         Raw: 0.00047024008
@@ -37605,11 +37898,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1.4924904
+      value: 1.6319516
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 35.06592
+      value: 35.43
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalPosition.y
@@ -37617,11 +37910,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -32.059765
+      value: -31.93
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.21722804
+      value: -0.82991046
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalRotation.x
@@ -37629,7 +37922,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.9761209
+      value: -0.5578967
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalRotation.z
@@ -37641,7 +37934,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 514.907
+      value: 427.82098
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -46179,7 +46472,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 27.725998
+        Raw: 31.277996
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -46667,6 +46960,8 @@ MonoBehaviour:
   - item: {fileID: 11400000, guid: c1740e97c91b4c59a3a042d614705001, type: 2}
     count: 10
   - item: {fileID: 11400000, guid: c1740e97c91b4c59a3a042d614705002, type: 2}
+    count: 6
+  - item: {fileID: 11400000, guid: c9630010160deda4aafbce5efe88bb84, type: 2}
     count: 6
 --- !u!114 &1042870444
 MonoBehaviour:
@@ -58802,7 +59097,7 @@ Transform:
   m_GameObject: {fileID: 1321227425}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 10.079124, z: 0}
+  m_LocalPosition: {x: 0, y: 14.314405, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -58826,11 +59121,11 @@ MonoBehaviour:
   layout:
     Size:
       X:
-        Raw: 0.157
+        Raw: 0.2131
         Type: 1
       Y:
-        Raw: 0.319
-        Type: 1
+        Raw: 58.726772
+        Type: 0
       Z:
         Raw: 0
         Type: 0
@@ -58839,7 +59134,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 10.079124
+        Raw: 14.314405
         Type: 0
       Z:
         Raw: 0
@@ -58949,8 +59244,8 @@ MonoBehaviour:
       Y: 0
       Z: 0
     RotateSize: 0
-    AspectRatio: {x: 0, y: 0, z: 0}
-    AspectRatioAxis: 0
+    AspectRatio: {x: 1, y: 0.9710635, z: 0}
+    AspectRatioAxis: 1
   autoLayout:
     Axis: 0
     Spacing:
@@ -63802,7 +64097,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 110.90399
+        Raw: 125.111984
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -67285,6 +67580,23 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+  - upgrade: {fileID: 11400000, guid: 35916e8d90ab5c14bac23aa312ff51b5, type: 2}
+    onPurchased:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1501503219}
+          m_TargetAssemblyTypeName: UIManager, Assembly-CSharp
+          m_MethodName: Add1ItemToInventory
+          m_Mode: 2
+          m_Arguments:
+            m_ObjectArgument: {fileID: 11400000, guid: c9630010160deda4aafbce5efe88bb84, type: 2}
+            m_ObjectArgumentAssemblyTypeName: WILCommunityGame.InventoryItemData,
+              Assembly-CSharp
+            m_IntArgument: 20
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   objectiveListUI: {fileID: 450641271}
   buySeedsObjective: {fileID: 11400000, guid: 37b4f9a1285199f46813cefe656e1650, type: 2}
   cropsCategory: {fileID: 11400000, guid: 186887c5cf4bbe84f9a8c03363b5eda8, type: 2}
@@ -68005,7 +68317,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 55.451996
+        Raw: 62.555992
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -68449,7 +68761,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 83.17799
+        Raw: 93.833984
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -69358,6 +69670,7 @@ GameObject:
   - component: {fileID: 1547073644}
   - component: {fileID: 1547073646}
   - component: {fileID: 1547073645}
+  - component: {fileID: 1547073647}
   m_Layer: 0
   m_Name: StreakUpgradeNotification
   m_TagString: Untagged
@@ -69374,13 +69687,13 @@ Transform:
   m_GameObject: {fileID: 1547073643}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 451.54407, z: 0}
+  m_LocalPosition: {x: 0, y: 679.84033, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 244594734}
   - {fileID: 1321227426}
-  - {fileID: 507091238}
+  - {fileID: 206434774}
   m_Father: {fileID: 25036069}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1547073645
@@ -69403,7 +69716,7 @@ MonoBehaviour:
         Raw: 0.16
         Type: 1
       Y:
-        Raw: 0.147
+        Raw: 0.188
         Type: 1
       Z:
         Raw: 0
@@ -69413,7 +69726,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 0
+        Raw: -250
         Type: 0
       Z:
         Raw: 0
@@ -69642,6 +69955,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9117b6d975111c47b064a4373cc67ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Nova::Nova.UIBlockActivator
+--- !u!114 &1547073647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547073643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49f1cc50e65f448d9b4c60ed87ba4c76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WILCommunityGame.StreakUpgradeNotificationVisuals
+  communityUIManager: {fileID: 1820788713}
+  rootTransform: {fileID: 1547073644}
+  stageIcon: {fileID: 1733999281}
+  contextText: {fileID: 507091240}
+  slideDuration: 0.35
+  showDuration: 5
+  onScreenY: 429.8403
 --- !u!4 &1551188249 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 200342373dc210f45b18d47fc5c7ccd9, type: 3}
@@ -73648,7 +73980,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 277.25998
+        Raw: 312.77997
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -80688,7 +81020,7 @@ MonoBehaviour:
         Raw: 0
         Type: 0
       Y:
-        Raw: 11.300001
+        Raw: 11.3
         Type: 0
       Z:
         Raw: 0
@@ -82674,11 +83006,22 @@ MonoBehaviour:
   firstThirdColor: {r: 0.7830189, g: 0.18854886, b: 0.12927197, a: 1}
   secondThirdColor: {r: 0.78431374, g: 0.5059106, b: 0.12941174, a: 1}
   thirdThirdColor: {r: 0.33798882, g: 0.8962264, b: 0.33397114, a: 1}
-  tomatoCropAmount: {fileID: 0}
-  potatoCropAmount: {fileID: 0}
-  cornCropAmount: {fileID: 0}
-  cabbageCropAmount: {fileID: 0}
-  carrotCropAmount: {fileID: 0}
+  streakNumber: {fileID: 1599404604}
+  streakStages:
+  - Background: {fileID: 1590388203}
+    Connector: {fileID: 1733268982}
+    Icon: {fileID: 2800000, guid: 7b189ac60d45c3c4685961759b51849e, type: 3}
+    Description: + R1000
+  - Background: {fileID: 1435144837}
+    Connector: {fileID: 232266647}
+    Icon: {fileID: 2800000, guid: 8b51c4232fbe4ea4b87d5e748f9b0627, type: 3}
+    Description: Better community trades unlocked!
+  - Background: {fileID: 572656302}
+    Connector: {fileID: 0}
+    Icon: {fileID: 2800000, guid: 705c5ec16feca8540bc7f1a7c401a2ce, type: 3}
+    Description: New map area coming soon!
+  lockedStageColor: {r: 0.4716981, g: 0.3432049, b: 0.25142398, a: 1}
+  unlockedStageColor: {r: 0.84905654, g: 0.6818381, b: 0.48860797, a: 1}
   playerStats: {fileID: 1042870445}
   currencyText: {fileID: 1015338459}
 --- !u!114 &1820788714
@@ -90139,7 +90482,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 194.08199
+        Raw: 218.94598
         Type: 0
       Y:
         Raw: -0.00037384033
@@ -92929,7 +93272,7 @@ MonoBehaviour:
         Type: 0
     Position:
       X:
-        Raw: 166.35599
+        Raw: 187.66798
         Type: 0
       Y:
         Raw: -0.00037384033
