@@ -20,7 +20,8 @@ namespace WILCommunityGame
         Corn,
         Wheat,
         Sugarcane,
-        Soybean
+        Soybean,
+        Apple
     }
 
     public enum ProduceType
@@ -32,7 +33,8 @@ namespace WILCommunityGame
         Corn,
         Wheat,
         Sugarcane,
-        Soybean
+        Soybean,
+        Apple
     }
 
     public enum CompostItem

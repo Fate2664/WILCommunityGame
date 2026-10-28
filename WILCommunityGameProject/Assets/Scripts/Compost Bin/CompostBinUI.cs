@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Nova;
@@ -24,6 +25,10 @@ namespace WILCommunityGame
         [Header("Drag Preview")] [SerializeField] private UIBlock2D dragIcon;
         [SerializeField] private TextBlock dragCount;
 
+        [Header("Drag Diagnostics")]
+        [Tooltip("Log drag lifecycle, visibility and a render-state snapshot. Press F8 while dragging to capture and pause the Editor for Frame Debugger inspection.")]
+        [SerializeField] private bool debugDragPreview;
+
         public bool IsOpen => uiOpen;
         public CompostBin ActiveBin { get; private set; }
 
@@ -44,6 +49,7 @@ namespace WILCommunityGame
         private int dragSourceIndex = -1;
         private uint dragControlID;
         private bool dragStarted;
+        private string lastDragPreviewState;
 
         private bool CanInteract => isActiveAndEnabled && uiOpen && inputReady && ActiveBin != null &&
                                     ActiveBin.isActiveAndEnabled;
@@ -234,20 +240,26 @@ namespace WILCommunityGame
 
             arrowSlider.Size.X.Percent = ActiveBin.Progress;
 
+            if (debugDragPreview && dragStarted && Keyboard.current != null && Keyboard.current.f8Key.wasPressedThisFrame)
+                StartCoroutine(CaptureDragRenderState(pauseEditor: true));
+
             if (Keyboard.current != null && Keyboard.current.escapeKey.wasPressedThisFrame)
             {
                 if (draggedItem != null)
-                    CancelDrag();
+                    CancelDrag("Escape pressed");
                 else
                     CloseCompostUI();
             }
 
             if (Mouse.current != null && Mouse.current.rightButton.wasPressedThisFrame)
-                CancelDrag();
+                CancelDrag("Right mouse button pressed");
         }
 
         private void LateUpdate()
         {
+            if (draggedItem != null)
+                LogDragPreviewState("Visibility changed during drag (LateUpdate)");
+
             if (uiOpen && ActiveBin != null && refreshPending && draggedItem == null)
                 RefreshItems();
         }
@@ -292,6 +304,8 @@ namespace WILCommunityGame
             dragIcon.SetImage(item.item.itemDesc.Icon);
             if (dragCount != null)
                 dragCount.Text = draggedAmount.ToString();
+
+            LogDragPreviewState("Press accepted; waiting for drag threshold", force: true);
         }
 
         private void HandleDrag(Gesture.OnDrag evt, StorageSiloStorageSlotItemVisuals visuals)
@@ -299,9 +313,18 @@ namespace WILCommunityGame
             if (!CanInteract || draggedItem == null || evt.Interaction.ControlID != dragControlID)
                 return;
 
+            bool firstDrag = !dragStarted;
+            if (!firstDrag)
+                LogDragPreviewState("Visibility changed before HandleDrag reactivated the preview");
+
             dragStarted = true;
             dragIcon.gameObject.SetActive(true);
-            dragIcon.TrySetWorldPosition(evt.PointerPositions.Current);
+            Vector3 localPosition = dragIcon.transform.parent.InverseTransformPoint(evt.PointerPositions.Current);
+            localPosition.z = 0f;
+            dragIcon.TrySetLocalPosition(localPosition);
+            LogDragPreviewState(firstDrag ? "Drag started" : "Visibility changed after HandleDrag", force: firstDrag);
+            if (firstDrag && debugDragPreview)
+                StartCoroutine(CaptureDragRenderState(pauseEditor: false));
         }
 
         private void HandleRelease(Gesture.OnRelease evt, StorageSiloStorageSlotItemVisuals visuals)
@@ -360,15 +383,106 @@ namespace WILCommunityGame
             return -2;
         }
 
-        private void CancelDrag()
+        private void CancelDrag([System.Runtime.CompilerServices.CallerMemberName] string reason = "")
         {
+            bool hadDrag = draggedItem != null || dragStarted;
+            if (hadDrag)
+                LogDragPreviewState($"CancelDrag called by {reason} (before hiding)", force: true, includeStack: true);
+
             if (draggedItem != null && dragIcon != null)
                 dragIcon.gameObject.SetActive(false);
+
+            if (hadDrag)
+                LogDragPreviewState("CancelDrag completed (after hiding)", force: true);
 
             draggedItem = null;
             draggedAmount = 0;
             dragSourceIndex = -1;
             dragStarted = false;
+            lastDragPreviewState = null;
+        }
+
+        private void LogDragPreviewState(string reason, bool force = false, bool includeStack = false)
+        {
+            if (!debugDragPreview)
+                return;
+
+            string state = dragIcon == null
+                ? "dragIcon=null"
+                : $"activeSelf={dragIcon.gameObject.activeSelf}, " +
+                  $"activeInHierarchy={dragIcon.gameObject.activeInHierarchy}, " +
+                  $"enabled={dragIcon.enabled}, BodyEnabled={dragIcon.BodyEnabled}, " +
+                  $"alpha={dragIcon.Color.a:R}";
+
+            // Only report changes, rather than logging every frame of a drag.
+            if (!force && state == lastDragPreviewState)
+                return;
+
+            lastDragPreviewState = state;
+            string stack = includeStack ? "\n" + StackTraceUtility.ExtractStackTrace() : string.Empty;
+            Debug.Log($"[Compost DragPreview] frame={Time.frameCount}: {reason}. " +
+                      $"{state}; item={draggedItem?.name}, dragStarted={dragStarted}, " +
+                      $"CanInteract={CanInteract}, focused={Application.isFocused}{stack}", this);
+        }
+
+        private IEnumerator CaptureDragRenderState(bool pauseEditor)
+        {
+            // Sample after Nova's layout/camera updates and rendering, not inside the input event.
+            yield return new WaitForEndOfFrame();
+            if (!debugDragPreview || !dragStarted || dragIcon == null || panelRoot == null)
+                yield break;
+
+            ScreenSpace screenSpace = dragIcon.GetComponentInParent<ScreenSpace>();
+            Camera renderCamera = screenSpace != null ? screenSpace.TargetCamera : null;
+            SortGroup screenGroup = screenSpace != null ? screenSpace.GetComponent<SortGroup>() : null;
+            Debug.Log($"[Compost DragRender] frame={Time.frameCount}: " +
+                      $"ScreenSpace={screenSpace?.name}, camera={renderCamera?.name}, " +
+                      $"inheritedQueue={screenGroup?.RenderQueue}, " +
+                      $"inheritedRenderOverOpaqueGeometry={screenGroup?.RenderOverOpaqueGeometry}. " +
+                      "Child queue values below are stored settings, not the inherited effective queue.", this);
+
+            LogDragRenderBlock("Preview", dragIcon, renderCamera);
+            LogDragRenderBlock("Panel", panelRoot.GetComponent<UIBlock>(), renderCamera);
+            Transform background = panelRoot.transform.Find("Background");
+            if (background != null)
+                LogDragRenderBlock("Panel background", background.GetComponent<UIBlock>(), renderCamera);
+
+            Vector3 previewInPanel = panelRoot.transform.InverseTransformPoint(dragIcon.transform.position);
+            Debug.Log($"[Compost DragRender] previewInPanel={previewInPanel.ToString("G9")}, " +
+                      $"rotationDifference={Quaternion.Angle(panelRoot.transform.rotation, dragIcon.transform.rotation):G9} degrees. " +
+                      "These are Transform measurements; use Frame Debugger to verify the actual draw order.", this);
+
+#if UNITY_EDITOR
+            if (pauseEditor)
+            {
+                Debug.Log("[Compost DragRender] Paused for inspection. Open Window > Analysis > Frame Debugger, " +
+                          "enable it and step through the Nova draws. Disable Frame Debugger before resuming Play Mode.", this);
+                Debug.Break();
+            }
+#endif
+        }
+
+        private void LogDragRenderBlock(string label, UIBlock block, Camera renderCamera)
+        {
+            if (block == null)
+                return;
+
+            SortGroup group = block.GetComponentInParent<SortGroup>();
+            Vector3 viewport = renderCamera != null
+                ? renderCamera.WorldToViewportPoint(block.transform.position)
+                : Vector3.zero;
+            string zIndex = block is UIBlock2D block2D ? block2D.ZIndex.ToString() : "n/a";
+            Debug.Log($"[Compost DragRender] {label}={block.name} (instance={block.GetInstanceID()}): " +
+                      $"active={block.gameObject.activeInHierarchy}, enabled={block.enabled}, " +
+                      $"parent={block.transform.parent?.name}, novaRoot={block.Root?.name}, " +
+                      $"sibling={block.transform.GetSiblingIndex()}, ZIndex={zIndex}, " +
+                      $"sortGroup={group?.name}, sortGroupActive={group?.isActiveAndEnabled}, " +
+                      $"sortingOrder={group?.SortingOrder}, storedQueue={group?.RenderQueue}, " +
+                      $"localPosition={block.transform.localPosition.ToString("G9")}, " +
+                      $"worldPosition={block.transform.position.ToString("G9")}, " +
+                      $"worldScale={block.transform.lossyScale.ToString("G9")}, " +
+                      $"calculatedSize={block.CalculatedSize.Value.ToString("G9")}, " +
+                      $"viewportXYAndCameraDepth={viewport.ToString("G9")}", block);
         }
 
         private void HandleCancel(Gesture.OnCancel evt, StorageSiloStorageSlotItemVisuals visuals)
@@ -380,7 +494,7 @@ namespace WILCommunityGame
         private void OnApplicationFocus(bool focused)
         {
             if (!focused)
-                CancelDrag();
+                CancelDrag("Application/Game view lost focus");
         }
 
         private void OnDisable()
