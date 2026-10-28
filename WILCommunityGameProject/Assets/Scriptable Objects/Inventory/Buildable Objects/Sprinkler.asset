@@ -17,5 +17,5 @@ MonoBehaviour:
     ToolTip: Place this on a crop plot to automatically water it and the surrounding
       crops.
     Icon: {fileID: 21300000, guid: ba63419eb367f3b40ab8070a1ebf3871, type: 3}
-  prefab: {fileID: 4734769404089315084, guid: f2079393fbaa69840a9fd979bea59a1a, type: 3}
+  prefab: {fileID: 8620844437053222871, guid: f2079393fbaa69840a9fd979bea59a1a, type: 3}
   requiresPlotSocket: 1

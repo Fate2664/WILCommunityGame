@@ -127,8 +127,7 @@ namespace WILCommunityGame
                 //Add produce to inventory
                 uiManager.AddItemToInventory(cropBehaviour.SeedItem.produceItem, cropBehaviour.SeedItem.harvestAmount);
                 objectiveListUI?.CompleteItem(harvestCropObjective);
-                //reset back to sprout
-                cropBehaviour.ResetToSprout();
+                cropBehaviour.ResetAfterHarvest();
                 pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
                 RefreshIndicator();
                 return;

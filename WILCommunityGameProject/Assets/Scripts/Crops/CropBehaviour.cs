@@ -12,7 +12,8 @@ namespace WILCommunityGame
             Sprout,
             Seedling,
             Harvestable,
-            Dead
+            Dead,
+            Regrowing
         }
 
         [SerializeField] private GameObject wateredPrefab;
@@ -33,7 +34,8 @@ namespace WILCommunityGame
         public SeedItemSO SeedItem => seedItem;
         public bool IsPlanted => seedItem != null;
         public bool NeedsSeed => !IsPlanted;
-        public bool NeedsWater => IsPlanted && !IsDead && waterMinutesRemaining <= 0;
+        public bool NeedsWater => IsPlanted && !IsDead && waterMinutesRemaining <= 0 &&
+                                  (!seedItem.onlyWaterOnce || stage == CropStage.Dry);
         public bool IsHarvestable => IsPlanted && stage == CropStage.Harvestable;
         public bool IsDead => stage == CropStage.Dead;
         public bool IsFertilized => fertilizerMinutesRemaining > 0;
@@ -69,6 +71,9 @@ namespace WILCommunityGame
 
         private void UpdateWater()
         {
+            if (seedItem.onlyWaterOnce && stage != CropStage.Dry)
+                return;
+
             if (waterMinutesRemaining > 0)
             {
                 waterMinutesRemaining--;
@@ -137,12 +142,13 @@ namespace WILCommunityGame
             UpdateFertilizer();
 
             if (IsDead || stage == CropStage.Dry || stage == CropStage.Harvestable ||
-                (NeedsWater && stage == CropStage.Seedling))
+                (NeedsWater && (stage == CropStage.Seedling || stage == CropStage.Regrowing)))
                 return stage != previous;
             
             growthMinutes += growthAmount;
 
-            if (growthMinutes >= maxGrowthMinutes && stage == CropStage.Seedling && !NeedsWater)
+            if (growthMinutes >= maxGrowthMinutes &&
+                (stage == CropStage.Seedling || stage == CropStage.Regrowing) && !NeedsWater)
                 stage = CropStage.Harvestable;
             else if (growthMinutes >= maxGrowthMinutes / 2 && stage == CropStage.Sprout)
                 stage = CropStage.Seedling;
@@ -159,9 +165,10 @@ namespace WILCommunityGame
             return stage switch
             {
                 CropStage.Watered => wateredPrefab,
-                CropStage.Sprout => sproutPrefab,
+                CropStage.Sprout => seedItem.sproutPrefab != null ? seedItem.sproutPrefab : sproutPrefab,
                 CropStage.Seedling => seedItem.seedlingPrefab,
                 CropStage.Harvestable => seedItem.harvestablePrefab,
+                CropStage.Regrowing => seedItem.regrowingPrefab,
                 CropStage.Dead => seedItem.deadPrefab,
                 _ => null
             };
@@ -188,9 +195,9 @@ namespace WILCommunityGame
             }
         }
 
-        public void ResetToSprout()
+        public void ResetAfterHarvest()
         {
-            stage = CropStage.Sprout;
+            stage = seedItem.regrowingPrefab != null ? CropStage.Regrowing : CropStage.Sprout;
             growthMinutes = maxGrowthMinutes / 3;
         }
         

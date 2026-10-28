@@ -21,6 +21,16 @@ growth, watering, or fertilizer state and can be planted again.
 
 ## Prefab setup
 
+Apple seeds use their own sprout prefab and only require the initial watering.
+After that watering, apple trees never dry out. Harvesting switches them to the
+regrowing prefab, which grows directly back to the harvestable tree using the
+same regrowth duration as other crops. Fertilizer still accelerates this growth.
+Seeds left unwatered after planting still follow the normal one-day death timer.
+
+Seed assets can override `sproutPrefab`, assign a `regrowingPrefab`, and enable
+`onlyWaterOnce`. Other crops keep their existing behaviour when these fields are
+left unset.
+
 All eight existing seed assets reference their matching dead crop prefabs. Each
 dead prefab has its Crop Behaviour stage set to `Dead` and its Land Manager's
 `Empty Plot Prefab` assigned. When adding another crop, configure these same fields.
@@ -36,3 +46,7 @@ dead prefab has its Crop Behaviour stage set to `Dead` and its Land Manager's
    matching dead prefab appears and no harvest or water icon remains.
 5. Interact with the dead plot while empty-handed and while holding fertilizer.
    Confirm it becomes an empty plot without consuming an item, then plant it again.
+6. Plant and water an apple seed. Confirm it uses AppleTreeSprout, then
+   AppleTreeSeedling and AppleTreeHarvest. Harvest it and confirm it uses
+   AppleTreeRegrowing until AppleTreeHarvest returns, without showing a sprout
+   or seedling again. Repeat after several days without watering and with fertilizer.

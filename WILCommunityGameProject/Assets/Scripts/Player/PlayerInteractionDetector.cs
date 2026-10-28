@@ -26,6 +26,13 @@ public class PlayerInteractionDetector : MonoBehaviour
     {
         if (input.InteractPressed)
         {
+            DialogueManager dialogueManager = DialogueManager.ActiveDialogue;
+            if (dialogueManager != null && dialogueManager.HasStartedDialogue && !dialogueManager.IsPaused)
+            {
+                dialogueManager.DisplayNextDialogueText();
+                return;
+            }
+
             if (currentTarget != null)
             {
                 currentTarget.Interact(player);

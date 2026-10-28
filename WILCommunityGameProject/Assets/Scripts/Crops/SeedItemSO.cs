@@ -8,8 +8,11 @@ namespace WILCommunityGame
         public SeedType seedType; 
         public int daysToGrow = 1;
         public int harvestAmount = 10;
+        public bool onlyWaterOnce;
+        public GameObject sproutPrefab;
         public GameObject seedlingPrefab;
         public GameObject harvestablePrefab;
+        public GameObject regrowingPrefab;
         public GameObject deadPrefab;
         public ProduceItemSO produceItem;
         public InformationTipSO informationTip;

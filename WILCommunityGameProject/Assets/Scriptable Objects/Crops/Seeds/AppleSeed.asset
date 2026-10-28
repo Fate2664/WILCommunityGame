@@ -15,12 +15,15 @@ MonoBehaviour:
   itemDesc:
     Name: Apple Seed
     ToolTip: Plant this seed to grow an apple tree
-    Icon: {fileID: 0}
+    Icon: {fileID: 21300000, guid: 8a6337d46a26ee14a9f8d173dc369cb8, type: 3}
   seedType: 8
   daysToGrow: 1
   harvestAmount: 10
-  seedlingPrefab: {fileID: 0}
-  harvestablePrefab: {fileID: 0}
+  onlyWaterOnce: 1
+  sproutPrefab: {fileID: 7863790740695239896, guid: c6a556eb35f49f349b98e6f7f36143cd, type: 3}
+  seedlingPrefab: {fileID: 7863790740695239896, guid: fde76c1bf5b86764fba3de0e541053a0, type: 3}
+  harvestablePrefab: {fileID: 7863790740695239896, guid: a25ed081d691bad45920960271183cee, type: 3}
+  regrowingPrefab: {fileID: 7863790740695239896, guid: 8dc259c4e999fe44fa5792d55b67d29f, type: 3}
   deadPrefab: {fileID: 0}
-  produceItem: {fileID: 0}
+  produceItem: {fileID: 11400000, guid: f570e52011e9ca84d893d4703bcaac9e, type: 2}
   informationTip: {fileID: 0}
