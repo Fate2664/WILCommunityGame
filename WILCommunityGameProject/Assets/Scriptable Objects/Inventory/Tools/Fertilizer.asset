@@ -15,7 +15,7 @@ MonoBehaviour:
   itemDesc:
     Name: Fertilizer
     ToolTip: Use on a planted crop for double growth speed for five game days.
-    Icon: {fileID: 21300000, guid: 2db45bf23a656174a9222f11cc0d8d8d, type: 3}
+    Icon: {fileID: 21300000, guid: f9284555e27631c43be7e588ddd5213f, type: 3}
   toolType: 2
   waterCapacity: 1
   fertilizerDays: 5

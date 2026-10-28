@@ -15,5 +15,5 @@ MonoBehaviour:
   itemDesc:
     Name: Crop Waste
     ToolTip: 'Plant scraps for composting. '
-    Icon: {fileID: 21300000, guid: 27d4b9ca59343c149a5c202499e1faf2, type: 3}
+    Icon: {fileID: 21300000, guid: a05ca2f13636d984988699539de4d964, type: 3}
   compostItem: 0
