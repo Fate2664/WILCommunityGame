@@ -142,7 +142,7 @@ namespace WILCommunityGame
             lastFullyFedDay = currentDay;
             FoodStreak++;
 
-            int newStage = Mathf.Min(FoodStreak / 5, 3);
+            int newStage = Mathf.Min(FoodStreak, 3);
             bool stageIncreased = newStage > StreakStage;
 
             if (stageIncreased)
@@ -231,9 +231,6 @@ namespace WILCommunityGame
                 return;
 
             currentDay = timestamp.day;
-
-            if (lastFullyFedDay != currentDay - 1)
-                FoodStreak = 0;
 
             RefreshStreak();
         }

@@ -34,13 +34,12 @@ namespace WILCommunityGame
             CheckOrchardUnlock();
         }
 
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
+
         private void Update()
         {
             if (Keyboard.current != null && Keyboard.current.qKey.wasPressedThisFrame)
                 DisableBarrier();
         }
-#endif
 
         private void OnTriggerEnter(Collider other)
         {

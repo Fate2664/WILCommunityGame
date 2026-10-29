@@ -50,6 +50,8 @@ namespace WILCommunityGame
 
         private void Update()
         {
+            if (GameUIManager.GameplayInputBlocked) return;
+
             if (input.InventoryTogglePressed)
             {
                 ToggleInventory();

@@ -15,5 +15,5 @@ MonoBehaviour:
   displayName: Sugarcane Seeds
   description: Buy some sugarcane seeds.
   icon: {fileID: 21300000, guid: 87e011c0603f6ac44a65335786eb30a7, type: 3}
-  price: 5
-  canPurchaseMultipleTimes: 1
+  price: 3
+  canPurchaseMultipleTimes: 0

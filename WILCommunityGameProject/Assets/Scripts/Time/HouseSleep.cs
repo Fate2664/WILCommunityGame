@@ -6,6 +6,7 @@ namespace WILCommunityGame
     public class HouseSleep : MonoBehaviour, IInteractable
     {
         [SerializeField] private PlayerInteractionDetector playerInteractionDetector;
+        [SerializeField] private ScreenTransition screenTransition;
 
         private IndicatorManager indicatorManager;
 
@@ -33,7 +34,10 @@ namespace WILCommunityGame
 
         public void Interact(PlayerController interactor)
         {
-            TimeManager.Instance.Sleep();
+            if (screenTransition != null && screenTransition.isActiveAndEnabled)
+                screenTransition.Play(TimeManager.Instance.Sleep);
+            else
+                TimeManager.Instance.Sleep();
         }
     }
 }

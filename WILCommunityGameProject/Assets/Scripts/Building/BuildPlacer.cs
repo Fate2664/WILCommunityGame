@@ -26,6 +26,10 @@ namespace WILCommunityGame
         [SerializeField] private float gridSize = 2.5f;
         [SerializeField] private bool snapFloorToGrid = true;
 
+        [Header("Plot Placement Areas")]
+        [Tooltip("Empty plots must fit entirely inside one of these boxes. Use trigger colliders that span the ground height. No assigned areas means no hoe placement.")]
+        [SerializeField] private BoxCollider[] plotPlacementAreas = Array.Empty<BoxCollider>();
+
         [Space(10)] [Header("Socket Raycast")] [SerializeField]
         private bool useSocketSnapping = true;
 
@@ -102,6 +106,7 @@ namespace WILCommunityGame
 
         private void Update()
         {
+            if (GameUIManager.GameplayInputBlocked) return;
             if (mainCamera == null || Mouse.current == null) return;
             var mouse = Mouse.current;
 
@@ -207,6 +212,7 @@ namespace WILCommunityGame
 
         private void Place(GameObject prefab, Pose pose, EdgeSocket socketSnap)
         {
+            if (!IsPlotPlacementAllowed(pose)) return;
             if (prefab == null || (IsGroundPiece && IsGroundPlacementOccupied(pose.position))) return;
             if (RequiresPlotSocket && (socketSnap is not PlotSocket || socketSnap.IsOccupied ||
                                        !socketSnap.CanAcceptPart(placementPieceType))) return;
@@ -253,6 +259,37 @@ namespace WILCommunityGame
             {
                 FinishBuildablePlacement();
             }
+        }
+
+        private bool IsPlotPlacementAllowed(Pose pose)
+        {
+            if (placementPieceType != BuildPieceType.Floor)
+                return true;
+
+            if (plotPlacementAreas == null)
+                return false;
+
+            float halfSize = Mathf.Abs(gridSize) * 0.5f;
+            Vector3 right = pose.rotation * new Vector3(halfSize, 0f, 0f);
+            Vector3 forward = pose.rotation * new Vector3(0f, 0f, halfSize);
+
+            foreach (BoxCollider area in plotPlacementAreas)
+            {
+                if (area == null || !area.enabled || !area.gameObject.activeInHierarchy)
+                    continue;
+
+                Bounds localBounds = new Bounds(area.center, area.size);
+                localBounds.Expand(0.0002f);
+                Matrix4x4 worldToLocal = area.transform.worldToLocalMatrix;
+
+                if (localBounds.Contains(worldToLocal.MultiplyPoint3x4(pose.position - right - forward)) &&
+                    localBounds.Contains(worldToLocal.MultiplyPoint3x4(pose.position - right + forward)) &&
+                    localBounds.Contains(worldToLocal.MultiplyPoint3x4(pose.position + right - forward)) &&
+                    localBounds.Contains(worldToLocal.MultiplyPoint3x4(pose.position + right + forward)))
+                    return true;
+            }
+
+            return false;
         }
 
         private bool IsGroundPlacementOccupied(Vector3 position)
@@ -410,7 +447,8 @@ namespace WILCommunityGame
                         pose = sprinkler.GetPlacementPose(pose);
                 }
 
-                placementValid = !IsGroundPiece || !IsGroundPlacementOccupied(pose.position);
+                placementValid = IsPlotPlacementAllowed(pose) &&
+                                 (!IsGroundPiece || !IsGroundPlacementOccupied(pose.position));
                 return true;
             }
 
@@ -425,7 +463,8 @@ namespace WILCommunityGame
                 }
 
                 pose = new Pose(position, Quaternion.identity);
-                placementValid = IsGroundPiece && !IsGroundPlacementOccupied(position);
+                placementValid = IsGroundPiece && IsPlotPlacementAllowed(pose) &&
+                                 !IsGroundPlacementOccupied(position);
                 return true;
             }
 
@@ -438,7 +477,8 @@ namespace WILCommunityGame
                 }
 
                 pose = new Pose(point, Quaternion.identity);
-                placementValid = IsGroundPiece && !IsGroundPlacementOccupied(point);
+                placementValid = IsGroundPiece && IsPlotPlacementAllowed(pose) &&
+                                 !IsGroundPlacementOccupied(point);
                 return true;
             }
 

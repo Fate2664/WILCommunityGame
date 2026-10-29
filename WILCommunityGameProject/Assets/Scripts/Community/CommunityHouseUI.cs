@@ -46,7 +46,7 @@ namespace WILCommunityGame
         private bool refreshPending;
         private bool inputReady;
 
-        private bool CanInteract => IsOpen && inputReady && isActiveAndEnabled && Time.timeScale > 0f &&
+        private bool CanInteract => IsOpen && inputReady && isActiveAndEnabled && !GameUIManager.GameplayInputBlocked &&
                                     ActiveHouse != null && ActiveHouse.isActiveAndEnabled &&
                                     ActiveHouse.FeedingEnabled && player != null && !player.IsInventoryOpen &&
                                     interactionDetector != null &&
@@ -221,6 +221,8 @@ namespace WILCommunityGame
 
         private void Update()
         {
+            if (GameUIManager.GameplayInputBlocked) return;
+
             if (!IsOpen)
                 return;
 

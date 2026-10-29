@@ -15,4 +15,5 @@ MonoBehaviour:
   displayName: Soybean Seeds
   description: Buy some soybean seeds.
   icon: {fileID: 21300000, guid: c6c46ac423509e9448b1f44d0ddaae86, type: 3}
-  price: 5
+  price: 3
+  canPurchaseMultipleTimes: 0

@@ -52,7 +52,7 @@ namespace WILCommunityGame
         private string lastDragPreviewState;
 
         private bool CanInteract => isActiveAndEnabled && uiOpen && inputReady && ActiveBin != null &&
-                                    ActiveBin.isActiveAndEnabled;
+                                    ActiveBin.isActiveAndEnabled && !GameUIManager.GameplayInputBlocked;
 
         private void Awake()
         {
@@ -226,6 +226,8 @@ namespace WILCommunityGame
 
         private void Update()
         {
+            if (GameUIManager.GameplayInputBlocked) return;
+
             if (!uiOpen)
                 return;
 

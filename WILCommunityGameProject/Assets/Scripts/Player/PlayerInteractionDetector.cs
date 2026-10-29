@@ -24,6 +24,8 @@ public class PlayerInteractionDetector : MonoBehaviour
 
     private void Update()
     {
+        if (GameUIManager.GameplayInputBlocked) return;
+
         if (input.InteractPressed)
         {
             DialogueManager dialogueManager = DialogueManager.ActiveDialogue;

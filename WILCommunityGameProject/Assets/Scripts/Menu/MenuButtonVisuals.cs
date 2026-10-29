@@ -103,11 +103,29 @@ namespace WILCommunityGame
 
         private void AnimateScale(Vector3 targetScale, Ease ease)
         {
-            background.DOKill();
+            background.transform.DOKill();
             background.transform
                 .DOScale(targetScale, animationDuration)
                 .SetEase(ease)
                 .SetUpdate(true);
+        }
+
+        private void OnDisable()
+        {
+            background.RemoveGestureHandler<Gesture.OnHover>(HandleHover);
+            background.RemoveGestureHandler<Gesture.OnUnhover>(HandleUnhover);
+            background.RemoveGestureHandler<Gesture.OnPress>(HandlePress);
+            background.RemoveGestureHandler<Gesture.OnRelease>(HandleRelease);
+            background.RemoveGestureHandler<Gesture.OnCancel>(HandleCancel);
+            background.RemoveGestureHandler<Gesture.OnClick>(HandleClick);
+            background.transform.DOKill();
+            background.transform.localScale = defaultScale;
+            background.Color = defaultBackgroundColor;
+            background.BodyEnabled = defaultBodyEnabled;
+            isHovered = false;
+
+            if (buttonLabel != null)
+                buttonLabel.Color = defaultTextColor;
         }
     }
 }

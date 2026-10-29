@@ -14,6 +14,8 @@ namespace WILCommunityGame
         public Transform sunTransform;
         
         public GameTimestamp CurrentGameTimeStamp => timestamp;
+        public bool HasSlept { get; private set; }
+        public event Action OnFirstSleep;
         private List<ITimeTracker> listeners = new ();
 
         private void Awake()
@@ -87,6 +89,12 @@ namespace WILCommunityGame
             }
 
             UpdateSunAngle();
+
+            if (!HasSlept)
+            {
+                HasSlept = true;
+                OnFirstSleep?.Invoke();
+            }
         }
 
         public void RegisterTracker(ITimeTracker listener)

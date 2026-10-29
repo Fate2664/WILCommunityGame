@@ -47,7 +47,7 @@ namespace WILCommunityGame
         private int dragSourceIndex = -1;
 
         private bool CanInteract => isActiveAndEnabled && uiOpen && inputReady && ActiveSilo != null &&
-                                    ActiveSilo.isActiveAndEnabled;
+                                    ActiveSilo.isActiveAndEnabled && !GameUIManager.GameplayInputBlocked;
 
         private void Awake()
         {
@@ -235,6 +235,8 @@ namespace WILCommunityGame
 
         private void Update()
         {
+            if (GameUIManager.GameplayInputBlocked) return;
+
             if (!uiOpen)
                 return;
 
