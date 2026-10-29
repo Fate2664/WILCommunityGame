@@ -41,15 +41,25 @@ namespace WILCommunityGame
         public bool IsFertilized => fertilizerMinutesRemaining > 0;
         public bool CanFertilize => IsPlanted && !IsDead && !IsFertilized;
         public Sprite HarvestIcon => IsHarvestable ? seedItem?.produceItem?.itemDesc?.Icon : null;
-        
-        
+        private void Awake()
+        {
+            // Inspector-assigned seeds bypass CanPlant, but need the same growth duration.
+            InitializeGrowthDuration();
+        }
+
+        private void InitializeGrowthDuration()
+        {
+            maxGrowthMinutes = seedItem == null ? 0 :
+                GameTimestamp.HoursToMinutes(GameTimestamp.DaysToHours(Mathf.Max(1, seedItem.daysToGrow)));
+        }
+
         public bool CanPlant(SeedItemSO seed)
         {
-            if (IsPlanted) return false;
+            if (IsPlanted || seed == null) return false;
             
             seedItem = seed;
             growthMinutes = 0;
-            maxGrowthMinutes = GameTimestamp.HoursToMinutes(GameTimestamp.DaysToHours(seed.daysToGrow));
+            InitializeGrowthDuration();
             waterMinutesRemaining = 0;
             dryMinutes = 0;
             stage = CropStage.Dry;

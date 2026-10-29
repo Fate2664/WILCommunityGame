@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecf4f6d9831cd7c489837e8e9f2f1891, type: 3}
   m_Name: AppleTreeFarmer
   m_EditorClassIdentifier: Assembly-CSharp::DialogueBase
-  DialogueName: Apple Farmer
+  DialogueName: Thomas
   DialogueText:
   - Hello. I see you have been doing a good job feeding the community.
   - 'I would love to help but I can''t seem to get these apple trees growing. Do

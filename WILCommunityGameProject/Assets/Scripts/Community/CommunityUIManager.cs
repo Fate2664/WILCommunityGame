@@ -12,6 +12,7 @@ namespace WILCommunityGame
         public UIBlock2D Connector;
         public Texture2D Icon;
         [TextArea] public string Description;
+        public ObjectiveItem Objective;
     }
 
     public class CommunityUIManager : MonoBehaviour, ITimeTracker
@@ -34,6 +35,9 @@ namespace WILCommunityGame
         [SerializeField] private CommunityStreakStage[] streakStages;
         [SerializeField] private Color lockedStageColor;
         [SerializeField] private Color unlockedStageColor;
+
+        [Header("Objectives")]
+        [SerializeField] private ObjectiveListUI objectiveListUI;
         
         [Header("Player Currency")]
         [SerializeField] private PlayerStats playerStats;
@@ -72,6 +76,12 @@ namespace WILCommunityGame
         
         private void OnEnable()
         {
+            if (objectiveListUI != null)
+            {
+                objectiveListUI.OnObjectiveChanged += HandleObjectiveChanged;
+                CompleteStreakObjectives();
+            }
+
             if (playerStats == null || currencyText == null)
                 return;
 
@@ -243,10 +253,29 @@ namespace WILCommunityGame
                 if (stage.Connector != null)
                     stage.Connector.Color = color;
             }
+
+            CompleteStreakObjectives();
+        }
+
+        private void HandleObjectiveChanged(Objective objective)
+        {
+            // A milestone can be reached before its objective list becomes active.
+            CompleteStreakObjectives();
+        }
+
+        private void CompleteStreakObjectives()
+        {
+            if (objectiveListUI == null || streakStages == null) return;
+
+            for (int index = 0; index < Mathf.Min(StreakStage, streakStages.Length); index++)
+                objectiveListUI.CompleteItem(streakStages[index].Objective);
         }
         
         private void OnDisable()
         {
+            if (objectiveListUI != null)
+                objectiveListUI.OnObjectiveChanged -= HandleObjectiveChanged;
+
             if (playerStats != null)
                 playerStats.OnCurrencyChanged -= RefreshCurrency;
         }

@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ecf4f6d9831cd7c489837e8e9f2f1891, type: 3}
+  m_Name: TutorialGuy
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueBase
+  DialogueName: Eric
+  DialogueText:
+  - 'Hello community member, my name is Eric, I don''t think we''ve met before. '
+  - 'The community is growing rapidly and we need more food for everyone to stay
+    healthy. '
+  - 'Can you help us out by growing some crops in this area? '
+  - 'Take these seeds and start a small farm for the community. '
+  - Remember to use your hoe to prepare the soil before you plant those seeds. You
+    can collect water from the water tank and sleep to pass the time.

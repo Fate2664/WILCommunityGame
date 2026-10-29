@@ -10,5 +10,7 @@ namespace WILCommunityGame
         public string description;
         public Sprite icon;
         public int price;
+        [Tooltip("Allow this item to be bought again, charging its price and applying its purchase effect each time.")]
+        public bool canPurchaseMultipleTimes;
     }
 }

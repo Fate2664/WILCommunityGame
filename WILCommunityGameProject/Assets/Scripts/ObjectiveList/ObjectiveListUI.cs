@@ -29,6 +29,7 @@ namespace WILCommunityGame
         public Objective CurrentObjective { get; private set; }
         public bool IsComplete => displayedItems.Count > 0 && completedItems.Count == displayedItems.Count;
         public event Action<Objective> OnObjectiveCompleted;
+        public event Action<Objective> OnObjectiveChanged;
 
         private readonly List<ObjectiveItem> displayedItems = new();
         private readonly HashSet<ObjectiveItem> completedItems = new();
@@ -75,6 +76,7 @@ namespace WILCommunityGame
 
             currentObjectiveText.Text = objective != null ? objective.objectiveName : "No current objective";
             objectiveList.SetDataSource(displayedItems);
+            OnObjectiveChanged?.Invoke(CurrentObjective);
         }
 
         public void CompleteItem(ObjectiveItem item)

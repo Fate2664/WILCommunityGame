@@ -1,9 +1,10 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace WILCommunityGame
 {
-    public class LandManager : MonoBehaviour, IInteractable, ITimeTracker
+    public class LandManager : MonoBehaviour, IInteractable, ITimeTracker, IBuildPreview
     {
         [SerializeField] private GameObject emptyPlotPrefab;
 
@@ -25,12 +26,16 @@ namespace WILCommunityGame
         private GameObject pendingSwapPrefab;
         private ObjectiveListUI objectiveListUI;
         private TimeManager timeManager;
+        private static readonly HashSet<LandManager> activePlots = new();
+        private Collider plotCollider;
+        private bool isPreview;
 
         private bool firstWatering = true;
 
         private void Awake()
         {
             cropBehaviour ??= GetComponent<CropBehaviour>();
+            plotCollider = GetComponent<Collider>();
             uiManager ??= FindFirstObjectByType<UIManager>();
             indicatorManager ??= GetComponentInChildren<IndicatorManager>();
             objectiveListUI ??= FindFirstObjectByType<ObjectiveListUI>();
@@ -43,11 +48,49 @@ namespace WILCommunityGame
             RefreshIndicator();
         }
 
-        private void OnEnable() => RegisterClock();
+        private void OnEnable()
+        {
+            if (isPreview) return;
+            activePlots.Add(this);
+            RegisterClock();
+        }
+
+        public void PrepareAsPreview()
+        {
+            isPreview = true;
+            enabled = false;
+        }
+
+        public static bool OverlapsPlot(Vector3 position, float halfExtent, float plotSpacing)
+        {
+            foreach (LandManager plot in activePlots)
+            {
+                if (plot == null) continue;
+
+                // Reserve the ground footprint through every stage, even when the
+                // collider becomes a narrow tree trunk or the plot is above the terrain.
+                Vector3 center = plot.transform.position;
+                float extentX = plotSpacing * 0.5f;
+                float extentZ = extentX;
+                if (plot.plotCollider != null && plot.plotCollider.enabled)
+                {
+                    Bounds bounds = plot.plotCollider.bounds;
+                    center = bounds.center;
+                    extentX = Mathf.Max(extentX, bounds.extents.x);
+                    extentZ = Mathf.Max(extentZ, bounds.extents.z);
+                }
+
+                if (Mathf.Abs(position.x - center.x) < halfExtent + extentX &&
+                    Mathf.Abs(position.z - center.z) < halfExtent + extentZ)
+                    return true;
+            }
+
+            return false;
+        }
 
         private void RegisterClock()
         {
-            if (timeManager != null || TimeManager.Instance == null)
+            if (isPreview || timeManager != null || TimeManager.Instance == null)
                 return;
 
             timeManager = TimeManager.Instance;
@@ -56,6 +99,7 @@ namespace WILCommunityGame
 
         private void OnDisable()
         {
+            activePlots.Remove(this);
             timeManager?.UnregisterTracker(this);
             timeManager = null;
         }
@@ -124,8 +168,13 @@ namespace WILCommunityGame
 
             if (cropBehaviour.IsHarvestable && cropBehaviour.SeedItem.produceItem != null)
             {
-                //Add produce to inventory
-                uiManager.AddItemToInventory(cropBehaviour.SeedItem.produceItem, cropBehaviour.SeedItem.harvestAmount);
+                SeedItemSO harvestedSeed = cropBehaviour.SeedItem;
+                uiManager.AddItemToInventory(harvestedSeed.produceItem, harvestedSeed.harvestAmount);
+
+                // Roll once per harvest for five bonus crop waste items (25% chance).
+                if (harvestedSeed.cropWasteItem != null && UnityEngine.Random.Range(0, 4) == 0)
+                    uiManager.AddItemToInventory(harvestedSeed.cropWasteItem, 5);
+
                 objectiveListUI?.CompleteItem(harvestCropObjective);
                 cropBehaviour.ResetAfterHarvest();
                 pendingSwapPrefab = cropBehaviour.GetCurrentPlotPrefab();
@@ -155,6 +204,8 @@ namespace WILCommunityGame
 
         public bool WaterPlot()
         {
+            if (isPreview) return false;
+
             CropBehaviour.CropStage previous = cropBehaviour.Stage;
             if (!cropBehaviour.CanWater()) return false;
 
@@ -167,7 +218,10 @@ namespace WILCommunityGame
 
         private void TryAutomaticWatering()
         {
-            if (cropBehaviour.NeedsWater && Sprinkler.IsPlotCovered(this))
+            if (isPreview || !cropBehaviour.NeedsWater) return;
+
+            bool isRaining = WeatherManager.Instance != null && WeatherManager.Instance.IsRaining;
+            if (isRaining || Sprinkler.IsPlotCovered(this))
                 WaterPlot();
         }
 

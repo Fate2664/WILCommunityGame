@@ -257,6 +257,11 @@ namespace WILCommunityGame
 
         private bool IsGroundPlacementOccupied(Vector3 position)
         {
+            // Crop stages do not all have BuildPart or use the Floor layer.
+            // Check their footprints separately from the building collision mask.
+            if (LandManager.OverlapsPlot(position, gridSize * .45f, gridSize))
+                return true;
+
             var halExtent = new Vector3(gridSize * .45f, 0.25f, gridSize * .45f);
             var center = position + Vector3.up * .1f;
 

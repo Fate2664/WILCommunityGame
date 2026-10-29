@@ -18,7 +18,8 @@ MonoBehaviour:
     Icon: {fileID: 21300000, guid: 8a6337d46a26ee14a9f8d173dc369cb8, type: 3}
   seedType: 8
   daysToGrow: 1
-  harvestAmount: 10
+  harvestAmount: 5
+  cropWasteItem: {fileID: 11400000, guid: c1740e97c91b4c59a3a042d614705001, type: 2}
   onlyWaterOnce: 1
   sproutPrefab: {fileID: 7863790740695239896, guid: c6a556eb35f49f349b98e6f7f36143cd, type: 3}
   seedlingPrefab: {fileID: 7863790740695239896, guid: fde76c1bf5b86764fba3de0e541053a0, type: 3}

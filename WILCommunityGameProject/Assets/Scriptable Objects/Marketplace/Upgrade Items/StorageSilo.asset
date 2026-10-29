@@ -16,3 +16,4 @@ MonoBehaviour:
   description: Store excess produce in here.
   icon: {fileID: 21300000, guid: ed51280d64519914cb8208d649ebcabb, type: 3}
   price: 500
+  canPurchaseMultipleTimes: 1

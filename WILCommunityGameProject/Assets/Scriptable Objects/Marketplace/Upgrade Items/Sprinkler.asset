@@ -17,3 +17,4 @@ MonoBehaviour:
     crops
   icon: {fileID: 21300000, guid: ba63419eb367f3b40ab8070a1ebf3871, type: 3}
   price: 500
+  canPurchaseMultipleTimes: 1

@@ -19,8 +19,12 @@ MonoBehaviour:
   seedType: 4
   daysToGrow: 1
   harvestAmount: 10
+  cropWasteItem: {fileID: 11400000, guid: c1740e97c91b4c59a3a042d614705001, type: 2}
+  onlyWaterOnce: 0
+  sproutPrefab: {fileID: 0}
   seedlingPrefab: {fileID: 7863790740695239896, guid: 011e646347c1c3a41a58b0bb715b1265, type: 3}
   harvestablePrefab: {fileID: 7863790740695239896, guid: dcc7dba196350b342ac14fb71d5bb0f1, type: 3}
+  regrowingPrefab: {fileID: 0}
   deadPrefab: {fileID: 7863790740695239896, guid: ed41a03781c79e3498f017e2686c5cd6, type: 3}
   produceItem: {fileID: 11400000, guid: 7c59f78086584a4bb07e1169d7ce7d20, type: 2}
   informationTip: {fileID: 11400000, guid: 3202f09e766705148b0ab1cbc23e8114, type: 2}

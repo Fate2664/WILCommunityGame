@@ -45,7 +45,7 @@ namespace WILCommunityGame
 
         public UpgradePurchaseState GetPurchaseState(MarketplaceUpgradeItem upgrade)
         {
-            if (HasUpgrade(upgrade))
+            if (HasUpgrade(upgrade) && !upgrade.canPurchaseMultipleTimes)
                 return UpgradePurchaseState.Owned;
             
             //TODO If they have not passed tutorial
@@ -72,10 +72,11 @@ namespace WILCommunityGame
 
             try
             {
-                purchased.Add(upgrade);
+                bool firstPurchase = purchased.Add(upgrade);
                 if (!playerStats.TrySpendCurrency(upgrade.price))
                 {
-                    purchased.Remove(upgrade);
+                    if (firstPurchase)
+                        purchased.Remove(upgrade);
                     return false;
                 }
 
